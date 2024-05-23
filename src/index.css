@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Home */
+.project-card-shadow {
+    @media (min-width: 768px) {
+        background:
+        linear-gradient(
+            to top ,
+            rgb(10 10 10 / 0.9),
+            rgb(0 0 0 / 0)
+        ),
+        url(/img/home3.jpg);
+        background-size: cover;
+    }
+}
+/* Home End */
