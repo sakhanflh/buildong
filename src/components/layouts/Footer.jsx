@@ -1,7 +1,7 @@
 export function Footer() {
     return (
         <>
-            <div className="w-full bg-slate-100 p-10 flex flex-wrap justify-between">
+            <div className="w-full bg-slate-100 p-[5%] flex flex-wrap justify-between">
                 <div className="w-[25%]  flex flex-col gap-2">
                     <h1 className="font-bold text-xl">BUILDONG</h1>
                     <p className="text-slate-500 text-sm">Transforming Visions into Reality With BUILDONG, your dream projects come to life throught meticulous planning, expert craftsmanship, and unwavering commitment to excellence</p>
@@ -48,8 +48,8 @@ export function Footer() {
                         <p className="text-slate-500">Latest news articles, sent to your inbox</p>
                     </div>
                     <div>
-                        <input type="text" placeholder="Enter your email" className="p-2"/>
-                        <button className="bg-blue-500 text-white p-2">SUBSCRIBE</button>
+                        <input type="text" placeholder="Enter your email" className="p-2 text-sm"/>
+                        <button className="bg-blue-500 text-white p-2 text-sm">SUBSCRIBE</button>
                     </div>
                 </div>
             </div>

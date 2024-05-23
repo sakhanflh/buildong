@@ -1,7 +1,7 @@
 export function Navbar() {
     return (
         <>
-            <div className="w-full h-16 flex px-5 justify-between items-center shadow-xl">
+            <div className="w-full h-16 flex px-[5%] justify-between items-center shadow-xl">
                 <div className="font-semibold">
                     <h1>BUILDONG</h1>
                 </div>
