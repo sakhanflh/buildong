@@ -3,10 +3,21 @@ import { Header } from "../components/fragments/Header";
 import { Footer } from "../components/layouts/Footer";
 import { OfferCard } from "../components/layouts/home/OfferCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { OurProjectCard } from "../components/layouts/home/OurProjectCard";
+import { OurProjectSlider } from "../components/layouts/home/OurProjectSlider";
+import { useRef, useState } from "react";
+import { ChooseUsSection } from "../components/layouts/home/ChooseUsSection";
+import { ClientsSaySlider } from "../components/layouts/home/ClientsSaySlider";
 
 
 export default function HomePage() {
+    const [swiperInstance, setSwiperInstance] = useState(null);
+    const nextButtonRef = useRef(null);
+    const prevButtonRef = useRef(null);
+    
+    const [swiperInstance2, setSwiperInstance2] = useState(null)
+    const nextButtonRef2 = useRef(null);
+    const prevButtonRef2 = useRef(null);
+
     return (
         <>
             <Header />
@@ -69,19 +80,22 @@ export default function HomePage() {
                         <div className="w-full justify-between flex items-center pt-10">
                             <p className="text-xl">Our Projects</p>
 
-                            <div className="flex gap-5">
-                                <div className="px-10 py-3 border-2 border-white items-center flex rounded-2xl">
+                            <div className="flex gap-5 ">
+                                <div className="px-10 py-3 border-2 border-white items-center flex rounded-3xl hover:scale-90" ref={prevButtonRef}>
                                     <button><IoIosArrowBack /></button>
                                 </div>
-                                <div className="px-10 py-3 border-2 border-white bg-background-color items-center flex rounded-2xl">
-                                    <button className="flex items-center text-font-black">Next <IoIosArrowForward /></button>
+                                <div className="px-10 py-3 border-2 border-white bg-background-color items-center flex rounded-3xl hover:scale-90 text-black" ref={nextButtonRef}>
+                                    <button className="flex items-center">Next <IoIosArrowForward /></button>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex gap-5 translate-y-10">
-                            <OurProjectCard />
-                            <OurProjectCard />
+                        <div className="translate-y-10">
+                            <OurProjectSlider
+                                nextRef={nextButtonRef}
+                                prevRef={prevButtonRef}
+                                setSwiperInstance={setSwiperInstance}
+                            />
                         </div>
                     </div>
                 </div>
@@ -89,21 +103,64 @@ export default function HomePage() {
 
                 {/* Section 3 */}
                 <div className="w-full pt-52">
-                    <div className="w-full flex flex-col items-center gap-3">
-                        <h1 className="text-font-black text-5xl font-bold">Why Choose Us?</h1>
-                        <p className="text-font-gray text-xl">Discover Buildong difference</p>
+                    <ChooseUsSection />
+                </div>
+                {/* Section 3 End */}
+
+                {/* Section 4 */}
+                <div className="w-full flex flex-col gap-10 justify-center items-center pt-32">
+                    <div className="w-[35rem] flex flex-col gap-2 items-center">
+                        <h1 className="text-4xl font-bold text-font-black">Unclock Exclusive Offers!</h1>
+                        <p className="text-lg text-font-gray text-center">As a registered member, you gain exclusive access to special deals and discounts on our top-quality construction materials and services, Don't miss out on these limited-time offers available only to our members.</p>
                     </div>
 
-                    <div className="w-full flex justify-between">
-                        <div className="w-[40%] flex">
-                            <div className="border-b">
-                                <p>Expertise and Experience</p>
-                            </div>
+                    <div
+                        className="w-[80%] h-96 bg-cover rounded-3xl project-card-shadow"
+                        style={{
+                            backgroundImage: `linear-gradient(to top, rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0)), url('/img/home3.jpg')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
+                    >
+                        <div className="w-full h-full flex items-center justify-center">
+                            <button className="items-center px-14 text-white py-2 bg-blue rounded-3xl">Login Now</button>
                         </div>
                     </div>
                 </div>
-                {/* Section 3 End */}
+                {/* Section 4 End */}
+
+                {/* Section 5 */}
+                <div className="w-full flex flex-col pt-32 gap-20">
+                    <div className="flex  justify-between items-center">
+                        <div className="w-[30%] flex flex-col gap-3">
+                            <h1 className="text-font-black font-semibold text-5xl pr-20">What Our Clients Say</h1>
+                            <p className="text-font-gray text-xl">Trusted by Many, Loved by All: Discover Why Our Clients Choose BUILDONG for Their Construction Needs</p>
+                        </div>
+
+                        <div className="w-[67%] ">
+                            <ClientsSaySlider
+                            nextRef={nextButtonRef2}
+                            prevRef={prevButtonRef2}
+                            setSwiperInstance={setSwiperInstance2}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex gap-5 w-full justify-end">
+                        <div className="px-10 py-3 border-2 border-blue items-center flex rounded-3xl hover:scale-90" ref={prevButtonRef2}>
+                            <button><IoIosArrowBack /></button>
+                        </div>
+                        <div className="px-10 py-3 border-2 border-blue bg-blue items-center flex rounded-3xl hover:scale-90 text-white" ref={nextButtonRef2}>
+                            <button className="flex items-center">Next <IoIosArrowForward /></button>
+                        </div>
+                    </div>
+                </div>
+                {/* Section 5 End */}
+
             </div>
+                {/* Footer */}
+                <Footer/>
+                {/* Footer End */}
         </>
     )
 }
