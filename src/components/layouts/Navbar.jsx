@@ -1,7 +1,7 @@
 export function Navbar() {
     return (
         <>
-            <div className="w-full h-16 flex px-[5%] justify-between items-center font-jost bg-background-color text-font-gray border-b-2">
+            <div className="hidden md:w-full xl:h-16 md:flex  justify-between items-center font-jost bg-background-color text-font-gray xl:border-b-2">
                 <div className="font-semibold ">
                     <h1 className="hover:text-font-black font-semibold text-xl">BUILDONG</h1>
                 </div>

@@ -30,6 +30,24 @@ export function ClientsSaySlider({ nextRef, prevRef, setSwiperInstance }) {
                         nextEl: nextRef.current,
                         prevEl: prevRef.current,
                     }}
+                    breakpoints={{
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 250,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 250,
+                        },
+                        640: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        0: {
+                            slidesPerView: 1,
+                            spaceBetween: 10,
+                        },
+                    }}
                 >
                     {ClientsSayData.map(client => (
                         <SwiperSlide key={client.id}>
