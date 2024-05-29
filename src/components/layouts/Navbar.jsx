@@ -1,12 +1,14 @@
+import { FiMenu } from "react-icons/fi";
+
 export function Navbar() {
     return (
         <>
-            <div className="hidden md:w-full xl:h-16 md:flex  justify-between items-center font-jost bg-background-color text-font-gray xl:border-b-2">
+            <div className="flex h-14 px-[5%] md:w-full xl:h-16 md:flex justify-between items-center font-jost bg-white text-font-gray xl:border-b-2">
                 <div className="font-semibold ">
-                    <h1 className="hover:text-font-black font-semibold text-xl">BUILDONG</h1>
+                    <h1 className="text-black hover:text-font-black font-semibold text-xl">BUILDONG</h1>
                 </div>
-
-                <div className="flex gap-10 h-full items-center">
+                
+                <div className="hidden xl:flex gap-10 h-full items-center">
                     <ul className="flex gap-10">
                         <li className="hover:text-font-black font-semibold">Home</li>
                         <li className="hover:text-font-black font-semibold">Project</li>
@@ -19,6 +21,8 @@ export function Navbar() {
                         <button className="font-semibold">Login</button>
                     </div>
                 </div>
+
+                <FiMenu className="text-black text-lg xl:hidden"/>
             </div>
         </>
     )
