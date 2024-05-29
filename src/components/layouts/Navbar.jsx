@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Navbar() {
     return (
         <>
@@ -8,14 +10,28 @@ export function Navbar() {
 
                 <div className="flex gap-10 h-full items-center">
                     <ul className="flex gap-10">
-                        <li className="hover:text-font-black font-semibold">Home</li>
-                        <li className="hover:text-font-black font-semibold">Project</li>
-                        <li className="hover:text-font-black font-semibold">Shop</li>
-                        <li className="hover:text-font-black font-semibold">Hire Services</li>
-                        <li className="hover:text-font-black font-semibold">Gallery</li>
+                        <Link to='/'>
+                            <li className="hover:text-font-black font-semibold">Home</li>
+                        </Link>
+
+                        <Link>
+                            <li className="hover:text-font-black font-semibold">Project</li>
+                        </Link>
+
+                        <Link to='/shop'>
+                            <li className="hover:text-font-black font-semibold">Shop</li>
+                        </Link>
+
+                        <Link>
+                            <li className="hover:text-font-black font-semibold">Hire Services</li>
+                        </Link>
+
+                        <Link>
+                            <li className="hover:text-font-black font-semibold">Gallery</li>
+                        </Link>
                     </ul>
 
-                    <div className="px-10 py-2 border border-black rounded-3xl hover:bg-font-gray hover:border-font-gray hover:text-font-black">
+                    <div className="px-10 py-2 border border-black rounded-3xl hover:bg-blue hover:border-blue hover:text-white">
                         <button className="font-semibold">Login</button>
                     </div>
                 </div>
