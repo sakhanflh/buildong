@@ -4,7 +4,7 @@ import { FiMenu } from "react-icons/fi";
 export function Navbar() {
     return (
         <>
-            <div className="flex h-14 px-[5%] md:w-full xl:h-16 md:flex justify-between items-center font-jost bg-white text-font-gray xl:border-b-2">
+            <div className="flex z-20 fixed w-full top-0 h-14 px-[5%] md:w-full xl:h-16 md:flex justify-between items-center font-jost bg-white text-font-gray xl:border-b-2">
                 <div className="font-semibold ">
                     <h1 className="text-black hover:text-font-black font-semibold text-xl">BUILDONG</h1>
                 </div>
@@ -23,8 +23,8 @@ export function Navbar() {
                             <li className="hover:text-font-black font-semibold">Shop</li>
                         </Link>
 
-                        <Link>
-                            <li className="hover:text-font-black font-semibold">Hire Services</li>
+                        <Link to={'/constructions'}>
+                            <li className="hover:text-font-black font-semibold">Constructions</li>
                         </Link>
 
                         <Link>
