@@ -40,7 +40,7 @@ export default function HomePage() {
                         </div>
 
                         <div className="w-full items-end flex justify-end">
-                            <p className="text-sm xl:text-lg flex items-center text-blue font-semibold">Choose your future home <IoIosArrowForward /></p>
+                            <p className="text-sm xl:text-lg flex items-center text-primary font-semibold">Choose your future home <IoIosArrowForward /></p>
                         </div>
                     </div>
                     {/* Section 1 End */}
@@ -50,7 +50,7 @@ export default function HomePage() {
                         <div className="flex-col w-full gap-3 xl:flex-row flex flex-wrap justify-between xl:gap-0">
                             <div className="w-full xl:w-[40%] flex flex-col xl:gap-2">
                                 <h1 className="text-font-gray text-lg xl:text-xl">About Us</h1>
-                                <p className="text-font-black text-3xl w-[70%] xl:w-full xl:text-5xl font-bold">Building a Better <span className="text-blue">Future Together</span></p>
+                                <p className="text-font-black text-3xl w-[70%] xl:w-full xl:text-5xl font-bold">Building a Better <span className="text-primary">Future Together</span></p>
                             </div>
 
                             <div className="w-full xl:w-[50%]">
@@ -59,7 +59,7 @@ export default function HomePage() {
                         </div>
 
                         <div className="w-full flex flex-wrap justify-between">
-                            <div className="w-[72%] xl:h-[22rem] bg-emerald-500 overflow-hidden rounded-3xl">
+                            <div className="w-[72%] xl:h-[22rem] overflow-hidden rounded-3xl">
                                 <img src="/img/home2.jpg" alt="" className="w-full h-full object-cover" />
                             </div>
 
@@ -68,7 +68,7 @@ export default function HomePage() {
                             </div>
                         </div>
 
-                        <div className="w-full h-[28rem] rounded-3xl bg-blue p-[5%] text-background-color">
+                        <div className="w-full h-[28rem] rounded-3xl bg-primary p-[5%] text-background-color">
                             <div className="w-full flex-col xl:flex-row flex justify-between">
                                 <div className="xl:w-[47%] flex items-center">
                                     <h1 className="text-2xl xl:text-4xl font-bold ">Build Your Future House with Expert Precision</h1>
@@ -124,7 +124,7 @@ export default function HomePage() {
                             }}
                         >
                             <div className="w-full h-full flex items-center justify-center">
-                                <button className="items-center px-10 xl:px-14 text-white py-2 bg-blue rounded-3xl">Login Now</button>
+                                <button className="items-center px-10 xl:px-14 text-white py-2 bg-primary rounded-3xl">Login Now</button>
                             </div>
                         </div>
                     </div>
@@ -148,10 +148,10 @@ export default function HomePage() {
                         </div>
 
                         <div className="flex gap-5 w-full justify-end">
-                            <div className="px-5 py-2 xl:px-10 xl:py-3 border-2 border-blue items-center flex rounded-3xl hover:scale-90" ref={prevButtonRef2}>
+                            <div className="px-5 py-2 xl:px-10 xl:py-3 border-2 border-primary items-center flex rounded-3xl hover:scale-90" ref={prevButtonRef2}>
                                 <button><IoIosArrowBack /></button>
                             </div>
-                            <div className="px-5 py-2 xl:px-10 xl:py-3 border-2 border-blue bg-blue items-center flex rounded-3xl hover:scale-90 text-white" ref={nextButtonRef2}>
+                            <div className="px-5 py-2 xl:px-10 xl:py-3 border-2 border-primary bg-primary items-center flex rounded-3xl hover:scale-90 text-white" ref={nextButtonRef2}>
                                 <button className="flex items-center">Next <IoIosArrowForward /></button>
                             </div>
                         </div>

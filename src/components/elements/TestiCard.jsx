@@ -7,7 +7,7 @@ export function TestiCard() {
                     <p className="text-xs xl:text-lg">Testimonials</p>
                 </div>
 
-                <div className="w-20 h-16 xl:w-44 xl:h-32 items-center justify-center bg-blue text-white shadow-lg rounded-xl flex flex-col gap-2 ">
+                <div className="w-20 h-16 xl:w-44 xl:h-32 items-center justify-center bg-primary text-white shadow-lg rounded-xl flex flex-col gap-2 ">
                     <h1 className="text-sm xl:text-4xl font-semibold">50 +</h1>
                     <p className="text-xs xl:text-lg">Workers</p>
                 </div>

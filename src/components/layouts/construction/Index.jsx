@@ -1,5 +1,4 @@
 import { FiChevronDown, FiFilter } from "react-icons/fi";
-import Heading from "../../fragments/Heading";
 import ActiveFilter from "./ActiveFilter";
 import { useFetch } from "../../../hooks/useFetch";
 import { useEffect, useState } from "react";

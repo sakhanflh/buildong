@@ -15,7 +15,7 @@ export function ClientsSayCard({say, name, job, image}) {
 
                     <div className="w-[75%]">
                         <h1 className="font-semibold text-lg">{name}</h1>
-                        <p className="text-blue text-sm font-medium">{job}</p>
+                        <p className="text-primary text-sm font-medium">{job}</p>
                     </div>
                 </div>
             </div>
