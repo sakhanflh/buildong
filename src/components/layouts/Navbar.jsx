@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function Navbar() {
     return (
         <>
-            <div className="xl:flex hidden z-20 fixed w-full top-0 h-14 px-[5%] md:w-full xl:h-16 md:flex justify-between items-center font-jost text-font-gray xl:border-b-2">
+            <div className="xl:flex bg-white shadow-soft hidden z-20 fixed w-full top-0 h-14 px-[5%] md:w-full xl:h-16 md:flex justify-between items-center font-jost text-font-gray xl:border-b-2">
                 <div className="font-semibold">
                     <h1 className="text-black hover:text-font-black font-semibold text-xl">BUILDONG</h1>
                 </div>
