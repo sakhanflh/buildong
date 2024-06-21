@@ -30,6 +30,7 @@ const Index = () => {
                 })
                 setData(response.data.data)
                 setIsLoading(false)
+                console.log({...filterData})
             } catch (error) {
                 console.log(error.message)
                 setIsLoading(false)

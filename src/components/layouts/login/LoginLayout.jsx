@@ -1,14 +1,30 @@
-import { useState } from "react";
-import { FaFacebook, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { Input } from "../../fragments/Input";
 
 export function LoginLayout() {
-    const [showPassword, setShowPassword] = useState(false);
+    const [newData, setNewData] = useState({
+        email : '',
+        password: '',
+    })
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+    
+
+    const handleSubmit = async() => {
+        try {
+            await axios.post('https://buildong-api.vercel.app/login', newData)
+            window.location.href = '/'
+        } catch (error) {
+            alert(error.response.data.message)
+        }
+    }
+
+    useEffect(() => {
+        console.log(newData)
+    }, [newData])
 
     return (
         <>
@@ -16,49 +32,20 @@ export function LoginLayout() {
                 <h1 className="text-2xl font-medium">Welcome Back!</h1>
 
                 <form className="space-y-6 w-full">
-                    <div className="relative">
-                        <input
-                            type="email"
-                            id="email"
-                            className="block w-full px-4 py-2 text-gray-900 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent peer"
-                            placeholder=" "
-                            required
-                        />
-                        <label
-                            htmlFor="email"
-                            className="absolute text-gray-600 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 left-2"
-                        >
-                            Email
-                        </label>
-                    </div>
-                    <div className="relative">
-                        <input
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            className="block w-full px-4 py-2 text-gray-900 bg-gray-50 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent peer"
-                            placeholder=" "
-                            required
-                        />
-                        <label
-                            htmlFor="password"
-                            className="absolute text-gray-600 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 left-2"
-                        >
-                            Password
-                        </label>
-                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                            {showPassword ? (
-                                <FaRegEye
-                                    className="h-5 w-5 text-gray-500 cursor-pointer"
-                                    onClick={togglePasswordVisibility}
-                                />
-                            ) : (
-                                <FaRegEyeSlash
-                                    className="h-5 w-5 text-gray-500 cursor-pointer"
-                                    onClick={togglePasswordVisibility}
-                                />
-                            )}
-                        </div>
-                    </div>
+                    <Input
+                    id={'email'}
+                    onChange={(e) => setNewData({ ...newData, email: e.target.value })}
+                    label={'Email'}
+                    type={'email'}
+                    placeholder={''}
+                    />
+                    <Input
+                    id={'password'}
+                    onChange={(e) => setNewData({...newData, password: e.target.value})}
+                    label={'Password'}
+                    type={'password'}
+                    placeholder={''}
+                    />
                     <div className="flex justify-between">
                         <div className="flex gap-2">
                             <input type="checkbox" className="cursor-pointer" />
@@ -71,6 +58,7 @@ export function LoginLayout() {
                     <button
                         type="submit"
                         className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        onClick={handleSubmit}
                     >
                         Sign In
                     </button>
