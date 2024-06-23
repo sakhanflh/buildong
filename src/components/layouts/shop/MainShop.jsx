@@ -13,6 +13,7 @@ export function MainShop() {
             try {
                 const response = await axios.get('https://buildong-api.vercel.app/products')
                 setData(response.data.products)
+                console.log(response.data.products)
             } catch (err) {
                 console.log(err)
             } finally {
