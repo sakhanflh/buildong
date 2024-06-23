@@ -9,7 +9,6 @@ export function Header() {
     function handleShowSidebar() {
         setShowSidebar(!showSidebar)
     }
-    console.log(handleShowSidebar)
 
     return (
         <>

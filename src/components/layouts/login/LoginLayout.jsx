@@ -1,30 +1,51 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaFacebook } from "react-icons/fa";
+import { FaExclamationTriangle, FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { Input } from "../../fragments/Input";
+import LoadBtn from "../../elements/LoadBtn";
+import SimpleAlert from "../../fragments/SimpleAlert";
 
 export function LoginLayout() {
     const [newData, setNewData] = useState({
         email : '',
         password: '',
     })
+    const [loading, setLoading] = useState(false)
+    const [msg, setMsg] = useState('')
+    const [isError, setIsError] = useState(false)
 
-    
-
-    const handleSubmit = async() => {
+    const handleSubmit = async(e) => {
+        setMsg('')
+        setLoading(true)
+        e.preventDefault()
         try {
-            await axios.post('https://buildong-api.vercel.app/login', newData)
+            const res = await axios.post('https://buildong-api.vercel.app/login', newData)
+            console.log(res.data)
+            if(res.data.role == 'admin'){
+                setMsg(res.data.message)
+                setIsError(false)
+                localStorage.setItem('token', JSON.stringify(res.data.token))
+                localStorage.setItem('role', res.data.role)
+                setLoading(false)
+                window.location.href = '/'
+                return 
+            }
+            setMsg(res.data.message)
+            setIsError(false)
+            localStorage.setItem('token', JSON.stringify(res.data.token))
+            localStorage.setItem('role', JSON.stringify(res.data.role))
+            setLoading(false)
             window.location.href = '/'
         } catch (error) {
-            alert(error.response.data.message)
+            console.log(error)
+            const errorMsg = Array.isArray(error.response.data.message) ? error.response.data.message[0] : error.response.data.message
+            setIsError(true)
+            setLoading(false)
+            setMsg(errorMsg)
         }
     }
-
-    useEffect(() => {
-        console.log(newData)
-    }, [newData])
 
     return (
         <>
@@ -55,13 +76,11 @@ export function LoginLayout() {
                             <p className="text-primary hover:text-blue-700 cursor-pointer">Forgot Password?</p>
                         </div>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        onClick={handleSubmit}
-                    >
-                        Sign In
-                    </button>
+                    <LoadBtn
+                    loading={loading}
+                    onClick={handleSubmit}
+                    value={'Sign In'}
+                    />
                 </form>
 
                 <div className="flex flex-col w-full">
@@ -87,6 +106,19 @@ export function LoginLayout() {
                     </div>
                 </div>
             </div>
+            {
+                isError 
+                ?
+                <SimpleAlert 
+                msg={msg}
+                bg={'bg-red-600'}
+                icon={<FaExclamationTriangle/>}
+                />
+                :
+                <SimpleAlert
+                msg={msg}
+                />
+            }
         </>
     )
 }
