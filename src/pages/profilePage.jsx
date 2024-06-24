@@ -1,18 +1,37 @@
-import { FaLock, FaTrash, FaUserCircle, FaUserEdit } from "react-icons/fa";
+import { FaLock, FaTrash, FaUser, FaUserEdit } from "react-icons/fa";
 import Layout from "../components/layouts/Layout";
-import { Navbar } from "../components/layouts/Navbar";
-import { ListIcon } from "../components/elements/ListIcon";
 import { useParams } from "react-router-dom";
 import DetailsLayout from "../components/layouts/profile/DetailsLayout";
 import { useContext, useEffect, useState } from "react";
 import EditLayout from "../components/layouts/profile/EditLayout";
 import UserContext from "../context/UserContext";
+import { Header } from "../components/fragments/Header";
+import SideSettings from "../components/layouts/profile/SideSettings";
+import IconTitle from "../components/elements/IconTitle";
+import SecurityLayout from "../components/layouts/profile/SecurityLayout";
+import DeleteLayout from "../components/layouts/profile/DeleteLayout";
+import { Footer } from "../components/layouts/Footer";
 
 const ProfilePage = () => {
     const { profileId } = useParams();
-    const [data, setData] = useState([])
     const { user } = useContext(UserContext)
     const [loading, setLoading] = useState(true)
+    const [title, setTitle] = useState({
+        title: '',
+        icon: null,
+    })
+
+    useEffect(() => {
+        if(profileId == 'edit'){
+            setTitle({title: 'Edit Account', icon: <FaUserEdit/>})
+        } else if(profileId == 'security'){
+            setTitle({title: 'Sign-in & Security', icon: <FaLock/>})
+        } else if(profileId == 'delete'){
+            setTitle({title: 'Delete Account', icon: <FaTrash/>})
+        } else {
+            setTitle({title: 'Account Details', icon: <FaUser/>})
+        }
+    }, [profileId])
 
     useEffect(() => {
         if(user){
@@ -23,54 +42,30 @@ const ProfilePage = () => {
 
     return (
         <>
-        <Navbar/>
+        <Header/>
         <Layout>
-            <div className="flex gap-4 items-start">
-                <div className="bg-white rounded-lg shadow-soft h-max pb-4 w-[25%] overflow-hidden">
-                    <div className="w-full px-4 py-4 border-b-2 text-primary">
-                        <h1 className="font-bold text-xl">Settings</h1>
-                    </div>
-                    <ul className="flex flex-col px-2 pt-6 gap-1">
-                        <ListIcon
-                        icon={<FaUserCircle/>}
-                        text={'Account Details'}
-                        to={'details'}
-                        />
-                        <ListIcon
-                        icon={<FaUserEdit/>}
-                        text={'Edit Account'}
-                        to={'edit'}
-                        />
-                        <ListIcon
-                        icon={<FaLock/>}
-                        text={'Sign in & Security'}
-                        to={'security'}
-                        />
-                        <ListIcon
-                        icon={<FaTrash/>}
-                        text={'Delete Account'}
-                        to={'delete'}
-                        />
-                    </ul>
-                </div>
-                <div className="bg-white rounded-lg shadow-soft h-max w-[80%]">
-                    <div className="w-full px-4 py-4 text-primary border-b-2 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                            <FaUserCircle className="text-xl"/>
-                            <h1 className="font-bold text-xl">Account Details</h1>
-                        </div>
+            <div className="px-[5%] flex gap-4 items-start">
+                <SideSettings/>
+                <div className="bg-white w-full rounded-lg shadow-soft h-max xl:w-[80%]">
+                    <div className="flex-col w-full px-4 py-4 text-primary border-b-2 flex xl:flex-row xl:items-center xl:justify-between">
+                        <IconTitle icon={title.icon} title={title.title}/>
                         {
                             loading ?
-                            <div className="w-40 h-2 bg-neutral-200 animate pulse rounded-full"></div>
+                            <div className="hidden xl:block w-40 h-2 bg-neutral-200 animate pulse rounded-full"></div>
                             :
-                            <h1 className="font-semibold text-neutral-400">USER ID : {user?.user._id}</h1>
+                            <h1 className="text-sm font-semibold hidden mt-2 text-neutral-400 xl:text-base xl:block xl:-mt-0 uppercase">USER ID : {user?.user._id}</h1>
                         }
                     </div>
-                    { profileId == 'details' && <DetailsLayout user={user} loading={loading}/>}
-                    { profileId == 'edit' && <EditLayout/>}
+                    <div className="py-8 px-8">
+                        { profileId == 'details' && <DetailsLayout user={user} loading={loading}/>}
+                        { profileId == 'edit' && <EditLayout/>}
+                        { profileId == 'security' && <SecurityLayout user={user} loading={loading}/>}
+                        { profileId == 'delete' && <DeleteLayout/>}
+                    </div>
                 </div>
             </div>
         </Layout>
+        <Footer/>
         </>
     )
 }

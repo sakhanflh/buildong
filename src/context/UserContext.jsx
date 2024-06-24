@@ -53,13 +53,7 @@ export const UserProvider = ({children}) => {
         }        
         if (token && role) {
             fetchUserData(token, role);
-        } else {
-            if(window.location.pathname == '/login'){
-                return
-            }
-            alert('Token hilang harap login kembali')
-            window.location.href = '/#/login'
-        }
+        } 
     }, []);
 
     return(
