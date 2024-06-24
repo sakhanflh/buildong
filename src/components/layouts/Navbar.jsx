@@ -1,36 +1,49 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import { FaChevronDown, FaChevronUp, FaLock, FaTrash, FaUserCircle, FaUserEdit } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaLock, FaTrash, FaUserCheck, FaUserCircle, FaUserEdit } from "react-icons/fa";
 import { ListIcon } from "../elements/ListIcon";
+import SimpleAlert from "../fragments/SimpleAlert";
 
 export function Navbar() {
-    const { user } = useContext(UserContext)
-    const { profileId } = useParams()
+    // const { user } = useContext(UserContext)
+    // const { profileId } = useParams()
     const role = localStorage.getItem('role')
-    const [showMenu, setShowMenu] = useState(false)
-    const [loading, setLoading] = useState(true)
+    // const token = localStorage.getItem('token')
+    // const [showMenu, setShowMenu] = useState(false)
+    // const [loading, setLoading] = useState(true)
+    // const [msg, setMsg] = useState('')
 
+    // useEffect(() => {
+    //     if(user){
+    //         setLoading(false)
+    //     } 
+    // }, [user, profileId])
 
-    useEffect(() => {
-        if(user){
-            setLoading(false)
-        } 
-    }, [user, profileId])
+    // useEffect(() => {
+    //     if(!token){
+    //         setLoading(false)
+    //     }
+    // }, [token])
 
-    function handleLogOut(){
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
+    // async function handleLogOut(){
+    //     setLoading(true)
+    //     setTimeout(() => {
+    //         localStorage.removeItem('token');
+    //         localStorage.removeItem('role');
+    //         setMsg('Successfully logged out')
+    //         setLoading(false)
+    //         // window.location.href = '/#/login';
+    //     }, 2000)
     
-        window.location.href = '/#/login';
-    }
+    // }
 
     return (
         <>
-            <div className="xl:flex bg-white shadow-soft hidden z-40 fixed w-full top-0 h-14 px-[5%] md:w-full xl:h-16 md:flex justify-between items-center font-jost text-font-gray xl:border-b-2">
-                <div className="font-semibold">
+            {/* <div className="xl:flex shadow-soft hidden w-full  h-14 px-[5%] md:w-full xl:h-full md:flex justify-between items-center font-jost text-font-gray xl:border-b-2"> */}
+                {/* <div className="font-semibold">
                     <h1 className="text-black hover:text-font-black font-semibold text-xl">BUILDONG</h1>
-                </div>
+                </div> */}
                 
                 <div className="hidden xl:flex gap-10 h-full items-center">
                     <ul className="flex gap-10">
@@ -59,14 +72,14 @@ export function Navbar() {
                         </Link>
                     </ul>
 
-                    {
+                    {/* {
                     loading ?
                     <div className="border-l-2 pl-6 pr-4 relative flex items-center gap-2">
                         <div className="rounded-full h-10 w-10 bg-neutral-400 animate-pulse"></div>
                         <FaChevronDown />
                     </div>
                     :
-                    user ? 
+                    token ? 
                     <div onClick={() => setShowMenu(!showMenu)} className="border-l-2 pl-6 pr-4 relative flex items-center gap-3 cursor-pointer">
                         <div className="rounded-full w-10 h-10 overflow-hidden bg-neutral-300">
                             {
@@ -115,10 +128,14 @@ export function Navbar() {
                             <button className="font-semibold">Login</button>
                         </Link>
                     </div>
-                    }
+                    } */}
                 </div>
 
-            </div>
+            {/* </div> */}
+            {/* <SimpleAlert
+            icon={<FaUserCheck/>}
+            msg={msg}
+            /> */}
         </>
     )
 }

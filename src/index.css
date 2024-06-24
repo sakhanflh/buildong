@@ -16,3 +16,7 @@
     }
 }
 /* Home End */
+
+.clicked {
+    @apply hover:scale-[.98] hover:brightness-[.98] active:brightness-95
+}
