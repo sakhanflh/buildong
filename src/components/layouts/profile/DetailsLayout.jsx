@@ -22,22 +22,22 @@ const DetailsLayout = ({user, loading}) => {
                     </div>
                     :
                     <div>
-                        <h1 className="font-semibold text-sm xl:text-lg">{account?.username}</h1>
-                        <h1 className="text-neutral-600 text-xs xl:text-base">{user.user.email}</h1>
+                        <h1 className="font-semibold text-base xl:text-lg">{account?.username}</h1>
+                        <h1 className="text-neutral-600 text-sm xl:text-base">{user.user.email}</h1>
                     </div>
                 }
             </div>
             <div className="mt-8">
-                <h1 className="font-semibold text-primary text-sm xl:text-base">Address</h1>
+                <h1 className="font-semibold text-primary text-base xl:text-base">Address</h1>
                 {
                     loading ?
                     <div className="bg-neutral-300 animate-pulse w-52 h-2 mt-2 rounded-full"></div>
                     :
-                    <p className="text-neutral-500 text-xs xl:text-base">{account?.address}</p>
+                    <p className="text-neutral-500 text-sm xl:text-base">{account?.address}</p>
                 }
             </div>
             <div className="mt-4">
-                <h1 className="font-semibold text-primary text-sm xl:text-base">Phone Number</h1>
+                <h1 className="font-semibold text-primary text-base xl:text-base">Phone Number</h1>
                 {
                     loading ?
                     <div className="bg-neutral-300 animate-pulse w-32 h-2 mt-2 rounded-full"></div>

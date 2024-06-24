@@ -35,11 +35,10 @@ export function Header() {
         setTimeout(() => {
             localStorage.removeItem('token');
             localStorage.removeItem('role');
-            setMsg('Successfully logged out')
             setLoading(false)
-            // window.location.href = '/#/login';
+            setMsg('Successfully logged out')
+            // window.location.href = '/#/';
         }, 2000)
-    
     }
     function handleShowSidebar() {
         setShowSidebar(!showSidebar)
