@@ -19,15 +19,17 @@ const SimpleAlert = ({msg, icon, bg}) => {
     }, [msg])
 
     return ReactDOM.createPortal(
-        <div className={`fixed ${showAlert ? 'translate-x-0' : 'translate-x-[1000px]'} transition-all duration-300 flex gap-4 text-white top-10 right-5 items-center ${bg ? bg : 'bg-primary'} px-6 py-2 rounded-lg shadow-multiple z-50`}>
+        <div className={`fixed ${showAlert ? 'translate-y-0' : '-translate-y-[500px]'} transition-all duration-300 flex top-10 w-full items-center justify-center rounded-lg bg-transparent  z-50`}>
+            <div className={`w-max ${bg ? bg : 'bg-primary'} px-6 py-2 rounded-lg flex gap-4 items-center shadow-multiple text-white`}>
             {
                 icon
                 ?
                 icon
                 : 
-                <FaCheckCircle className=' text-lg'/>
+                <FaCheckCircle className=' text-lg '/>
             }
             <h1 className='text-neutral-50'>{msg}</h1>
+            </div>
         </div>,
         document.getElementById('alert-root')
     );

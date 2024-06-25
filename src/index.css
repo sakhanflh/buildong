@@ -20,3 +20,22 @@
 .clicked {
     @apply hover:scale-[.98] hover:brightness-[.98] active:brightness-95
 }
+
+.silver {
+    @apply bg-gradient-to-br text-white border-white from-slate-500 via-slate-400 to-slate-500
+}
+
+@keyframes loading {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, rgba(229, 231, 235, 1) 0%, rgba(243, 244, 246, 1) 50%, rgba(229, 231, 235, 1) 100%);
+    background-size: 200px 100%;
+    animation: loading 1.5s ease-in-out infinite;
+}

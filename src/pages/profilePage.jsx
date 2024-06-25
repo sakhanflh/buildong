@@ -10,7 +10,7 @@ import SideSettings from "../components/layouts/profile/SideSettings";
 import IconTitle from "../components/elements/IconTitle";
 import SecurityLayout from "../components/layouts/profile/SecurityLayout";
 import DeleteLayout from "../components/layouts/profile/DeleteLayout";
-import { Footer } from "../components/layouts/Footer";
+import SkeletonLoading from "../components/fragments/SkeletonLoading";
 
 const ProfilePage = () => {
     const { profileId } = useParams();
@@ -51,12 +51,14 @@ const ProfilePage = () => {
                         <IconTitle icon={title.icon} title={title.title}/>
                         {
                             loading ?
-                            <div className="hidden xl:block w-40 h-2 bg-neutral-200 animate pulse rounded-full"></div>
+                            <div className="hidden xl:block w-40 h-2">
+                                <SkeletonLoading/>
+                            </div>
                             :
                             <h1 className="text-sm font-semibold hidden mt-2 text-neutral-400 xl:text-base xl:block xl:-mt-0 uppercase">USER ID : {user?.user._id}</h1>
                         }
                     </div>
-                    <div className="py-8 px-8">
+                    <div className="py-4 px-8">
                         { profileId == 'details' && <DetailsLayout user={user} loading={loading}/>}
                         { profileId == 'edit' && <EditLayout/>}
                         { profileId == 'security' && <SecurityLayout user={user} loading={loading}/>}
@@ -65,7 +67,6 @@ const ProfilePage = () => {
                 </div>
             </div>
         </Layout>
-        <Footer/>
         </>
     )
 }

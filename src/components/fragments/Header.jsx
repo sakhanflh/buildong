@@ -1,12 +1,14 @@
 import { Navbar } from "../layouts/Navbar";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiCoinflip, GiCoins, GiExitDoor, GiHamburgerMenu } from "react-icons/gi";
 import { Sidebar } from "../layouts/Sidebar";
 import { useContext, useEffect, useState } from "react";
 import { ListIcon } from "../elements/ListIcon";
-import { FaChevronDown, FaChevronUp, FaLock, FaTrash, FaUserCheck, FaUserCircle, FaUserEdit } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaLock, FaShoppingBasket, FaTrash, FaUserCheck, FaUserCircle, FaUserEdit } from "react-icons/fa";
 import UserContext from "../../context/UserContext";
 import { Link, useParams } from "react-router-dom";
 import SimpleAlert from "./SimpleAlert";
+import SkeletonLoading from "./SkeletonLoading";
+import { FaBuildingUser, FaDoorOpen, FaMedal } from "react-icons/fa6";
 
 
 export function Header() {
@@ -14,6 +16,7 @@ export function Header() {
     const { user } = useContext(UserContext)
     const { profileId } = useParams()
     const token = localStorage.getItem('token')
+    const role = localStorage.getItem('role')
     const [showMenu, setShowMenu] = useState(false)
     const [loading, setLoading] = useState(true)
     const [msg, setMsg] = useState('')
@@ -56,14 +59,18 @@ export function Header() {
                     {
                     loading ?
                     <div className="xl:border-l-2 xl:pl-6 pr-4 relative flex items-center gap-2">
-                        <div className="rounded-full h-10 w-10 bg-neutral-400 animate-pulse"></div>
+                        <div className="rounded-full h-10 w-10 overflow-hidden">
+                            <SkeletonLoading height={'h-full'}/>
+                        </div>
                         <FaChevronDown />
                     </div>
                     :
                     token ? 
                     <div onClick={() => setShowMenu(!showMenu)} className="xl:border-l-2 xl:pl-6 xl:pr-4 relative flex items-center gap-3 cursor-pointer">
-                        <div className="rounded-full outline outline-primary outline-offset-2 w-7 h-7 xl:w-10 xl:h-10 overflow-hidden bg-neutral-300">
+                        <div className="rounded-full outline outline-primary outline-offset-2 w-9 h-9 xl:w-10 xl:h-10 overflow-hidden bg-neutral-300">
                             {
+                                role == 'admin' ? <img src={'/img/admin.jpg'} alt="" className="w-full h-full object-cover"/>
+                                :
                                 !user.user.account
                                 ?
                                 ""
@@ -77,31 +84,65 @@ export function Header() {
                             :
                             <FaChevronDown />
                         }
-                        <div className={`${showMenu ? 'translate-y-0 opacity-100' : '-translate-y-96 opacity-0'} transition-all duration-500 absolute top-14 right-0 bg-white shadow-multiple w-max h-max rounded-xl`}>
-                            <ul className="flex flex-col px-2 gap-1 py-2 text-sm">
-                                <ListIcon
-                                icon={<FaUserCircle/>}
-                                text={'Account Details'}
-                                to={'details'}
-                                />
-                                <ListIcon
-                                icon={<FaUserEdit/>}
-                                text={'Edit Account'}
-                                to={'edit'}
-                                />
-                                <ListIcon
-                                icon={<FaLock/>}
-                                text={'Sign in & Security'}
-                                to={'security'}
-                                />
-                                <ListIcon
-                                icon={<FaTrash/>}
-                                text={'Delete Account'}
-                                to={'delete'}
-                                />
-                            <button onClick={handleLogOut} className="bg-red-500 text-white w-full rounded-lg py-2 mt-4">Log Out</button>
-                            </ul>
-                        </div>
+                        {
+                            role == 'admin'
+                            ? 
+                            <div className={`${showMenu ? 'translate-y-0 opacity-100' : '-translate-y-96 opacity-0'} transition-all duration-500 absolute top-14 right-0 bg-white shadow-multiple w-max h-max rounded-xl`}>
+                                <ul className="flex flex-col px-2 gap-1 py-2 text-sm">
+                                    <ListIcon
+                                    icon={<FaShoppingBasket/>}
+                                    text={'Upload product'}
+                                    to={'details'}
+                                    />
+                                    <ListIcon
+                                    icon={<FaBuildingUser/>}
+                                    text={'Upload construction'}
+                                    to={'edit'}
+                                    />
+                                <button onClick={handleLogOut} className="bg-red-500 text-white w-full flex items-center justify-center gap-3 rounded-lg py-2 mt-4">
+                                    <GiExitDoor/>
+                                    Log Out
+                                </button>
+                                </ul>
+                            </div>
+                            :
+                            <div className={`${showMenu ? 'translate-y-0 opacity-100' : '-translate-y-[500px] opacity-0'} transition-all duration-500 absolute top-14 right-0 bg-white shadow-multiple w-max h-max rounded-xl`}>
+                                <ul className="flex flex-col px-3 gap-1 py-3 text-sm">
+                                    <div className="silver px-2 py-3 rounded-lg font-bold text-center">
+                                        <h1>SILVER</h1>
+                                    </div>
+                                    <div className="px-4 py-3 border-b-2 flex items-center gap-4 font-semibold text-black">
+                                        <FaMedal className="text-primary"/>
+                                        <h1>1.340 pts</h1>
+                                    </div>
+                                    <ListIcon
+                                    icon={<FaUserCircle/>}
+                                    text={'Account Details'}
+                                    to={'/profile/details'}
+                                    />
+                                    <ListIcon
+                                    icon={<FaUserEdit/>}
+                                    text={'Edit Account'}
+                                    to={'/profile/edit'}
+                                    />
+                                    <ListIcon
+                                    icon={<FaLock/>}
+                                    text={'Sign in & Security'}
+                                    to={'/profile/security'}
+                                    />
+                                    <ListIcon
+                                    icon={<FaTrash/>}
+                                    text={'Delete Account'}
+                                    to={'/profile/delete'}
+                                    />
+                                <button onClick={handleLogOut} className="bg-red-500 text-white w-full rounded-lg py-2 mt-4 flex items-center justify-center gap-4">
+                                    <FaDoorOpen/>
+                                    Log Out
+                                </button>
+                                </ul>
+                            </div>
+
+                        }
                     </div>
                     :
                     <div className="px-10 py-2 border border-black rounded-3xl hover:bg-primary hover:border-primary hover:text-white">

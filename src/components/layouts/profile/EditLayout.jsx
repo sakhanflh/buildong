@@ -95,29 +95,30 @@ const EditLayout = () => {
                     }
                 </div>
                 <div className="flex gap-2 flex-col">
-                    <div className="flex items-center gap-2">
-                        <div className="relative cursor-pointer">
-                            <input onChange={(e) => setNewData({...newData, photo: e.target.files[0]})} type="file" className="opacity-0 absolute cursor-pointer"/>
-                            <button className="border-primary hover:bg-primary hover:text-white transition-all duration-100 border-2 text-primary rounded-lg px-4 py-2 text-sm">Change photo</button>
+                    <div className="flex flex-col xl:flex-row items-center gap-2">
+                        <div className="space-y-3">
+                            <label htmlFor="uploadPhoto" className="bg-primary clicked cursor-pointer px-6 py-2 text-sm rounded-lg text-white">
+                                Choose Photo
+                                <input onChange={(e) => setNewData({...newData, photo: e.target.files[0]})} name="uploadPhoto" id="uploadPhoto" type="file" className="opacity-0 absolute cursor-pointer"/>
+                            </label>
+                            <p className="text-xs max-w-44 text-neutral-500">{newData?.photo.name ? newData?.photo.name : 'Your profile picture should be no larger than 2MB.'}</p>
                         </div>
-                        <p>{newData?.photo.name}</p>
                     </div>
-                    <button onClick={handleRemovePhoto} className="border-red-500 w-max hover:bg-red-500 hover:text-white transition-all duration-100 text-red-600 border-2 rounded-lg px-4 py-2 text-sm">Remove photo</button>
                 </div>
             </div>
             <form className="mt-8">
-                <div className="gap-1 flex xl:gap-4">
-                    <div className="flex flex-col gap-2 w-1/2">
-                        <label className="text-sm xl:text-base font-semibold">Username</label>
+                <div className="gap-4 flex-col flex xl:flex-row xl:gap-4">
+                    <div className="flex flex-col gap-2 xl:w-1/2">
+                        <label className="text-sm xl:text-base font-semibold">Username <span className="text-primary">*</span></label>
                         <input defaultValue={user ? defVal?.username : ''} onChange={(e) => setNewData({...newData, username: e.target.value})} className="text-neutral-500 text-sm border-2 rounded-lg px-4 py-1 xl:text-base xl:py-2"/>
                     </div>
-                    <div className="flex flex-col gap-2 w-1/2">
-                        <label className="text-sm xl:text-base font-semibold">Phone Number</label>
+                    <div className="flex flex-col gap-2 xl:w-1/2">
+                        <label className="text-sm xl:text-base font-semibold">Phone Number <span className="text-primary">*</span></label>
                         <input defaultValue={user ? defVal?.phone : ''} onChange={(e) => setNewData({...newData, phone: e.target.value})} className="text-neutral-500 text-sm border-2 rounded-lg px-4 py-1 xl:text-base xl:py-2"/>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 mt-4">
-                    <label className="text-sm xl:text-base font-semibold">Address</label>
+                    <label className="text-sm xl:text-base font-semibold">Address <span className="text-primary">*</span></label>
                     <textarea defaultValue={user ? defVal?.address : ''} onChange={(e) => setNewData({...newData, address: e.target.value})} className="text-neutral-500 text-sm border-2 rounded-lg px-4 py-1 xl:text-base xl:py-2"/>
                 </div>
                 <div className="flex w-full justify-end mt-6">
