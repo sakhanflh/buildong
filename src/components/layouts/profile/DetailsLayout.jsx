@@ -1,3 +1,10 @@
+import { FaPencil } from "react-icons/fa6";
+import SkeletonLoading from "../../fragments/SkeletonLoading";
+import FormatDate from "../../../utils/FormatDate";
+import { FmDateName } from "../../../utils/FmDateName";
+import { FaInfoCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import LevelCard from "../../fragments/LevelCard";
 
 /* eslint-disable react/prop-types */
 const DetailsLayout = ({user, loading}) => {
@@ -5,45 +12,76 @@ const DetailsLayout = ({user, loading}) => {
 
     return (
         <>
-            <div className="flex gap-4">
+            <div className="flex gap-6">
                 {
                     loading ?
-                    <div className="bg-neutral-300 animate-pulse w-20 h-20 rounded-full"></div>
+                    <div className="w-20 h-20 rounded-full overflow-hidden">
+                        <SkeletonLoading height={'h-full'}/>
+                    </div>
                     :
-                    <div className="rounded-full w-14 h-14 xl:w-20 xl:h-20 overflow-hidden">
-                        <img src={account?.profile_picture} alt=""  className="w-full h-full object-cover"/>
+                    <div className="rounded-full w-14 h-14 xl:w-32 xl:h-32 ring-2 ring-primary relative">
+                        <div className="rounded-full w-14 h-14 xl:w-32 relative xl:h-32 overflow-hidden">
+                            <img src={account?.profile_picture} alt=""  className="w-full absolute h-full object-cover"/>
+                        </div>
+                        <Link to={'/profile/edit'} className="clicked absolute rounded-full bg-white w-10 h-10 z-10 flex justify-center items-center bottom-0 right-0 shadow-multiple border-primary border-2 cursor-pointer">
+                            <FaPencil/>
+                        </Link>
                     </div>
                 }
                 {
                     loading ?
-                    <div>
-                        <div className="bg-neutral-400 animate-pulse rounded-full w-32 h-2"></div>
-                        <div className="bg-neutral-300 mt-2 animate-pulse rounded-full w-40 h-2"></div>
+                    <div className="space-y-2">
+                        <SkeletonLoading width={'w-32'} height={'h-2 xl:h-3'}/>
+                        <SkeletonLoading width={'w-40'} height={'h-2 xl:h-2.5'}/>
                     </div>
                     :
-                    <div>
-                        <h1 className="font-semibold text-base xl:text-lg">{account?.username}</h1>
-                        <h1 className="text-neutral-600 text-sm xl:text-base">{user.user.email}</h1>
+                    <div className="flex items-start justify-between w-full">
+                        <div>
+                            <h1 className="font-semibold text-base xl:text-lg">{account?.username}</h1>
+                            <h1 className="text-neutral-500 text-sm xl:text-base">{user.user.email}</h1>
+                            <h2 className="text-neutral-500 text-sm xl:text-base mt-4">Registered since {FmDateName(user.user.registered_at)}</h2>
+                        </div>
                     </div>
                 }
             </div>
-            <div className="mt-8">
-                <h1 className="font-semibold text-primary text-base xl:text-base">Address</h1>
+            <div className="mt-6">
+                <div className="flex gap-1 mt-1 flex-wrap xl:flex-nowrap">
+                <LevelCard/>
+                    <div className="rounded-lg px-4 py-2 border-2 w-[49%] xl:w-1/3 text-sm space-y-1 border-neutral-400">
+                        <h1 className="text-sm">Total Item </h1>
+                        <p className="text-lg font-semibold">0</p>
+                    </div>
+                    <div className="rounded-lg px-4 py-2 border-2 w-[49%] xl:w-1/3 text-sm space-y-1 bg-primary text-white">
+                        <h1 className="text-sm">Total Purchased</h1>
+                        <p className="text-lg font-semibold">Rp. 0</p>
+                    </div>
+                </div>
+            </div>
+            <div className="mt-6">
+                <h1 className="font-semibold text-base xl:text-base">Address</h1>
                 {
                     loading ?
-                    <div className="bg-neutral-300 animate-pulse w-52 h-2 mt-2 rounded-full"></div>
+                    <SkeletonLoading width={'w-52'} height={'h-2 xl:h-3'} margin={'mt-2'}/>
                     :
                     <p className="text-neutral-500 text-sm xl:text-base">{account?.address}</p>
                 }
             </div>
             <div className="mt-4">
-                <h1 className="font-semibold text-primary text-base xl:text-base">Phone Number</h1>
+                <h1 className="font-semibold text-base xl:text-base">Phone Number</h1>
                 {
                     loading ?
-                    <div className="bg-neutral-300 animate-pulse w-32 h-2 mt-2 rounded-full"></div>
+                    <SkeletonLoading width={'w-24'} height={'h-2 xl:h-3'} margin={'mt-2'}/>
                     :
                     <p className="text-neutral-500 text-sm xl:text-base">{account?.phone}</p>
                 }
+            </div>
+            <div className="mt-4 flex justify-end">
+            <Link to={'/profile/edit'}>
+                <button className="px-6 text-sm xl:text-base clicked bg-secondary font-semibold flex items-center gap-4 py-2 rounded-lg shadow-soft">
+                    <FaPencil/>
+                    Edit my profile
+                </button>
+            </Link>
             </div>
         </>
     )

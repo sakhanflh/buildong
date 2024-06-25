@@ -27,10 +27,14 @@ export function RegisterLayout() {
         }
         try {
             const res = await axios.post('https://buildong-api.vercel.app/register', newData)
-            setMsg(res.data.message)
-            setIsError(false)
-            setLoading(false)
-            console.log(res)
+            if(res.status === 200){
+                setMsg("Successfully registered")
+                setIsError(false)
+                setLoading(false)
+                setTimeout(() => {
+                    window.location.href = '/#/'
+                }, 2000)
+            }
         } catch (error) {
             const errorMsg = Array.isArray(error.response.data.message) ? error.response.data.message[0] : error.response.data.message
             setIsError(true)

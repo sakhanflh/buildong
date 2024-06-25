@@ -3,11 +3,11 @@ import ActiveFilter from "./ActiveFilter";
 import { useEffect, useState } from "react";
 import Card from "../../fragments/Card";
 import Rupiah from "../../../utils/Rupiah"
-import Loader from "../../fragments/Loader"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import SideFilter from "../../fragments/SideFilter";
 import ImgCardUI from "./ImgCardUI";
 import axios from "axios";
+import SkeletonLoading from "../../fragments/SkeletonLoading";
 
 const Index = () => {
     const [data, setData] = useState([]);
@@ -20,6 +20,7 @@ const Index = () => {
         price_to: ""
     });
     const [showFilter, setShowFilter] = useState(false);
+    const arrLength = new Array(6).fill(0);
 
     useEffect(() => {
         setIsLoading(true)
@@ -30,7 +31,7 @@ const Index = () => {
                 })
                 setData(response.data.data)
                 setIsLoading(false)
-                console.log({...filterData})
+                console.log(response.data.data)
             } catch (error) {
                 console.log(error.message)
                 setIsLoading(false)
@@ -49,7 +50,7 @@ const Index = () => {
 
     return (
         <>
-        <div className="px-[5%] mt-5 pt-16">
+        <div className="px-[5%] mt-5 ">
             <div className="flex flex-col w-full h-max gap-2 xl:gap-4 xl:flex-row">
                 <div className="rounded-lg relative bg-gradient-to-tr from-sky-800 to-sky-600 text-center py-4 w-full xl:w-full px-4 shadow-soft xl:py-10">
                     <div>
@@ -98,12 +99,22 @@ const Index = () => {
                     </div>
 
                     <div className="flex flex-col justify-between xl:h-full"> 
-                        <div className="mt-8 flex flex-wrap xl:justify-between gap-y-8">
+                        <div className="mt-8 flex flex-wrap xl:gap-x-4 gap-y-8">
                                 {
                                     isLoading ?
-                                    <div className="flex justify-center py-10 w-full">
-                                        <Loader/>
-                                    </div> 
+                                    arrLength.map((_, i) =>  (
+                                    <div key={i} className="w-full xl:w-[31%]">
+                                        <SkeletonLoading height={'h-32'}/>
+                                        <div className="flex justify-between items-center my-2">
+                                            <SkeletonLoading width={'w-7'}/>
+                                            <SkeletonLoading width={'w-4'}/>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <SkeletonLoading width={'w-32'}/>
+                                            <SkeletonLoading width={'w-24'}/>
+                                        </div>
+                                    </div>
+                                    ))
                                     :
                                     data == null ? 
                                     <div className="pt-14 pb-10 text-center text-neutral-500 w-full xl:text-lg xl:font-semibold">No Data Found</div>

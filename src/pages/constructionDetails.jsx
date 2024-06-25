@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
-import { Navbar } from "../components/layouts/Navbar";
 import Layout from "../components/layouts/Layout";
 import Rupiah from "../utils/Rupiah";
 import { FaCartPlus, FaStar } from "react-icons/fa6";
 import Loader from "../components/fragments/Loader";
 import FormatDate from "../utils/FormatDate";
+import { Header } from "../components/fragments/Header";
 
 const ConstructionDetailsPage = () => {
     const { constructionId } = useParams()
@@ -20,9 +20,9 @@ const ConstructionDetailsPage = () => {
 
     return(
         <>
-        <Navbar/>
+        <Header/>
         <Layout>
-            <div className="pt-20 px-[5%]">
+            <div className="px-[5%]">
                 <div className="flex flex-col gap-4 w-full rounded-lg bg-white shadow-soft p-4">
                     <div className="flex flex-col gap-2">
                         <div className="relative rounded-lg w-full h-44 overflow-hidden">
