@@ -10,6 +10,7 @@ import RegisterPage from './pages/registerPage'
 import { UserProvider } from './context/UserContext'
 import ProfilePage from './pages/profilePage'
 import ShopPage from './pages/shopPage'
+import AdminPage from './pages/adminPage'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/constructions' element={<ConstructionPage/>}/>
           <Route path='/constructions/:constructionId' element={<ConstructionDetailsPage/>}/>
+          <Route path='/admin' element={<AdminPage/>}/>
         </Routes>
       </HashRouter>
     </UserProvider>

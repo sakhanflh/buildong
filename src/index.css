@@ -39,3 +39,7 @@
     background-size: 200px 100%;
     animation: loading 1.5s ease-in-out infinite;
 }
+
+.transition-max-height {
+    transition: max-height 0.3s ease-in-out;
+}
