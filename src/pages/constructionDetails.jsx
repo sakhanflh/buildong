@@ -2,20 +2,20 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import Layout from "../components/layouts/Layout";
 import Rupiah from "../utils/Rupiah";
-import { FaCartPlus, FaCheck, FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa6";
+import { FaCartPlus, FaCheck, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import Loader from "../components/fragments/Loader";
 import FormatDate from "../utils/FormatDate";
 import { Header } from "../components/fragments/Header";
 import Stars from "../components/elements/Stars";
 import ReviewCard from "../components/fragments/ReviewCard";
-import Card from "../components/fragments/Card";
 import { Footer } from "../components/layouts/Footer";
+import CardSwiper from "../components/layouts/CardSwiper";
 
 const ConstructionDetailsPage = () => {
     const { constructionId } = useParams()
     const {data, isLoading, isError} = useFetch(`https://buildong-api.vercel.app/constructions/${constructionId}`)
     if(isError){
-        return <h1>{data.message}</h1>
+        return alert(isError.message)
     }
 
     if(isLoading){
@@ -31,11 +31,22 @@ const ConstructionDetailsPage = () => {
                     <div className="flex-col xl:flex-row flex gap-8">
                         <div className="flex flex-col gap-2 xl:w-1/2">
                             <div className="relative rounded-lg w-full h-44 overflow-hidden xl:h-72">
-                                <img src={data.image} alt="" className="w-full h-full object-cover absolute"/>
+                                <img src={data.image[0]} alt="" className="w-full h-full object-cover absolute"/>
                             </div>
                             <div className="flex gap-2">
-                                <div className="w-20 h-20 bg-neutral-100 rounded-lg flex justify-center items-center text-3xl text-neutral-300 font-bold xl:h-32 xl:w-32">
-                                    <h1>+</h1>
+                                <div className="w-20 h-20 bg-neutral-100 rounded-lg overflow-hidden relative flex justify-center items-center text-3xl text-neutral-300 font-bold xl:h-32 xl:w-32">
+                                    <img src={data.image[1]} alt="" className="w-full h-full object-cover absolute"/>
+                                </div>
+                                <div className="w-20 h-20 bg-neutral-100 rounded-lg overflow-hidden relative flex justify-center items-center text-3xl text-neutral-300 font-bold xl:h-32 xl:w-32">
+                                    <img src={data.image[2]} alt="" className="w-full h-full object-cover absolute"/>
+                                </div>
+                                <div className="w-20 h-20 bg-neutral-100 rounded-lg flex justify-center relative overflow-hidden items-center text-3xl text-neutral-300 font-bold xl:h-32 xl:w-32">
+                                    {
+                                        data.image[3] ? 
+                                        <img src={data.image[3]} alt="" className="w-full h-full object-cover absolute"/>
+                                        :
+                                        <h1>+</h1>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -182,26 +193,18 @@ const ConstructionDetailsPage = () => {
                     {/* REVIEWS */}
                 </div>
 
-                <div className="bg-white mt-6 shadow-soft rounded-lg w-full py-4 px-4">
-                    <h1 className="font-bold">Similiar Projects</h1>
-                    <p className="text-sm text-neutral-600">Another <b className="text-black">Home</b> project recommendations for you</p>
-                    <div className="mt-8 flex flex-col xl:flex-row flex-wrap gap-4">
-                        <Card 
-                        category={'Home'}
-                        img={'/img/home.jpg'}
-                        price={'Rp 2.034.400'}
-                        rate={4}
-                        title={'Space House'}
-                        />
-                        <Card 
-                        category={'Home'}
-                        img={'/img/home.jpg'}
-                        price={'Rp 2.034.400'}
-                        rate={4}
-                        title={'Space House'}
-                        />
-                    </div>
-                </div>
+                <CardSwiper 
+                title={'The Right Project Categories for You'}
+                subTitle={'Explore various product categories that fit your preferences and lifestyle.u'}
+                />
+                <CardSwiper
+                title={'Best Prices for Your Selected Projects'}
+                subTitle={'Find the perfect price offers that match your needs and budget.'}
+                />
+                <CardSwiper
+                title={'Styles That Match Your Products'}
+                subTitle={'Discover styles that perfectly complement your selected products.'}
+                />
             </div>
         </Layout>
         <Footer/>

@@ -13,6 +13,9 @@ export function useFetch(url){
                 setData(response.data);
                 setIsLoading(false);
             } catch (err){
+                if(err.code == 'ERR_NETWORK'){
+                    alert('Please check your network connection')
+                }
                 setIsError(err);
                 setIsLoading(false)
             }
