@@ -92,7 +92,7 @@ export function Header() {
                                     <ListIcon
                                     icon={<FaShoppingBasket/>}
                                     text={'Upload product'}
-                                    to={'details'}
+                                    to={'/admin'}
                                     />
                                     <ListIcon
                                     icon={<FaBuildingUser/>}

@@ -8,7 +8,7 @@ export function Products() {
                 <div>
                     <h1 className="text-3xl">Add New Product</h1>
                 </div>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid xl:grid-cols-2 gap-5">
                     <ProductsItem
                         title={"Description"}
                     >

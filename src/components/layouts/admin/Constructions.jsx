@@ -6,11 +6,11 @@ import axios from "axios";
 export function Constructions() {
     const [newData, setNewData] = useState({
         design_name: "",
-        location: "Depok",
+        location: "",
         total_price: "",
         photo: [],
         square_meters: "100",
-        province: "West Java",
+        province: "",
         style: "",
         category: "",
         descriptions: "",
@@ -51,7 +51,7 @@ export function Constructions() {
                 <div>
                     <h1 className="text-3xl font-medium text-font-gray">Add New Construction</h1>
                 </div>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid xl:grid-cols-2 gap-5">
                     <ProductsItem
                         title="Description"
                     >
@@ -64,6 +64,15 @@ export function Constructions() {
                             onChange={(e) => setNewData({ ...newData, descriptions: e.target.value })}
                             type={"textarea"}
                         />
+                        <AdminInput
+                            subTitle={"Location"}
+                            onChange={(e) => setNewData({ ...newData, location: e.target.value })}
+                        />
+                        <AdminInput
+                            subTitle={"Province"}
+                            onChange={(e) => setNewData({ ...newData, province: e.target.value })}
+                        />
+
                     </ProductsItem>
 
                     <ProductsItem
@@ -74,6 +83,7 @@ export function Constructions() {
                             onChange={(e) => setNewData({ ...newData, total_price: e.target.value })}
                             type={'number'}
                         />
+
                         <AdminInput
                             subTitle={"Start"}
                             onChange={(e) => setNewData({ ...newData, start: e.target.value })}
@@ -118,6 +128,10 @@ export function Constructions() {
                             subTitle={"Worker"}
                             onChange={(e) => setNewData({ ...newData, constructor: e.target.value })}
                             type={'number'}
+                        />
+                        <AdminInput
+                            subTitle={"Square Meters"}
+                            onChange={(e) => setNewData({ ...newData, square_meters: e.target.value })}
                         />
                     </ProductsItem>
 
