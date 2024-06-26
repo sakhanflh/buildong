@@ -5,7 +5,6 @@ import Card from "../../fragments/Card";
 import Rupiah from "../../../utils/Rupiah"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import SideFilter from "../../fragments/SideFilter";
-import ImgCardUI from "./ImgCardUI";
 import axios from "axios";
 import SkeletonLoading from "../../fragments/SkeletonLoading";
 
@@ -51,28 +50,13 @@ const Index = () => {
     return (
         <>
         <div className="px-[5%] mt-5 ">
-            <div className="flex flex-col w-full h-max gap-2 xl:gap-4 xl:flex-row">
-                <div className="rounded-lg relative bg-gradient-to-tr from-sky-800 to-sky-600 text-center py-4 w-full xl:w-full px-4 shadow-soft xl:py-10">
-                    <div>
-                        <h1 className="font-semibold text-xl text-white xl:text-6xl">Flash Sale!</h1>
-                        <p className="text-neutral-100 text-sm xl:text-base">Get 25% off - Limited Time Offer!</p>
-                    </div>
-                    <button className="bg-white py-2 w-full rounded-lg text-sm text-primary font-semibold mt-4 xl:mt-8 xl:w-max xl:px-16 xl:py-2">
-                        Shop Now
-                    </button>
-                </div>
-                <div className="h-20 xl:h-full xl:w-1/2 flex gap-1">
-                    <ImgCardUI/>
-                    <ImgCardUI/>
-                </div>
-            </div>
-            <div className="flex justify-end mt-16 xl:hidden">
+            <div className="flex justify-end xl:hidden">
                 <button onClick={() => setShowFilter(true)} className="py-1 px-6 bg-primary flex items-center gap-2 rounded-lg text-white font-medium">
                     <FiFilter/>
                     Filter
                 </button>
             </div>
-            <div className="flex mb-20 gap-4 mt-5 xl:mt-16">
+            <div className="flex mb-20 gap-4 mt-5 xl:mt-6">
                 <SideFilter
                 setCategory={value => setFilterData(prev => ({ ...prev, category: value }))}
                 setStyle={value => setFilterData(prev => ({ ...prev, style: value }))}
@@ -99,7 +83,7 @@ const Index = () => {
                     </div>
 
                     <div className="flex flex-col justify-between xl:h-full"> 
-                        <div className="mt-8 flex flex-wrap xl:gap-x-4 gap-y-8">
+                        <div className="mt-8 flex flex-wrap xl:gap-x-2 gap-y-8">
                                 {
                                     isLoading ?
                                     arrLength.map((_, i) =>  (

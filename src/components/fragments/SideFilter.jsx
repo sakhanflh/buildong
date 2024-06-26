@@ -7,7 +7,7 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
 
     return(
         <>
-        <div className={`${showFilter ? "translate-x-0" : "-translate-x-96"} transition-all duration-300 fixed left-0 top-0 w-60 px-6 pt-4 bg-white h-dvh z-30 xl:relative xl:translate-x-0 shadow-soft xl:rounded-lg xl:z-0 xl:w-80 xl:h-max`}>
+        <div className={`${showFilter ? "translate-x-0" : "-translate-x-96"} transition-all duration-300 fixed left-0 top-0 w-60 px-6 pt-16 xl:pt-4 bg-white h-dvh z-30 xl:relative xl:translate-x-0 shadow-soft xl:rounded-lg xl:z-0 xl:w-80 xl:h-max`}>
             <div className="py-4 border-b-2 flex justify-between items-center xl:py-6">
                 <h1 className="font-semibold text-lg">Filter Options</h1>
                 <FiX onClick={() => setShowFilter(false)} className="flex xl:hidden"/>

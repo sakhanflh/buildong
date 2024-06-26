@@ -1,5 +1,5 @@
 import { Navbar } from "../layouts/Navbar";
-import { GiCoinflip, GiCoins, GiExitDoor, GiHamburgerMenu } from "react-icons/gi";
+import { GiExitDoor, GiHamburgerMenu } from "react-icons/gi";
 import { Sidebar } from "../layouts/Sidebar";
 import { useContext, useEffect, useState } from "react";
 import { ListIcon } from "../elements/ListIcon";

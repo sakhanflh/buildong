@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { FaCartShopping, FaCircleInfo, FaHeart, FaStar } from "react-icons/fa6";
+import { FaCartShopping, FaHeart, FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Stars from "../elements/Stars";
 
 const Card = ({img, category, rate, title, price, linkTo}) => {
     return (
@@ -12,9 +13,8 @@ const Card = ({img, category, rate, title, price, linkTo}) => {
                     <div className="w-max h-max py-2 px-2 shadow-multiple bg-primary rounded-full text-xs font-semibold">
                         <h1>-20%</h1>
                     </div>
-                    <div className="flex flex-col gap-4 text-lg xl:text-2xl">
+                    <div className="flex flex-col gap-4 text-xl xl:text-2xl">
                         <FaHeart className="cursor-pointer transition duration-300 hover:text-red-500"/>  
-                        <FaCircleInfo className="cursor-pointer transition duration-300 hover:text-primary"/>
                         <FaCartShopping className="cursor-pointer transition duration-300 hover:text-secondary"/>
                     </div>
                 </div>
@@ -22,12 +22,14 @@ const Card = ({img, category, rate, title, price, linkTo}) => {
             <div className="flex justify-between text-sm mt-2 xl:text-sm">
                 <p className="text-neutral-500">{category}</p>
                 <div className="font-medium flex items-center gap-2">
-                    <FaStar className="text-secondary"/>
+                    <Stars length={Math.floor(rate)}/>
                     <p>{rate}</p>
                 </div>
             </div>
-            <h1 className="font-semibold xl:text-base">{title}</h1>
-            <p className="font-semibold text-sm mt-2 xl:text-lg">{price}</p>
+            <div className="flex justify-between items-end xl:block">
+            <h1 className="font-bold xl:text-base">{title}</h1>
+            <p className="text-base xl:text-base xl:mt-2">{price}</p>
+            </div>
         </div>
         </Link>
     )
