@@ -4,7 +4,7 @@ import { Sidebar } from "../components/layouts/admin/Sidebar";
 
 export default function AdminPage() {
     const [activeMenu, setActiveMenu] = useState(null);
-    const [visibleComponent, setVisibleComponent] = useState('Products');
+    const [visibleComponent, setVisibleComponent] = useState('Constructions');
 
     const handleMenuClick = (menuTitle) => {
         setActiveMenu(menuTitle);

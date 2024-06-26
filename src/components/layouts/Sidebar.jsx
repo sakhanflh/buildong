@@ -21,10 +21,6 @@ export function Sidebar({ onShowSidebar }) {
                         <Link to={'/constructions'}>
                             <li className="hover:text-font-black font-semibold">Constructions</li>
                         </Link>
-
-                        <Link>
-                            <li className="hover:text-font-black font-semibold">Gallery</li>
-                        </Link>
                     </ul>
 
                     <div className="pt-20 flex justify-center">

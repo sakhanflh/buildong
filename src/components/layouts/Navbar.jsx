@@ -21,10 +21,6 @@ export function Navbar() {
                         <Link to={'/constructions'}>
                             <li className="hover:text-font-black font-semibold">Constructions</li>
                         </Link>
-
-                        <Link>
-                            <li className="hover:text-font-black font-semibold">Gallery</li>
-                        </Link>
                     </ul>
                 </div>
         </>

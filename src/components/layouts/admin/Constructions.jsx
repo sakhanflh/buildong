@@ -1,7 +1,50 @@
+import { useEffect, useState } from "react";
 import { AdminInput } from "../../fragments/AdminInput";
 import { ProductsItem } from "../../fragments/ProductsItem";
+import axios from "axios";
 
 export function Constructions() {
+    const [newData, setNewData] = useState({
+        design_name: "",
+        location: "Depok",
+        total_price: "",
+        photo: [],
+        square_meters: "100",
+        province: "West Java",
+        style: "",
+        category: "",
+        descriptions: "",
+        start: "",
+        finish: "",
+        constructor: "",
+    })
+
+    useEffect(() => {
+        console.log(newData)
+    }, [newData])
+
+    async function handleUploadData() {
+        const newForm = new FormData();
+        for (let i = 0; i < newData.photo.length; i++) {
+            newForm.append('photo', newData.photo[i]);
+        }
+
+        Object.keys(newData).forEach((key) => {
+            newForm.append(key, newData[key]);
+        });
+
+        try {
+            const res = await axios.post('https://buildong-api.vercel.app/constructions/upload', newForm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <>
             <div className="flex flex-col gap-10">
@@ -11,16 +54,14 @@ export function Constructions() {
                 <div className="grid grid-cols-2 gap-5">
                     <ProductsItem
                         title="Description"
-                        subTitle="Design Name"
-                        subTitle2="Design Description"
-                        inputType="input"
-                        inputType2="textarea"
                     >
                         <AdminInput
                             subTitle={"Design Name"}
+                            onChange={(e) => setTimeout(() => { setNewData({ ...newData, design_name: e.target.value }) }, 3000)}
                         />
                         <AdminInput
                             subTitle={"Design Description"}
+                            onChange={(e) => setNewData({ ...newData, descriptions: e.target.value })}
                             type={"textarea"}
                         />
                     </ProductsItem>
@@ -30,14 +71,17 @@ export function Constructions() {
                     >
                         <AdminInput
                             subTitle={"Price"}
+                            onChange={(e) => setNewData({ ...newData, total_price: e.target.value })}
                             type={'number'}
                         />
                         <AdminInput
                             subTitle={"Start"}
+                            onChange={(e) => setNewData({ ...newData, start: e.target.value })}
                             type={'date'}
                         />
                         <AdminInput
                             subTitle={"Finish"}
+                            onChange={(e) => setNewData({ ...newData, finish: e.target.value })}
                             type={"date"}
                         />
 
@@ -48,24 +92,38 @@ export function Constructions() {
                     >
                         <AdminInput
                             subTitle={"Category"}
+                            onChange={(e) => setNewData({ ...newData, category: e.target.value })}
                         />
                         <AdminInput
                             subTitle={"Style"}
+                            onChange={(e) => setNewData({ ...newData, style: e.target.value })}
                         />
                     </ProductsItem>
 
                     <ProductsItem
                         title={'Product Image'}
                     >
-
                         <AdminInput
                             type={'file'}
+                            img={newData.photo}
+                            onChange={(e) => setNewData({ ...newData, photo: [...newData.photo, e.target.files[0]] })}
+                        />
+                    </ProductsItem>
+
+                    <ProductsItem
+                        title={'Constructor'}
+                    >
+
+                        <AdminInput
+                            subTitle={"Worker"}
+                            onChange={(e) => setNewData({ ...newData, constructor: e.target.value })}
+                            type={'number'}
                         />
                     </ProductsItem>
 
                     <div className="w-full h-12 gap-5 flex">
                         <button className="px-5 py-2 border font-medium rounded-lg bg-red-500 text-white">Discard</button>
-                        <button className="px-5 py-2 border font-medium rounded-lg bg-primary text-white">Add Product</button>
+                        <button className="px-5 py-2 border font-medium rounded-lg bg-primary text-white" onClick={handleUploadData}>Add Product</button>
                     </div>
                 </div>
             </div>
