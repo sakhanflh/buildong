@@ -39,6 +39,9 @@ export const UserProvider = ({children}) => {
         } catch (error) {
             alert(error)
             console.log(error)
+            if(error.code == 'ERR_NETWORK'){
+                return setErrorStatus('Please check your network connection')
+            }
             setErrorStatus(error.response)
         } finally {
             setLoading(false)

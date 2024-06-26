@@ -106,7 +106,7 @@ const Index = () => {
                                     data?.map(dt => (
                                         <Card
                                         key={dt._id}
-                                        img={dt.image}
+                                        img={dt.image[0]}
                                         category={dt.style}
                                         title={dt.design_name}
                                         price={Rupiah(dt.total_price)}
