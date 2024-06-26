@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { CiShop } from "react-icons/ci";
 import { MenuAdmin } from "../../fragments/MenuAdmin";
 import { MenuItem } from "../../fragments/MenuItem";
-import { MdOutlineAnalytics } from "react-icons/md";
 
 
 export function Sidebar({ activeMenu, onMenuClick, setVisibleComponent, showSidebar }) {
