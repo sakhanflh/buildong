@@ -7,7 +7,7 @@ export function Notifications({ showNotifications }) {
     const [visibleComponent, setVisibleComponent] = useState('GeneralNotif')
     return (
         <>
-            <div className={`absolute font-jost bg-white shadow-2xl xl:rounded-xl translate-x-[35rem] translate-y-16 p-5 transition-all duration-500  ${showNotifications ? 'xl:w-[30rem] h-[32rem] z-50 opacity-100' : 'translate-x-[50rem] h-0 -z-50 opacity-0 cursor-none'}`}>
+            <div className={`absolute hidden xl:block font-jost bg-white shadow-2xl xl:rounded-xl translate-x-[35rem] translate-y-16 p-5 transition-all duration-500  ${showNotifications ? 'xl:w-[30rem] h-[32rem] z-50 opacity-100' : 'translate-x-[50rem] h-0 -z-50 opacity-0 cursor-none'}`}>
                 <div>
                     <h1 className="text-xl font-medium">Notifications</h1>
                 </div>

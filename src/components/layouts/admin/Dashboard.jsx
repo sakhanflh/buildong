@@ -1,8 +1,10 @@
+import { Maintenance } from "../../fragments/Maintenance";
 
 export function Dashboard() {
     return (
         <>
-            <div>
+            <div className="hidden xl:block">
+                <Maintenance/>
             </div>
         </>
     )
