@@ -43,7 +43,7 @@ export function Products() {
         <>
             <div className="flex flex-col gap-10">
                 <div>
-                    <h1 className="text-3xl">Add New Product</h1>
+                    <h1 className="text-3xl font-medium text-font-gray">Add New Product</h1>
                 </div>
                 <div className="grid xl:grid-cols-2 gap-5">
                     <ProductsItem

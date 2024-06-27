@@ -2,30 +2,41 @@ import { useState } from "react";
 import { Index } from "../components/layouts/admin/Index";
 import { Sidebar } from "../components/layouts/admin/Sidebar";
 import { HeaderAdmin } from "../components/layouts/admin/HeaderAdm";
+import { Notifications } from "../components/layouts/admin/Notifications";
 
 export default function AdminPage() {
-    const [activeMenu, setActiveMenu] = useState(null);
-    const [visibleComponent, setVisibleComponent] = useState('Constructions');
+    const [activeMenu, setActiveMenu] = useState(null)
+    const [visibleComponent, setVisibleComponent] = useState('Constructions')
     const [showSidebar, setShowSidebar] = useState(false)
+    const [showNotifications, setShowNotifications] = useState(false)
 
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar)
-        console.log('first')
     }
 
     const handleMenuClick = (menuTitle) => {
         setActiveMenu(menuTitle);
     };
 
+    const toggleNotifications = () => {
+        setShowNotifications(!showNotifications)
+        console.log('first')
+    }
+
 
     return (
 
         <>
-            <HeaderAdmin toggleSidebar={toggleSidebar}/>
+            <HeaderAdmin
+                toggleSidebar={toggleSidebar}
+            />
             <div className="font-jost flex">
-                <Sidebar activeMenu={activeMenu} onMenuClick={handleMenuClick} setVisibleComponent={setVisibleComponent} showSidebar={showSidebar}/>
+                <Sidebar activeMenu={activeMenu} onMenuClick={handleMenuClick} setVisibleComponent={setVisibleComponent} showSidebar={showSidebar} />
 
-                <Index visibleComponent={visibleComponent} />
+                <Index visibleComponent={visibleComponent} toggleNotifications={toggleNotifications} />
+                <Notifications
+                    showNotifications={showNotifications}
+                />
             </div>
         </>
     )
