@@ -6,7 +6,7 @@ import axios from "axios";
 export function Products() {
     const [newData, setNewData] = useState({
         name: "",
-        image: [],
+        photo: [],
         desc: "",
         category: "",
         brand: "",
@@ -20,8 +20,8 @@ export function Products() {
 
     async function handleUploadData() {
         const newForm = new FormData();
-        for (let i = 0; i < newData.image.length; i++) {
-            newForm.append('image', newData.image[i]);
+        for (let i = 0; i < newData.photo.length; i++) {
+            newForm.append('photo', newData.photo[i]);
         }
 
         Object.keys(newData).forEach((key) => {
@@ -95,8 +95,8 @@ export function Products() {
 
                         <AdminInput
                             type={'file'}
-                            img={newData.image}
-                            onChange={(e) => setNewData({ ...newData, image: [...newData.image, e.target.files[0]] })}
+                            img={newData.photo}
+                            onChange={(e) => setNewData({ ...newData, photo: [...newData.photo, e.target.files[0]] })}
                         />
                     </ProductsItem>
 
