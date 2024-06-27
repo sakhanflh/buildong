@@ -15,7 +15,6 @@ export function Index({ visibleComponent, toggleNotifications }) {
                 <div>
                     {visibleComponent === 'Products' && <Products/>}
                     {visibleComponent === 'Constructions' && <Constructions/>}
-                    {visibleComponent === 'Dashboard' && <Dashboard/>}
                 </div>
             </div>
         </>
