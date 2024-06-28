@@ -47,9 +47,9 @@ export function Constructions() {
 
     return (
         <>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-5 xl:gap-10">
                 <div>
-                    <h1 className="text-3xl font-medium text-font-gray">Add New Construction</h1>
+                    <h1 className="text-xl flex justify-center xl:justify-normal xl:text-3xl font-medium text-font-gray">Add New Construction</h1>
                 </div>
                 <div className="grid xl:grid-cols-2 gap-5">
                     <ProductsItem
