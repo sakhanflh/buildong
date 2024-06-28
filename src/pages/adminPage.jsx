@@ -22,13 +22,12 @@ export default function AdminPage() {
         setShowNotifications(!showNotifications)
         console.log('first')
     }
-
-
     return (
 
         <>
             <HeaderAdmin
                 toggleSidebar={toggleSidebar}
+                toggleNotifications={toggleNotifications}
             />
             <div className="font-jost flex">
                 <Sidebar activeMenu={activeMenu} onMenuClick={handleMenuClick} setVisibleComponent={setVisibleComponent} showSidebar={showSidebar} />

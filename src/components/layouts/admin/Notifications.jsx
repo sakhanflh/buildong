@@ -5,9 +5,10 @@ import { OrderNotif } from "./OrderNotif";
 
 export function Notifications({ showNotifications }) {
     const [visibleComponent, setVisibleComponent] = useState('GeneralNotif')
+
     return (
         <>
-            <div className={`absolute hidden xl:block font-jost bg-white shadow-2xl xl:rounded-xl translate-x-[35rem] translate-y-16 p-5 transition-all duration-500  ${showNotifications ? 'xl:w-[30rem] h-[32rem] z-50 opacity-100' : 'translate-x-[50rem] h-0 -z-50 opacity-0 cursor-none'}`}>
+            <div className={`fixed xl:absolute  font-jost bg-white shadow-2xl xl:rounded-xl xl:translate-x-[35rem] translate-y-16 p-5 transition-all duration-500  ${showNotifications ? 'w-dvw h-dvh xl:w-[30rem] xl:h-[32rem] z-50 xl:opacity-100' : 'w-full h-0 xl:translate-x-[50rem] xl:h-0 -z-50 overflow-hidden opacity-0 cursor-none'}`}>
                 <div>
                     <h1 className="text-xl font-medium">Notifications</h1>
                 </div>
