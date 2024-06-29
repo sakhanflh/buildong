@@ -47,7 +47,9 @@ export const UserProvider = ({children}) => {
         };
         try {
             const response = await axios.get(url, config);
-            setPoints(response.data.user.account?.points)
+            if(role !== 'admin'){
+                setPoints(response.data.user.account?.points)
+            }
             setUser(response.data);
         } catch (error) {
             alert(error)
