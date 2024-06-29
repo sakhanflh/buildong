@@ -1,4 +1,4 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { FaCheck, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Header } from "../components/fragments/Header";
 import { Footer } from "../components/layouts/Footer";
 import Layout from "../components/layouts/Layout";
@@ -10,14 +10,21 @@ import { useFetch } from "../hooks/useFetch";
 import AdditionalOption from "../components/layouts/order/AdditionalOption";
 import AddressLayout from "../components/layouts/order/AddressLayout";
 import OrderLayout from "../components/layouts/order/OrderLayout";
+import PaymentModal from "../components/layouts/order/PaymentModal";
+import axios from "axios";
+import SimpleAlert from "../components/fragments/SimpleAlert";
 
 const OrderSumPage = () => {
     const { constructionId } = useParams();
     const { user, loading } = useContext(UserContext)
     const {data, isLoading, isError} = useFetch(`https://buildong-api.vercel.app/constructions/${constructionId}`)
     const account = user?.user.account
+    const [loadingOrder, setLoadingOrder] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [msg, setMsg] = useState('')
     const [newOrder, setNewOrder] = useState({
         project_start: '',
+        payment_method: '',
         project_duration: '',
         total_workers: '',
         worker_salary: '',
@@ -33,12 +40,7 @@ const OrderSumPage = () => {
     })
     
     useEffect(() => {
-        console.log(newOrder)
-    }, [newOrder])
-    
-    useEffect(() => {
         const workerSalary = data?.project_duration * ( 150000 * data?.worker )
-        console.log(data)
         if(data && account){
             setNewOrder({
                 ...newOrder, 
@@ -56,6 +58,22 @@ const OrderSumPage = () => {
             })
         }
     }, [data, account])
+
+    async function handleUploadOrder(){
+        setLoadingOrder(true)
+        try {
+            const response = await axios.post(`https://buildong-api.vercel.app/${account._id}/construction-orders`, newOrder);
+            setLoadingOrder(false);
+            setMsg(response.data.message)
+            setTimeout(() => {
+                window.location.href = "/#/constructions"
+            }, 2000)
+            console.log('Response:', response.data);
+        } catch (error) {
+            setLoadingOrder(false);
+            console.error('Error uploading order:', error);
+        }
+    }
 
     return (
         <>
@@ -93,12 +111,20 @@ const OrderSumPage = () => {
                         isLoading={isLoading} 
                         newOrder={newOrder}
                         setNewOrder={setNewOrder}
+                        setShowModal={setShowModal}
+                        onClick={handleUploadOrder}
                         />
                     </div>
                 </div>
             </div>
         </Layout>
-        <Footer/>
+        <PaymentModal
+        onClick={(e) => setNewOrder({...newOrder, payment_method: e})}
+        payment={newOrder.payment_method}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        />
+        <SimpleAlert msg={msg} bg={'bg-primary'} icon={<FaCheck/>}/>
         </>
     )
 }

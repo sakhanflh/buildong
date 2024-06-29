@@ -7,11 +7,11 @@ import Rupiah from "../../../utils/Rupiah"
 import { useEffect, useState } from "react"
 import Loader from "../../fragments/Loader"
 
-const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
+const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onClick}) => {
     const defWorkerSalary = data?.project_duration * ( 150000 * data?.worker )
     const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers ) 
     const furniturePrice = data.total_price - defWorkerSalary
-    const totalPrice = workerSalary + furniturePrice
+    const totalPrice = workerSalary + furniturePrice + (newOrder.payment_method ? 2500 : 0)
     const [showDetails, setShowDetails] = useState(true)
 
     useEffect(() => {
@@ -24,8 +24,8 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
         <div className="rounded-lg bg-white shadow-soft px-6 py-6">
             <h1 className="xl:text-lg font-bold">Order Summary</h1>
             <OrderCard data={data} isLoading={isLoading}/>
-            <div className="mt-4 text-sm xl:text-base">
-                <div>
+            <div className="mt-2 text-sm xl:text-base">
+                <div className="py-4">
                     <div className="flex justify-between items-center">
                         <h1 className="font-semibold">Details</h1>
                         <FaChevronDown onClick={() => setShowDetails(!showDetails)} className={`${showDetails ? 'rotate-0': 'rotate-180'} transition-all duration-300`}/>
@@ -54,7 +54,7 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
                     </div>
                 </div>
                 
-                <div className="border-t-2 mt-4 border-dotted pt-2">
+                <div className="border-t-2 border-dotted py-4">
                     <h1 className="font-semibold">Additional Order</h1>
                     {
                         isLoading || !newOrder.project_duration ?
@@ -80,8 +80,19 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
                         </div>
                     }
                 </div>
+
+                <div className="border-t-2 border-dotted py-4">
+                    <div className="flex justify-between items-center">
+                        <h1 className="font-semibold">Payment Method</h1>
+                        <p onClick={() => setShowModal(true)} className="text-primary cursor-pointer">{newOrder.payment_method ? "Change":"Add"}</p>
+                    </div>
+                    <div className={`${newOrder.payment_method ? "flex" : 'hidden'} justify-between text-neutral-500`}>
+                        <p className="mt-1">{newOrder.payment_method}</p>
+                        <p>+ Rp 2.500</p>
+                    </div>
+                </div>
                     
-                <div className="bg-blue-50 rounded-lg px-4 flex justify-between py-2 font-semibold mt-6">
+                <div className="bg-blue-50 rounded-lg px-4 flex justify-between py-2 font-semibold mt-4">
                     <h1>Total</h1>
                     {
                         isLoading || !data.total_price ?
@@ -91,7 +102,7 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
                     }
                 </div>
                 
-                <button className="flex clicked bg-primary rounded-lg px-4 py-3 text-white font-semibold w-full justify-center items-center gap-4 mt-4">
+                <button onClick={onClick} className="flex clicked bg-primary rounded-lg px-4 py-3 text-white font-semibold w-full justify-center items-center gap-4 mt-4">
                     <RiShieldCheckFill/>
                     Purchase Now
                 </button>

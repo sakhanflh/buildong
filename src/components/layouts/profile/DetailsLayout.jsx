@@ -4,10 +4,33 @@ import { FmDateName } from "../../../utils/FmDateName";
 import { Link } from "react-router-dom";
 import LevelCard from "../../fragments/LevelCard";
 import Rupiah from "../../../utils/Rupiah";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Loader from "../../fragments/Loader";
 
 /* eslint-disable react/prop-types */
 const DetailsLayout = ({user, loading, points, level}) => {
     const account = user?.user.account
+    const [constructSpend, setConstructSpend] = useState(0)
+    const [spendLoad, setSpendLoad] = useState(true)
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/${account._id}/construction-orders`)
+                const data = res.data.data.construction_orders
+                const sum = data.reduce((acc, cur) => acc + cur.total_price, 0)
+                console.log(res.data.data.construction_orders)
+                setConstructSpend(sum)
+                setSpendLoad(false)
+            } catch (error) {
+                console.log(error)
+            } 
+        }
+
+        fetchData()
+    }, [account])
+
 
     // if(!account){
     //     return (
@@ -63,7 +86,7 @@ const DetailsLayout = ({user, loading, points, level}) => {
                     </div>
                     <div className="rounded-lg flex flex-col justify-center px-4 py-2 border-2 w-full xl:w-1/3 text-sm space-y-1 bg-primary text-white">
                         <h1 className="text-sm">Construction Orders</h1>
-                        <p className="text-lg font-semibold xl:text-2xl">{Rupiah(0)}</p>
+                        <p className="text-lg font-semibold xl:text-2xl">{spendLoad ? <Loader/> :Rupiah(constructSpend)}</p>
                     </div>
                 </div>
             </div>

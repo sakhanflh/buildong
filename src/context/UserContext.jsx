@@ -13,16 +13,16 @@ export const UserProvider = ({children}) => {
     const [ level, setLevel ] = useState('Bronze');
 
     useEffect(() => {
-        if(points >= 1000){
-            setLevel('Silver');
-        } else if(points >= 10000){
-            setLevel('Gold');
-        } else if(points > 50000){
-            setLevel('Diamond');
-        } else {
+        if(points == 0 && points < 1000) {
             setLevel('Bronze')
-        }
-    }, [])
+        } else if(points > 1000 && points <= 10000){
+            setLevel('Silver');
+        } else if(points > 10000){
+            setLevel('Gold');
+        } else{
+            setLevel('Diamond');
+        } 
+    }, [points])
 
     useEffect(() => {
         if(window.location.pathname == "/login" || window.location.pathname == "/"){
