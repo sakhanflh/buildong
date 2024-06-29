@@ -7,6 +7,7 @@ import Rupiah from "../../../utils/Rupiah"
 
 const OrderLayout = ({data, isLoading, orderId}) => {
     const workerSalary = data?.project_duration * ( 150000 * data?.worker )
+    const furniturePrice = data.total_price - workerSalary
 
     return (
         <div className="rounded-lg bg-white shadow-soft px-6 py-6">
@@ -27,6 +28,10 @@ const OrderLayout = ({data, isLoading, orderId}) => {
                                         <div className="flex justify-between items-center">
                                             <p>5 Workers</p>
                                             <p>{Rupiah(workerSalary)}</p>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <p>All Furniture</p>
+                                            <p>{Rupiah(furniturePrice)}</p>
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <p>Square Meters</p>

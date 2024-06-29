@@ -3,15 +3,17 @@ import { FaCartShopping, FaHeart } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Stars from "../elements/Stars";
 
-const Card = ({img, category, rate, title, price, linkTo}) => {
+const Card = ({img, category, rate, title, price, linkTo, brand}) => {
     return (
         <Link to={linkTo} className="w-full xl:w-[31%] h-max">
         <div className="w-full">
             <div className="rounded-lg overflow-hidden w-full bg-neutral-200 relative h-44">
                 <img src={img} alt="" className="w-full h-full absolute object-cover"/>
                 <div className="relative w-full z-10 text-white flex justify-between py-4 px-5 xl:text-xl">
-                    <div className="w-max h-max py-2 px-2 shadow-multiple bg-primary rounded-full text-xs font-semibold">
-                        <h1>-20%</h1>
+                    <div>
+                        <div className="w-max h-max py-2 px-2 shadow-multiple bg-primary rounded-full text-xs font-semibold">
+                            <h1>-20%</h1>
+                        </div>
                     </div>
                     <div className="flex flex-col gap-4 text-xl xl:text-2xl">
                         <FaHeart className="cursor-pointer transition duration-300 hover:text-red-500"/>  
@@ -28,7 +30,10 @@ const Card = ({img, category, rate, title, price, linkTo}) => {
             </div>
             <div className="flex justify-between items-end xl:block">
             <h1 className="font-bold xl:text-base">{title}</h1>
-            <p className="text-base xl:text-base xl:mt-2">{price}</p>
+                <div className={`${brand ? 'flex justify-between items-center' : ''}`}>
+                    <p className="text-base xl:text-base xl:mt-2">{price}</p>
+                    <p className="font-bold uppercase">{brand ? "ikeha" : ""}</p>
+                </div>
             </div>
         </div>
         </Link>
