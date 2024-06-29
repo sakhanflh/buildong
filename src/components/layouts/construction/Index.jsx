@@ -109,7 +109,7 @@ const Index = () => {
                                         img={dt.image[0]}
                                         category={dt.category}
                                         title={dt.design_name}
-                                        price={Rupiah(dt.unit_price)}
+                                        price={Rupiah(dt.total_price)}
                                         rate={'4.9'}
                                         linkTo={`/constructions/${dt._id}`}
                                         />
