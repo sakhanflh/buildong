@@ -7,6 +7,7 @@ import SkeletonLoading from "../../fragments/SkeletonLoading"
 import { Link } from "react-router-dom"
 
 const DetailsLayout = ({isLoading, data, constructId}) => {
+    const role = localStorage.getItem('role')
     
     return (
         <div className="flex flex-col gap-2 xl:w-[60%]">
@@ -50,30 +51,12 @@ const DetailsLayout = ({isLoading, data, constructId}) => {
                                 <h1 className="font-medium xl:font-bold xl:text-lg">Project Timeline</h1>
                                 <div className="text-sm mt-2 xl:text-base">
                                     <div className="flex justify-between">
-                                        <h1>Start :</h1>
-                                        {
-                                            isLoading  ?
-                                            <SkeletonLoading width={'w-32'}/>
-                                            :
-                                            <p>{FormatDate(data?.project_timeline?.start)}</p>
-                                        }
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1>Finish :</h1>
-                                        {
-                                            isLoading  ?
-                                            <SkeletonLoading width={'w-32'}/>
-                                            :
-                                            <p>{FormatDate(data?.project_timeline?.finish)}</p>
-                                        }
-                                    </div>
-                                    <div className="flex justify-between">
                                         <h1>Duration :</h1>
                                         {
                                             isLoading  ?
                                             <SkeletonLoading width={'w-44'}/>
                                             :
-                                            <p>{data?.project_timeline?.duration}</p>
+                                            <p>{data?.project_duration} days</p>
                                         }
                                     </div>
                                 </div>
@@ -83,12 +66,13 @@ const DetailsLayout = ({isLoading, data, constructId}) => {
                                     <FaCheck className="text-primary"/>
                                     <p><b>8</b> in stock</p>
                                 </div>
-                                <div className="flex gap-2 mt-2">
-                                    <button className="bg-yellow-500 rounded-lg w-max text-white px-4 py-3">
+                                <div className={`${role == 'admin' ? 'hidden' : 'flex'} flex-col xl:flex-row gap-2 mt-2 xl:font-semibold`}>
+                                    <button className="bg-yellow-500 rounded-lg w-full text-white px-4 py-3 xl:w-1/2 flex items-center justify-center gap-4">
                                         <FaCartPlus/>
+                                        <p>Add to cart</p>
                                     </button>
-                                    <Link to={`/constructions/${constructId}/checkout`}>
-                                        <button className="bg-primary rounded-lg w-full text-white px-4 py-3 xl:font-semibold">
+                                    <Link to={`/constructions/${constructId}/checkout`} className="w-full xl:w-1/2">
+                                        <button className="bg-primary rounded-lg w-full text-white px-4 py-3">
                                             Order this project
                                         </button>
                                     </Link>

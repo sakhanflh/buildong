@@ -3,8 +3,11 @@ import { FaChevronDown } from "react-icons/fa6"
 import OrderCard from "./OrderCard"
 import SkeletonLoading from "../../fragments/SkeletonLoading"
 import { RiShieldCheckFill } from "react-icons/ri"
+import Rupiah from "../../../utils/Rupiah"
 
 const OrderLayout = ({data, isLoading, orderId}) => {
+    const workerSalary = data?.project_duration * ( 150000 * data?.worker )
+
     return (
         <div className="rounded-lg bg-white shadow-soft px-6 py-6">
                             <div className="flex justify-between">
@@ -23,7 +26,7 @@ const OrderLayout = ({data, isLoading, orderId}) => {
                                     <div className="space-y-1 mt-1 text-neutral-500">
                                         <div className="flex justify-between items-center">
                                             <p>5 Workers</p>
-                                            <p>Rp 2.400.000</p>
+                                            <p>{Rupiah(workerSalary)}</p>
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <p>Square Meters</p>
