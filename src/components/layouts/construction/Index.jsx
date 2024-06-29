@@ -107,9 +107,9 @@ const Index = () => {
                                         <Card
                                         key={dt._id}
                                         img={dt.image[0]}
-                                        category={dt.style}
+                                        category={dt.category}
                                         title={dt.design_name}
-                                        price={Rupiah(dt.total_price)}
+                                        price={Rupiah(dt.unit_price)}
                                         rate={'4.9'}
                                         linkTo={`/constructions/${dt._id}`}
                                         />

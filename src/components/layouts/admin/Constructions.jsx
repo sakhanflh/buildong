@@ -9,7 +9,7 @@ export function Constructions() {
         location: "",
         total_price: "",
         photo: [],
-        square_meters: "100",
+        square_meters: "",
         style: "",
         category: "",
         descriptions: "",
