@@ -42,7 +42,6 @@ const AdditionalOption = ({data, isLoading, newOrder, setNewOrder}) => {
                             <option value="15">15</option>
                         </select>
                     </div>
-                    <p className="text-xs hidden xl:text-sm xl:block text-primary font-medium">Increasing the number of workers will reduce the project duration.</p>
                 </div>
                 <div className="xl:w-1/2 flex flex-col gap-1 mt-4">
                     <h1>Project Duration</h1>
@@ -53,7 +52,7 @@ const AdditionalOption = ({data, isLoading, newOrder, setNewOrder}) => {
                             <p className={`${newDuration !== "" ? 'opacity-100' : 'opacity-0'} transition-all duration-200 text-primary font-semibold`}>{`${newDuration - 5} - ${newDuration} days`}</p>
                         </div>
                     }
-                    <p className="text-xs xl:block text-primary font-medium">Increasing the number of workers will reduce the project duration.</p>
+                    <p className="text-xs xl:text-base text-primary font-medium">Increasing the number of workers will reduce the project duration.</p>
                 </div>
             </div>
         </div>

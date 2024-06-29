@@ -9,7 +9,7 @@ import Loader from "../../fragments/Loader"
 
 const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
     const defWorkerSalary = data?.project_duration * ( 150000 * data?.worker )
-    const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers )
+    const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers ) 
     const furniturePrice = data.total_price - defWorkerSalary
     const totalPrice = workerSalary + furniturePrice
     const [showDetails, setShowDetails] = useState(true)
@@ -18,7 +18,7 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder}) => {
         if(data){
             setNewOrder({...newOrder, worker_salary: workerSalary, furniture_cost: furniturePrice, total_price: totalPrice})
         }
-    }, [data])
+    }, [data, workerSalary])
 
     return (
         <div className="rounded-lg bg-white shadow-soft px-6 py-6">
