@@ -22,8 +22,8 @@ const OrderCard = ({data, isLoading}) => {
             <img src={data.image ? data.image[0] : ''} alt="" className="w-full h-full absolute object-cover"/>
         </div>
         <div>   
-            <h1 className="font-semibold">{data?.design_name}</h1>
-            <p>{Rupiah(data?.total_price)}</p>
+            <h1 className="font-semibold xl:text-base">{data?.design_name}</h1>
+            <p className=" text-sm xl:text-base">{Rupiah(data?.total_price)}</p>
         </div>
     </div>
     )

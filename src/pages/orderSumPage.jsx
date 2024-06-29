@@ -16,48 +16,84 @@ const OrderSumPage = () => {
     const { user, loading } = useContext(UserContext)
     const {data, isLoading, isError} = useFetch(`https://buildong-api.vercel.app/constructions/${constructionId}`)
     const account = user?.user.account
-    const [orderId, setOrderId] = useState('');
+    const [newOrder, setNewOrder] = useState({
+        project_start: '',
+        project_duration: '',
+        total_workers: '',
+        worker_salary: '',
+        design_name: '',
+        furniture_cost: '',
+        location: '',
+        address: '',
+        total_price: '',
+        image: null,
+        square_meters: '',
+        style: '',
+        category: '',
+    })
+    const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers )
 
     useEffect(() => {
-      const newOrderId = generateRandomId();
-      setOrderId(newOrderId);
-    }, []);
-  
-    const generateRandomId = () => {
-      return 'ORDER-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-    };
+        console.log(newOrder)
+    }, [newOrder])
 
     useEffect(() => {
         console.log(data)
-    }, [data])
+        if(data && account){
+            setNewOrder({
+                ...newOrder, 
+                image: data.image,
+                project_duration: data.project_duration,
+                total_workers: data.worker,
+                worker_salary: workerSalary,
+                square_meters: data.square_meters,
+                total_price: data.total_price,
+                style: data.style,
+                category: data.category,
+                location: data.location,
+                design_name: data.design_name,
+                address: account.address
+            })
+        }
+    }, [data, account])
 
     return (
         <>
         <Header/>
         <Layout>
             <div className="px-[5%]">
-                <button className="flex items-center gap-2 font-medium rounded-lg px-4 py-2 bg-white text-neutral-600 hover:text-white hover:bg-primary active:text-primary  transition-all duration-150">
-                    <FaChevronLeft className="text-sm"/>
+                <button className="flex items-center gap-2 font-medium rounded-lg px-4 py-2 bg-white shadow-soft hover:text-white hover:bg-primary active:text-primary text-sm xl:text-base transition-all duration-150">
+                    <FaChevronLeft className="text-xs xl:text-sm"/>
                     Return
                 </button>
 
-                <div className="flex gap-4 mt-4">
-                    <div className="flex flex-col gap-4 w-1/2">
-                        <AddressLayout account={account}/>
-                        {/* ADDITIONAL OPTION*/}
-                        <AdditionalOption duration={data.project_duration}/>
+                <div className="flex flex-col xl:flex-row gap-4 mt-4">
+                    <div className="flex flex-col gap-4 w-full xl:w-1/2">
+                        <AddressLayout 
+                        account={account}/>
+                        <AdditionalOption 
+                        data={data} 
+                        isLoading={isLoading}
+                        newOrder={newOrder}
+                        setNewOrder={setNewOrder}
+                        />
                     </div>
 
-                    <div className="flex flex-col gap-4 w-1/2">
+                    <div className="flex flex-col gap-4 w-full xl:w-1/2">
                         <div className="rounded-lg bg-white shadow-soft flex items-center justify-between px-4 py-3">
                             <div className="flex items-center gap-2">
                                 <RiDiscountPercentFill className="text-primary text-2xl"/>
-                                <h1 className="font-bold text-lg">Voucher Code</h1>
+                                <h1 className="font-bold xl:text-lg">Voucher Code</h1>
                             </div>
                             <FaChevronRight/>
                         </div>
 
-                        <OrderLayout data={data} isLoading={isLoading} orderId={orderId}/>
+                        <OrderLayout 
+                        data={data} 
+                        isLoading={isLoading} 
+                        newOrder={newOrder}
+                        setNewOrder={setNewOrder}
+                        />
                     </div>
                 </div>
             </div>
