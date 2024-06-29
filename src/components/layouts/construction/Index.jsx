@@ -61,7 +61,7 @@ const Index = () => {
                 setCategory={value => setFilterData(prev => ({ ...prev, category: value }))}
                 setStyle={value => setFilterData(prev => ({ ...prev, style: value }))}
                 setMaterial={value => setFilterData(prev => ({ ...prev, material: value }))}
-                setPriceFrom={value => setFilterData(prev => ({ ...prev, price_from: value}))}
+                setPriceFrom={value => setTimeout(() => {setFilterData(prev => ({ ...prev, price_from: value}))})}
                 setPriceTo={value => setFilterData(prev => ({ ...prev, price_to : value}))}
                 showFilter={showFilter}
                 setShowFilter={setShowFilter}
@@ -83,7 +83,7 @@ const Index = () => {
                     </div>
 
                     <div className="flex flex-col justify-between xl:h-full"> 
-                        <div className="mt-8 flex flex-wrap xl:gap-x-2 gap-y-8">
+                        <div className={`mt-8 flex flex-wrap ${data?.length == 2 ? 'xl:gap-x-4' : 'xl:justify-between'} gap-y-8`}>
                                 {
                                     isLoading ?
                                     arrLength.map((_, i) =>  (

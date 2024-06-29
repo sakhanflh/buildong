@@ -12,21 +12,25 @@ const SideSettings = () => {
             icon={<FaUserCircle/>}
             text={'Account Details'}
             to={'/profile/details'}
+            path={'details'}
             />
             <ListIcon
             icon={<FaUserEdit/>}
             text={'Edit Account'}
             to={'/profile/edit'}
+            path={'edit'}
             />
             <ListIcon
             icon={<FaLock/>}
             text={'Sign in & Security'}
             to={'/profile/security'}
+            path={'security'}
             />
             <ListIcon
             icon={<FaTrash/>}
             text={'Delete Account'}
             to={'/profile/delete'}
+            path={'delete'}
             />
         </ul>
     </div>

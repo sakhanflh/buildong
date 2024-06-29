@@ -9,6 +9,20 @@ export const UserProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [errorStatus, setErrorStatus] = useState()
     const [loading, setLoading] = useState(true);
+    const [points, setPoints] = useState(0)
+    const [ level, setLevel ] = useState('Bronze');
+
+    useEffect(() => {
+        if(points >= 1000){
+            setLevel('Silver');
+        } else if(points >= 10000){
+            setLevel('Gold');
+        } else if(points > 50000){
+            setLevel('Diamond');
+        } else {
+            setLevel('Bronze')
+        }
+    }, [])
 
     useEffect(() => {
         if(window.location.pathname == "/login" || window.location.pathname == "/"){
@@ -31,10 +45,9 @@ export const UserProvider = ({children}) => {
         const config = {
             headers: { authorization: `Bearer ${token}` }
         };
-        console.log(config.headers)
         try {
             const response = await axios.get(url, config);
-            console.log(response)
+            setPoints(response.data.user.account?.points)
             setUser(response.data);
         } catch (error) {
             alert(error)
@@ -60,7 +73,7 @@ export const UserProvider = ({children}) => {
     }, []);
 
     return(
-        <UserContext.Provider value={{user, loading}}>
+        <UserContext.Provider value={{user, loading, points, level}}>
             {children}
         </UserContext.Provider>
     )

@@ -2,6 +2,8 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react"
 import LoadBtn from "../../elements/LoadBtn";
 import UserContext from "../../../context/UserContext";
+import SimpleAlert from "../../fragments/SimpleAlert";
+import { FaCheckCircle } from "react-icons/fa";
 
 const EditLayout = () => {
     let token = localStorage.getItem('token')
@@ -14,17 +16,19 @@ const EditLayout = () => {
     const [defVal, setDefVal] = useState(null)
     const { user } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
+    const [msg, setMsg] = useState('')
 
     useEffect(() => {
         if(user){
-            console.log(user)
             const account = user.user.account
-            setDefVal({
-                photo: account.profile_picture,
-                username: account.username,
-                phone: account.phone,
-                address: account.address
-            })
+            if(account){
+                setDefVal({
+                    photo: account.profile_picture,
+                    username: account.username,
+                    phone: account.phone,
+                    address: account.address
+                })
+            }
         }
     }, [user])
 
@@ -51,12 +55,15 @@ const EditLayout = () => {
                     'Content-Type': 'multipart/form-data'
                 },
             };
-            console.log(config.headers.authorization)
             if(defVal){
                 await axios.patch('https://buildong-api.vercel.app/account', formData, config); 
             } else {
                 await axios.post('https://buildong-api.vercel.app/account', formData, config); 
             }
+            setMsg('Successfully updated account, please wait until your account is updated')
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
         } catch (err) {
             console.log(err)
         } finally {
@@ -130,6 +137,7 @@ const EditLayout = () => {
                     />
                 </div>
             </form>
+            <SimpleAlert bg={'bg-primary'} icon={<FaCheckCircle/>} msg={msg}/>
         </>
     )
 }

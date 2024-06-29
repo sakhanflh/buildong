@@ -14,7 +14,7 @@ import SkeletonLoading from "../components/fragments/SkeletonLoading";
 
 const ProfilePage = () => {
     const { profileId } = useParams();
-    const { user } = useContext(UserContext)
+    const { user, points, level } = useContext(UserContext)
     const [loading, setLoading] = useState(true)
     const [title, setTitle] = useState({
         title: '',
@@ -59,7 +59,7 @@ const ProfilePage = () => {
                         }
                     </div>
                     <div className="py-4 px-8">
-                        { profileId == 'details' && <DetailsLayout user={user} loading={loading}/>}
+                        { profileId == 'details' && <DetailsLayout user={user} points={points} loading={loading} level={level}/>}
                         { profileId == 'edit' && <EditLayout/>}
                         { profileId == 'security' && <SecurityLayout user={user} loading={loading}/>}
                         { profileId == 'delete' && <DeleteLayout/>}

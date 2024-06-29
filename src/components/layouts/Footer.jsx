@@ -1,7 +1,7 @@
 export function Footer() {
     return (
         <>
-            <div className="w-full bg-slate-100 p-[5%] flex flex-wrap justify-between font-jost gap-10 xl:gap-0">
+            <div className="w-full bg-white p-[5%] flex flex-wrap shadow-soft justify-between font-jost gap-10 xl:gap-0">
                 <div className="xl:w-[25%]  flex flex-col gap-2">
                     <h1 className="font-bold text-xl">BUILDONG</h1>
                     <p className="text-slate-500 text-sm">Transforming Visions into Reality With BUILDONG, your dream projects come to life throught meticulous planning, expert craftsmanship, and unwavering commitment to excellence</p>
