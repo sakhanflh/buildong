@@ -31,13 +31,13 @@ const OrderSumPage = () => {
         style: '',
         category: '',
     })
-    const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers )
-
+    
     useEffect(() => {
         console.log(newOrder)
     }, [newOrder])
-
+    
     useEffect(() => {
+        const workerSalary = data?.project_duration * ( 150000 * data?.worker )
         console.log(data)
         if(data && account){
             setNewOrder({
