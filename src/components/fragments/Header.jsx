@@ -88,11 +88,7 @@ export function Header() {
                                     icon={<FaShoppingBasket/>}
                                     text={'Upload product'}
                                     to={'/admin'}
-                                    />
-                                    <ListIcon
-                                    icon={<FaBuildingUser/>}
-                                    text={'Upload construction'}
-                                    to={'edit'}
+                                    path={'admin'}
                                     />
                                 <button onClick={handleLogOut} className="bg-red-500 text-white w-full flex items-center justify-center gap-3 rounded-lg py-2 mt-4">
                                     <GiExitDoor/>
