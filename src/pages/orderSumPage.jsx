@@ -1,15 +1,12 @@
-import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Header } from "../components/fragments/Header";
 import { Footer } from "../components/layouts/Footer";
 import Layout from "../components/layouts/Layout";
-import { RiDiscountPercentFill, RiShieldCheckFill } from "react-icons/ri";
+import { RiDiscountPercentFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/UserContext";
 import { useFetch } from "../hooks/useFetch";
-import OrderCard from "../components/layouts/order/OrderCard";
-import SkeletonLoading from "../components/fragments/SkeletonLoading";
-import Loader from "../components/fragments/Loader";
 import AdditionalOption from "../components/layouts/order/AdditionalOption";
 import AddressLayout from "../components/layouts/order/AddressLayout";
 import OrderLayout from "../components/layouts/order/OrderLayout";
@@ -22,12 +19,10 @@ const OrderSumPage = () => {
     const [orderId, setOrderId] = useState('');
 
     useEffect(() => {
-      // Generate a random ID when the component mounts
       const newOrderId = generateRandomId();
       setOrderId(newOrderId);
     }, []);
   
-    // Function to generate a random ID
     const generateRandomId = () => {
       return 'ORDER-' + Math.random().toString(36).substr(2, 9).toUpperCase();
     };
@@ -50,7 +45,7 @@ const OrderSumPage = () => {
                     <div className="flex flex-col gap-4 w-1/2">
                         <AddressLayout account={account}/>
                         {/* ADDITIONAL OPTION*/}
-                        <AdditionalOption/>
+                        <AdditionalOption duration={data.project_duration}/>
                     </div>
 
                     <div className="flex flex-col gap-4 w-1/2">

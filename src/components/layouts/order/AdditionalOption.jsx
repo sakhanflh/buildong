@@ -1,4 +1,4 @@
-const AdditionalOption = () => {
+const AdditionalOption = ({duration}) => {
     return (
     <div className="bg-white rounded-lg shadow-soft px-6 py-6">
         <h1 className="text-lg font-bold">Additional Options</h1>
@@ -22,7 +22,7 @@ const AdditionalOption = () => {
                 </div>
                 <div className="w-1/2 flex flex-col gap-1 mt-4">
                     <h1>Project Duration</h1>
-                    <input type="text" value={`${5} days`} className="border-b-2 px-4 py-2"/>
+                    <input type="text" value={`${duration} days`} className="border-b-2 px-4 py-2"/>
                 </div>
             </div>
         </div>

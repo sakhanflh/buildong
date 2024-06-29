@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { AdminInput } from "../../fragments/AdminInput";
 import { ProductsItem } from "../../fragments/ProductsItem";
 import axios from "axios";
+import SimpleAlert from "../../fragments/SimpleAlert";
+import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 
 export function Constructions() {
     const [newData, setNewData] = useState({
@@ -13,9 +15,11 @@ export function Constructions() {
         style: "",
         category: "",
         descriptions: "",
-        constructor: "",
+        worker: "",
         project_duration: "",
     })
+    const [msg, setMsg] = useState('')
+    const [err, setErr] = useState(false)
 
     useEffect(() => {
         console.log(newData)
@@ -37,8 +41,13 @@ export function Constructions() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            setErr(false)
             console.log(res.data);
+            setMsg('Successfully uploaded construction data')
+            window.location.reload();
         } catch (err) {
+            setMsg('Please fill all fields')
+            setErr(true)
             console.log(err);
         }
     }
@@ -112,7 +121,7 @@ export function Constructions() {
 
                         <AdminInput
                             subTitle={"Worker"}
-                            onChange={(e) => setNewData({ ...newData, constructor: e.target.value })}
+                            onChange={(e) => setNewData({ ...newData, worker: e.target.value})}
                             type={'number'}
                         />
                         <AdminInput
@@ -127,6 +136,11 @@ export function Constructions() {
                     </div>
                 </div>
             </div>
+            {
+            err ? <SimpleAlert bg={'bg-red-500'} icon={<FaExclamationTriangle/>} msg={msg}/>
+            :
+            <SimpleAlert bg={'bg-primary'} icon={<FaCheck/>} msg={msg}/>
+            }
         </>
     )
 }
