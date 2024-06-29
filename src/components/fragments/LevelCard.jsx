@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FaInfoCircle } from "react-icons/fa";
 
 const LevelCard = ({points, level}) => {
