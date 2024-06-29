@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function AdminInput({ type, subTitle, onChange, img }) {
+export function AdminInput({ type, subTitle, onChange, img, option1, option2, option3 }) {
     const [imageUrl, setImgUrl] = useState([])
 
     useEffect(() => {
@@ -19,7 +19,12 @@ export function AdminInput({ type, subTitle, onChange, img }) {
                     <textarea onChange={onChange} className="w-full border rounded p-2 mt-1" rows="4"></textarea>
                     :
                     type == 'select' ?
-                        <select onChange={onChange} name="" id=""></select>
+                        <select onChange={onChange} name="" id="">
+                            <option value=""></option>
+                            <option value="">{option1}</option>
+                            <option value="">{option2}</option>
+                            <option value="">{option3}</option>
+                        </select>
                         :
                         type == 'file' ?
                             img ?

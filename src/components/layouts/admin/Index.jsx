@@ -3,6 +3,7 @@ import { Products } from "./Products";
 import { Dashboard } from "./Dashboard";
 import { Link } from "react-router-dom";
 import { Constructions } from "./Constructions";
+import { Voucher } from "./Voucher";
 
 export function Index({ visibleComponent, toggleNotifications }) {
     return (
@@ -16,6 +17,7 @@ export function Index({ visibleComponent, toggleNotifications }) {
                     {visibleComponent === 'Products' && <Products/>}
                     {visibleComponent === 'Constructions' && <Constructions/>}
                     {visibleComponent === 'Dashboard' && <Dashboard/>}
+                    {visibleComponent === 'Voucher' && <Voucher/>}
                 </div>
             </div>
         </>

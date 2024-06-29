@@ -18,6 +18,7 @@ export function Sidebar({ activeMenu, onMenuClick, setVisibleComponent, showSide
                     >
                         <MenuItem onClick={() => setVisibleComponent('Products')}>Products</MenuItem>
                         <MenuItem onClick={() => setVisibleComponent('Constructions')}>Constructions</MenuItem>
+                        <MenuItem onClick={() => setVisibleComponent('Voucher')}>Voucher</MenuItem>
                     </MenuAdmin>
                 </div>
             </div>

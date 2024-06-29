@@ -10,13 +10,11 @@ export function Constructions() {
         total_price: "",
         photo: [],
         square_meters: "100",
-        province: "",
         style: "",
         category: "",
         descriptions: "",
-        start: "",
-        finish: "",
         constructor: "",
+        project_duration: "",
     })
 
     useEffect(() => {
@@ -68,11 +66,6 @@ export function Constructions() {
                             subTitle={"Location"}
                             onChange={(e) => setNewData({ ...newData, location: e.target.value })}
                         />
-                        <AdminInput
-                            subTitle={"Province"}
-                            onChange={(e) => setNewData({ ...newData, province: e.target.value })}
-                        />
-
                     </ProductsItem>
 
                     <ProductsItem
@@ -85,16 +78,9 @@ export function Constructions() {
                         />
 
                         <AdminInput
-                            subTitle={"Start"}
-                            onChange={(e) => setNewData({ ...newData, start: e.target.value })}
-                            type={'date'}
+                            subTitle={"Project Duration"}
+                            onChange={(e) => setNewData({ ...newData, project_duration: e.target.value })}
                         />
-                        <AdminInput
-                            subTitle={"Finish"}
-                            onChange={(e) => setNewData({ ...newData, finish: e.target.value })}
-                            type={"date"}
-                        />
-
                     </ProductsItem>
 
                     <ProductsItem
