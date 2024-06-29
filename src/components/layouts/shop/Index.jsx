@@ -112,6 +112,7 @@ export default function Index() {
                                                     price={Rupiah(dt.unit_price)}
                                                     rate={'4.9'}
                                                     linkTo={`/products/${dt._id}`}
+                                                    brand={dt.brand}
                                                 />
                                             ))
                                 }

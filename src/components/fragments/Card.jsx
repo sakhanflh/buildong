@@ -29,10 +29,10 @@ const Card = ({img, category, rate, title, price, linkTo, brand}) => {
                 </div>
             </div>
             <div className="flex justify-between items-end xl:block">
-            <h1 className="font-bold xl:text-base">{title}</h1>
+            <h1 className="font-semibold xl:text-base">{title}</h1>
                 <div className={`${brand ? 'flex justify-between items-center' : ''}`}>
                     <p className="text-base xl:text-base xl:mt-2">{price}</p>
-                    <p className="font-bold uppercase">{brand ? "ikeha" : ""}</p>
+                    <p className="font-semibold text-sm opacity-70 xl:mt-2 uppercase">{brand ? brand : ''}</p>
                 </div>
             </div>
         </div>
