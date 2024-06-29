@@ -1,14 +1,24 @@
 import { FaPencil } from "react-icons/fa6";
 import SkeletonLoading from "../../fragments/SkeletonLoading";
-import FormatDate from "../../../utils/FormatDate";
 import { FmDateName } from "../../../utils/FmDateName";
-import { FaInfoCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LevelCard from "../../fragments/LevelCard";
+import Rupiah from "../../../utils/Rupiah";
 
 /* eslint-disable react/prop-types */
-const DetailsLayout = ({user, loading}) => {
+const DetailsLayout = ({user, loading, points, level}) => {
     const account = user?.user.account
+
+    // if(!account){
+    //     return (
+    //         <div className="flex flex-col items-center">
+    //             <h1 className="text-center xl:text-start font-medium text-neutral-600">Oops, you haven't completed your account yet. Complete your account <Link to={'/profile/edit'} className="text-primary font-bold">here</Link></h1>
+    //             <div className="w-40 mt-6">
+    //                 <img src="/svg/profile-details.svg" alt="" />
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     return (
         <>
@@ -19,8 +29,8 @@ const DetailsLayout = ({user, loading}) => {
                         <SkeletonLoading height={'h-full'}/>
                     </div>
                     :
-                    <div className="rounded-full w-14 h-14 xl:w-32 xl:h-32 ring-2 ring-primary relative">
-                        <div className="rounded-full w-14 h-14 xl:w-32 relative xl:h-32 overflow-hidden">
+                    <div className="rounded-full w-20 h-20 xl:w-32 xl:h-32 ring-2 ring-primary relative">
+                        <div className="rounded-full w-20 h-20 xl:w-32 relative xl:h-32 overflow-hidden">
                             <img src={account?.profile_picture} alt=""  className="w-full absolute h-full object-cover"/>
                         </div>
                         <Link to={'/profile/edit'} className="clicked absolute rounded-full bg-white w-10 h-10 z-10 flex justify-center items-center bottom-0 right-0 shadow-multiple border-primary border-2 cursor-pointer">
@@ -46,14 +56,14 @@ const DetailsLayout = ({user, loading}) => {
             </div>
             <div className="mt-6">
                 <div className="flex gap-1 mt-1 flex-wrap xl:flex-nowrap">
-                <LevelCard/>
-                    <div className="rounded-lg px-4 py-2 border-2 w-[49%] xl:w-1/3 text-sm space-y-1 border-neutral-400">
-                        <h1 className="text-sm">Total Item </h1>
-                        <p className="text-lg font-semibold">0</p>
+                <LevelCard points={points} level={level}/>
+                    <div className="rounded-lg flex flex-col justify-center px-4 py-2 border-2 w-full xl:w-1/3 text-sm space-y-1 border-neutral-400">
+                        <h1 className="text-sm">Product Orders</h1>
+                        <p className="text-lg font-semibold xl:text-2xl">{Rupiah(0)}</p>
                     </div>
-                    <div className="rounded-lg px-4 py-2 border-2 w-[49%] xl:w-1/3 text-sm space-y-1 bg-primary text-white">
-                        <h1 className="text-sm">Total Purchased</h1>
-                        <p className="text-lg font-semibold">Rp. 0</p>
+                    <div className="rounded-lg flex flex-col justify-center px-4 py-2 border-2 w-full xl:w-1/3 text-sm space-y-1 bg-primary text-white">
+                        <h1 className="text-sm">Construction Orders</h1>
+                        <p className="text-lg font-semibold xl:text-2xl">{Rupiah(0)}</p>
                     </div>
                 </div>
             </div>

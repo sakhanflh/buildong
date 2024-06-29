@@ -11,6 +11,7 @@ import { UserProvider } from './context/UserContext'
 import ProfilePage from './pages/profilePage'
 import ShopPage from './pages/shopPage'
 import AdminPage from './pages/adminPage'
+import OrderSumPage from './pages/orderSumPage'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/constructions' element={<ConstructionPage/>}/>
           <Route path='/constructions/:constructionId' element={<ConstructionDetailsPage/>}/>
+          <Route path='/constructions/:constructionId/checkout' element={<OrderSumPage/>}/>
           <Route path='/admin' element={<AdminPage/>}/>
         </Routes>
       </HashRouter>

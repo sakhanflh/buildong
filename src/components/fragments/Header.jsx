@@ -13,7 +13,7 @@ import { FaBuildingUser, FaDoorOpen, FaMedal } from "react-icons/fa6";
 
 export function Header() {
     const [showSidebar, setShowSidebar] = useState(false)
-    const { user } = useContext(UserContext)
+    const { user, points, level } = useContext(UserContext)
     const { profileId } = useParams()
     const token = localStorage.getItem('token')
     const role = localStorage.getItem('role')
@@ -78,12 +78,7 @@ export function Header() {
                                 <img src={user.user.account.profile_picture} alt="" className="w-full h-full object-cover"/>
                             }
                         </div>
-                        {
-                            showMenu ?
-                            <FaChevronUp />
-                            :
-                            <FaChevronDown />
-                        }
+                        <FaChevronUp className={`${showMenu ? 'rotate-0' : 'rotate-180'} transition-all duration-300`}/>
                         {
                             role == 'admin'
                             ? 
@@ -108,32 +103,36 @@ export function Header() {
                             :
                             <div className={`${showMenu ? 'translate-y-0 opacity-100' : '-translate-y-[500px] opacity-0'} transition-all duration-500 absolute top-14 right-0 bg-white shadow-multiple w-max h-max rounded-xl`}>
                                 <ul className="flex flex-col px-3 gap-1 py-3 text-sm">
-                                    <div className="silver px-2 py-3 rounded-lg font-bold text-center">
-                                        <h1>SILVER</h1>
+                                    <div className={`${level?.toLowerCase()} px-2 py-3 rounded-lg font-bold text-center`}>
+                                        <h1>{level?.toUpperCase()}</h1>
                                     </div>
                                     <div className="px-4 py-3 border-b-2 flex items-center gap-4 font-semibold text-black">
                                         <FaMedal className="text-primary"/>
-                                        <h1>1.340 pts</h1>
+                                        <h1>{points?points:0} pts</h1>
                                     </div>
                                     <ListIcon
                                     icon={<FaUserCircle/>}
                                     text={'Account Details'}
                                     to={'/profile/details'}
+                                    path={'details'}
                                     />
                                     <ListIcon
                                     icon={<FaUserEdit/>}
                                     text={'Edit Account'}
                                     to={'/profile/edit'}
+                                    path={'edit'}
                                     />
                                     <ListIcon
                                     icon={<FaLock/>}
                                     text={'Sign in & Security'}
                                     to={'/profile/security'}
+                                    path={'security'}
                                     />
                                     <ListIcon
                                     icon={<FaTrash/>}
                                     text={'Delete Account'}
                                     to={'/profile/delete'}
+                                    path={'delete'}
                                     />
                                 <button onClick={handleLogOut} className="bg-red-500 text-white w-full rounded-lg py-2 mt-4 flex items-center justify-center gap-4">
                                     <FaDoorOpen/>

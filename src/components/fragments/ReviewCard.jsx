@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Stars from "../elements/Stars"
 
 const ReviewCard = ({name, img, postAt, star, desc}) => {
