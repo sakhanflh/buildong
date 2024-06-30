@@ -41,7 +41,7 @@ const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
 
     return (
         <div className={`fixed bg-neutral-100 bg-opacity-30 backdrop-blur-sm inset-0 w-full h-dvh ${show? 'flex' : 'hidden'} justify-center items-center`}>
-            <div className="rounded-lg bg-white shadow-multiple px-6 py-6">
+            <div className="rounded-lg bg-white shadow-multiple px-6 py-6 w-[90%] mt-6 xl:mt-0 xl:w-max">
                 <h1 className="font-bold xl:text-lg">Review Product</h1>
                 <div className="flex gap-4 mt-4">
                     <div className="w-16 h-16 bg-neutral-100 rounded-lg overflow-hidden">
@@ -50,7 +50,7 @@ const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
                     <h1 className="font-semibold">{prodName}</h1>
                 </div>
                 <div className="mt-4">
-                    <h1 className="font-semibold">Product Quality</h1>
+                    <h1 className="font-semibold text-sm xl:text-base">Product Quality</h1>
                     <div className="flex gap-2 items-center mt-2">
                         {
                             Array.from({ length: 5 }, (_, i) => (
@@ -64,7 +64,7 @@ const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
                     </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-10 text-sm xl:text-base">
                     <div className="flex gap-2">
                         <div className="rounded-full w-10 h-10 overflow-hidden bg-neutral-300">
                             <img src={profile} alt=""  className="w-full h-full object-cover"/>

@@ -51,7 +51,7 @@ const OrderDetailLayout = () => {
                         <h1 className="text-neutral-400 font-semibold">ORDER ID : {orderId}</h1>
                         <p>{data?.status}</p>
                     </div>
-                    <div className="flex items-center gap-4 relative w-[60%] mt-16 mx-auto">
+                    <div className="flex items-center gap-4 relative w-[-90%] xl:w-[60%] mt-16 mx-auto">
                         <div className="w-full  border-2 border-primary border-dotted"></div>
                         <div className="absolute w-full h-full flex items-center justify-between">
                             <CircleEl
@@ -77,7 +77,7 @@ const OrderDetailLayout = () => {
                         </div>
                     </div>
 
-                    <div className="mt-20 flex justify-between">
+                    <div className="mt-20 flex flex-col xl:flex-row xl:justify-between">
                         <div>
                             <h1 className="font-semibold ">SHIPPING ADDRESS</h1>
                             <h1 className="font-medium mt-2">{account?.username}</h1>
@@ -85,10 +85,10 @@ const OrderDetailLayout = () => {
                             <p>{data?.location}</p>
                             <p>{account?.address}</p>
                         </div>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 mt-4 xl:mt-0">
                             <button onClick={() => setShow(true)} className={`bg-primary clicked ${data?.status !== 'completed' ? 'hidden' : ''} rounded-lg px-10 font-semibold py-2 text-white`}>Review</button>
-                            <Link to={'/constructions'}>
-                                <button className="bg-white border-2 clicked border-primary rounded-lg px-10 font-semibold py-2 text-primary">Shop Again</button>
+                            <Link to={'/constructions'} className="w-full xl:w-max">
+                                <button className="bg-white border-2 clicked border-primary rounded-lg px-10 w-full font-semibold py-2 text-primary">Shop Again</button>
                             </Link>
                         </div>
                     </div>

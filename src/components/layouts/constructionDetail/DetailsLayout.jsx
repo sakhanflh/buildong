@@ -67,11 +67,7 @@ const DetailsLayout = ({isLoading, data, constructId}) => {
                                     <p><b>8</b> in stock</p>
                                 </div>
                                 <div className={`${role == 'admin' ? 'hidden' : 'flex'} flex-col xl:flex-row gap-2 mt-2 xl:font-semibold`}>
-                                    <button className="bg-yellow-500 rounded-lg w-full text-white px-4 py-3 xl:w-1/2 flex items-center justify-center gap-4">
-                                        <FaCartPlus/>
-                                        <p>Add to cart</p>
-                                    </button>
-                                    <Link to={`/constructions/${constructId}/checkout`} className="w-full xl:w-1/2">
+                                    <Link to={`/constructions/${constructId}/checkout`} className="w-full">
                                         <button className="bg-primary rounded-lg w-full text-white px-4 py-3">
                                             Order this project
                                         </button>
