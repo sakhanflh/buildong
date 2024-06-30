@@ -1,8 +1,19 @@
 import { ChooseUsData } from "../../data/ChooseUsData"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SkeletonLoading from "../../fragments/SkeletonLoading";
 
 export function ChooseUsSection() {
     const [activeId, setActiveId] = useState(1);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <>
             <div className="flex flex-col gap-10">
@@ -31,23 +42,34 @@ export function ChooseUsSection() {
                     </div>
 
                     <div className="xl:w-[55%] flex flex-col">
-                        {ChooseUsData.map((item) => (
-                            activeId === item.id && (
-                                <div key={item.id} className="flex flex-col gap-5">
-                                    <div className="rounded-3xl xl:w-[38rem] xl:h-[20rem] overflow-hidden">
-                                        <img src={item.image} alt="" className="w-full"/>
-                                    </div>
-                                    <div className="xl:w-[38rem]">
-                                        <p>{item.desc}</p>
-                                    </div>
+                        {loading ? (
+                            <div className="flex flex-col gap-5">
+                                <div className="rounded-3xl xl:w-[38rem] xl:h-[20rem] overflow-hidden">
+                                    <SkeletonLoading height={'h-24'} />
                                 </div>
-                            )
-                        ))}
+                                <div className="xl:w-[38rem]">
+                                    <SkeletonLoading height={'h-24'} />
+                                </div>
+                            </div>
+                        ) : (
+                            ChooseUsData.map((item) => (
+                                activeId === item.id && (
+                                    <div key={item.id} className="flex flex-col gap-5">
+                                        <div className="rounded-3xl xl:w-[38rem] xl:h-[20rem] overflow-hidden">
+                                            <img src={item.image} alt="" className="w-full" />
+                                        </div>
+                                        <div className="xl:w-[38rem]">
+                                            <p>{item.desc}</p>
+                                        </div>
+                                    </div>
+                                )
+                            ))
+                        )}
                     </div>
                     <div className="xl:hidden flex w-full items-center justify-center gap-3">
-                            <button className="px-8 py-2 border border-black rounded-3xl bg-white hover:scale-90">Learn More</button>
-                            <button className="px-8 py-2 border-black border rounded-3xl bg-font-black text-white hover:scale-90">Contact Us</button>
-                        </div>
+                        <button className="px-8 py-2 border border-black rounded-3xl bg-white hover:scale-90">Learn More</button>
+                        <button className="px-8 py-2 border-black border rounded-3xl bg-font-black text-white hover:scale-90">Contact Us</button>
+                    </div>
                 </div>
             </div>
         </>

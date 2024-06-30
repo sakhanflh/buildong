@@ -19,7 +19,6 @@ export function ClientsSaySlider({ nextRef, prevRef, setSwiperInstance }) {
         <>
             <div>
                 <Swiper
-                    // install Swiper modules
                     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                     spaceBetween={200}
                     slidesPerView={3}
@@ -41,7 +40,7 @@ export function ClientsSaySlider({ nextRef, prevRef, setSwiperInstance }) {
                         },
                         640: {
                             slidesPerView: 1,
-                            spaceBetween: 20,
+                            spaceBetween: 10,
                         },
                         0: {
                             slidesPerView: 1,

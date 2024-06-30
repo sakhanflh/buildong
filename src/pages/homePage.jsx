@@ -138,7 +138,7 @@ export default function HomePage() {
                                 <p className="text-font-gray text-sm xl:text-xl text-center xl:text-start">Trusted by Many, Loved by All: Discover Why Our Clients Choose BUILDONG for Their Construction Needs</p>
                             </div>
 
-                            <div className="w-full xl:w-[67%]">
+                            <div className="w-full pl-3 xl:pl-0 xl:w-[67%]">
                                 <ClientsSaySlider
                                 nextRef={nextButtonRef2}
                                 prevRef={prevButtonRef2}

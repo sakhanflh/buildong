@@ -13,6 +13,7 @@ import ShopPage from './pages/shopPage'
 import AdminPage from './pages/adminPage'
 import OrderSumPage from './pages/orderSumPage'
 import ProjectPage from './pages/projectPage'
+import CartPage from './pages/cartPage'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/constructions/:constructionId' element={<ConstructionDetailsPage/>}/>
           <Route path='/constructions/:constructionId/checkout' element={<OrderSumPage/>}/>
           <Route path='/admin' element={<AdminPage/>}/>
+          <Route path='/cart' element={<CartPage/>}/>
         </Routes>
       </HashRouter>
     </UserProvider>
