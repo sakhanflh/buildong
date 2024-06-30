@@ -9,7 +9,7 @@ import 'swiper/css/scrollbar';
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-const CardSwiper = ({title, subTitle}) => {
+const CardSwiper = ({title, subTitle, data}) => {
     const nextBtn = useRef(null)
     const prevBtn = useRef(null)
 
@@ -54,69 +54,19 @@ const CardSwiper = ({title, subTitle}) => {
             },
           }}
         >
-          <SwiperSlide>
+          {
+            data?.map(dt => (
+          <SwiperSlide key={dt._id}>
             <Card  
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
+              category={dt.category}
+              img={dt.image[0]}
+              price={dt.total_price}
               rate={4}
-              title={'Space House'}
+              title={dt.design_name}
             />
           </SwiperSlide>
-          <SwiperSlide>
-            <Card 
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
-              rate={4}
-              title={'Space House'}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card 
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
-              rate={4}
-              title={'Space House'}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card 
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
-              rate={4}
-              title={'Space House'}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card 
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
-              rate={4}
-              title={'Space House'}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card 
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
-              rate={4}
-              title={'Space House'}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card 
-              category={'Home'}
-              img={'/img/home.jpg'}
-              price={'Rp 2.034.400'}
-              rate={4}
-              title={'Space House'}
-            />
-          </SwiperSlide>
+            ))
+          }
         </Swiper>
       </div>
       </div>
