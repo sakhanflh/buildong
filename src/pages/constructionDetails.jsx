@@ -8,16 +8,44 @@ import SkeletonLoading from "../components/fragments/SkeletonLoading";
 import ImgWrapper from "../components/layouts/constructionDetail/ImgWrapper";
 import ReviewLayout from "../components/layouts/constructionDetail/ReviewLayout";
 import DetailsLayout from "../components/layouts/constructionDetail/DetailsLayout";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ConstructionDetailsPage = () => {
     const { constructionId } = useParams()
     const {data, isLoading, isError} = useFetch(`https://buildong-api.vercel.app/constructions/${constructionId}`)
+    const [styleData, setStyleData] = useState(null)
+    const [categoryData, setCategoryData] = useState(null)
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/category/${data.category}`)
+                setCategoryData(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchData()
+    }, [])
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/style/${data.style}`)
+                setStyleData(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchData()
+    }, [])
+
+
     if(isError){
         return alert(isError.message)
     }
-
-
-    console.log(data)
 
     return(
         <>
@@ -89,19 +117,17 @@ const ConstructionDetailsPage = () => {
                     </div>
 
                     {/* REVIEWS */}
-                    <ReviewLayout isLoading={isLoading}/>
+                    <ReviewLayout isLoading={isLoading} reviews={data?.reviews}/>
                     {/* REVIEWS */}
                 </div>
 
                 <CardSwiper 
+                data={categoryData}
                 title={'The Right Project Categories for You'}
-                subTitle={'Explore various product categories that fit your preferences and lifestyle.u'}
+                subTitle={'Explore various product categories that fit your preferences and lifestyle.'}
                 />
                 <CardSwiper
-                title={'Best Prices for Your Selected Projects'}
-                subTitle={'Find the perfect price offers that match your needs and budget.'}
-                />
-                <CardSwiper
+                data={styleData}
                 title={'Styles That Match Your Products'}
                 subTitle={'Discover styles that perfectly complement your selected products.'}
                 />

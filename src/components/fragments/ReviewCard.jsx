@@ -7,7 +7,9 @@ const ReviewCard = ({name, img, postAt, star, desc}) => {
             <div className="flex justify-between items-start">
                 <div>
                 <div className="flex gap-2 mb-2">
-                    <div className="w-7 h-7 rounded-full bg-neutral-300"></div>
+                    <div className="w-7 h-7 rounded-full bg-neutral-300 overflow-hidden">
+                        <img src={img} alt="" className="w-full h-full object-cover"/>
+                    </div>
                     <h1 className="font-semibold">{name}</h1>
                 </div>
                 <Stars length={star}/>

@@ -1,56 +1,64 @@
+/* eslint-disable react/prop-types */
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import ReviewCard from "../../fragments/ReviewCard";
 import Stars from "../../elements/Stars";
 import SkeletonLoading from "../../fragments/SkeletonLoading";
+import Loader from "../../fragments/Loader";
 
-const ReviewLayout = ({isLoading}) => {
+const ReviewLayout = ({isLoading, reviews}) => {
+    const fiveStars = reviews?.filter(dt => dt.rating == 5);
+    const fourStars = reviews?.filter(dt => dt.rating == 4);
+    const threeStars = reviews?.filter(dt => dt.rating == 3);
+    const twoStars = reviews?.filter(dt => dt.rating == 2);
+    const oneStars = reviews?.filter(dt => dt.rating == 1);
+    
     return (
         <div className="mt-6 xl:flex xl:gap-6">
                         <div className="xl:w-[30%]">
                             <h1 className="font-bold xl:text-lg">Customer Reviews</h1>
-                            {isLoading ? <SkeletonLoading width={'w-20 mt-2'}/> : <p className="text-sm xl:text-base">1134 reviews</p>}
+                            {isLoading ? <SkeletonLoading width={'w-20 mt-2'}/> : <p className="text-sm xl:text-base">{reviews?.length} reviews</p>}
                             <div className="flex flex-col gap-1 mt-4 text-sm xl:text-base">
                                 <div className="flex justify-between">
                                     <Stars length={5}/>
-                                    {isLoading ? <SkeletonLoading width={'w-14'}/> : <p className="text-sm xl:text-base">1134</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-14'}/> : <p className="text-sm xl:text-base">{fiveStars.length}</p>}
                                 </div>
                                 <div className="flex justify-between">
                                     <Stars length={4}/>
-                                    {isLoading ? <SkeletonLoading width={'w-10'}/> : <p className="text-sm xl:text-base">92</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-10'}/> : <p className="text-sm xl:text-base">{fourStars.length}</p>}
                                 </div>
                                 <div className="flex justify-between">
                                     <Stars length={3}/>
-                                    {isLoading ? <SkeletonLoading width={'w-10'}/> : <p className="text-sm xl:text-base">20</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-10'}/> : <p className="text-sm xl:text-base">{threeStars.length}</p>}
                                 </div>
                                 <div className="flex justify-between">
                                     <Stars length={2}/>
-                                    {isLoading ? <SkeletonLoading width={'w-8'}/> : <p className="text-sm xl:text-base">8</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-8'}/> : <p className="text-sm xl:text-base">{twoStars.length}</p>}
                                 </div>
                                 <div className="flex justify-between">
                                     <Stars length={1}/>
-                                    {isLoading ? <SkeletonLoading width={'w-8'}/> : <p className="text-sm xl:text-base">8</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-8'}/> : <p className="text-sm xl:text-base">{oneStars.length}</p>}
                                 </div>
                             </div>
                         </div>
                         <div className="mt-4 text-sm rounded-lg xl:w-[70%] xl:mt-0 xl:border-l-2 xl:px-6 py-2 ">
-                            <ReviewCard
-                            name={'John Doe'}
-                            postAt={'June 24, 2024'}
-                            star={3}
-                            desc={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, incidunt maiores quidem sunt assumenda vitae recusandae, sed reprehenderit facere magni commodi laudantium? Explicabo, perferendis assumenda!'}
-                            />
-                            <ReviewCard
-                            name={'John Doe'}
-                            postAt={'June 24, 2024'}
-                            star={3}
-                            desc={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, incidunt maiores quidem sunt assumenda vitae recusandae, sed reprehenderit facere magni commodi laudantium? Explicabo, perferendis assumenda!'}
-                            />
-                            <ReviewCard
-                            name={'John Doe'}
-                            postAt={'June 24, 2024'}
-                            star={3}
-                            desc={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, incidunt maiores quidem sunt assumenda vitae recusandae, sed reprehenderit facere magni commodi laudantium? Explicabo, perferendis assumenda!'}
-                            />
+                            {
+                                isLoading ?
+                                <Loader/>
+                                :
+                                reviews.length == 0 ?
+                                <div className="w-full text-center py-20 text-lg font-semibold text-neutral-400">No reviews available</div>
+                                :
+                                reviews.map(dt => (
+                                    <ReviewCard
+                                    key={dt._id}
+                                    name={dt.username}
+                                    img={dt.user_image}
+                                    postAt={dt.publishedAt}
+                                    star={dt.rating}
+                                    desc={dt.desc}
+                                    />
+                                )) 
+                            }
                             <div className="flex items-center gap-6 w-full justify-center mt-4 text-sm">
                                 <FaChevronLeft/>
                                 <div className="bg-primary text-white font-bold rounded-lg px-4 py-2">1</div>
