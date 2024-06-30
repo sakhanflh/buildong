@@ -30,7 +30,7 @@ export default function Index() {
                 })
                 setData(response.data.products)
                 setIsLoading(false)
-                console.log(response.data.products)
+                console.log(response.data)
             } catch (error) {
                 console.log(error.message)
                 setIsLoading(false)

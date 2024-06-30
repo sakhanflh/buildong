@@ -12,6 +12,7 @@ import ProfilePage from './pages/profilePage'
 import ShopPage from './pages/shopPage'
 import AdminPage from './pages/adminPage'
 import OrderSumPage from './pages/orderSumPage'
+import ProjectPage from './pages/projectPage'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/profile/:profileId' element={<ProfilePage/>} />
+          <Route path='/project' element={<ProjectPage/>}/>
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/constructions' element={<ConstructionPage/>}/>
           <Route path='/constructions/:constructionId' element={<ConstructionDetailsPage/>}/>
