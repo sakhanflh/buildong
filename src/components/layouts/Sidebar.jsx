@@ -10,7 +10,7 @@ export function Sidebar({ onShowSidebar }) {
                             <li className="hover:text-font-black font-semibold">Home</li>
                         </Link>
 
-                        <Link to={''}>
+                        <Link to={'/project'}>
                             <li className="hover:text-font-black font-semibold">Project</li>
                         </Link>
 

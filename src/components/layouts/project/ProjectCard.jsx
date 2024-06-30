@@ -7,7 +7,6 @@ export function ProjectCard() {
         <>
             <div className="w-full bg-white rounded-lg text-black overflow-hidden gap-5 flex flex-col xl:w-80 xl:rounded-xl shadow-xl">
                 <div className="w-full h-52">
-                    <SkeletonLoading width={'w-80'} height={'h-52'}/>
                     <img src="/img/r-architecture-2gDwlIim3Uw-unsplash.jpg" alt="" className="object-cover w-full h-full"/>
                 </div>
 
