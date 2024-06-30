@@ -89,7 +89,7 @@ const ConstructionDetailsPage = () => {
                     </div>
 
                     {/* REVIEWS */}
-                    <ReviewLayout isLoading={isLoading}/>
+                    <ReviewLayout isLoading={isLoading} reviews={data?.reviews}/>
                     {/* REVIEWS */}
                 </div>
 

@@ -18,7 +18,7 @@ const SideSettings = () => {
             <ListIcon
             icon={<FaCartShopping/>}
             text={'My Orders'}
-            to={'/profile/orders'}
+            to={'/profile/orders/all'}
             path={'orders'}
             />
             <ListIcon

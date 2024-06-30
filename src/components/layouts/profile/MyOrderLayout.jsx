@@ -4,13 +4,13 @@ import { FaBoxesPacking, FaCheckDouble, FaTruckFast } from "react-icons/fa6"
 import TabBar from "../../elements/TabBar"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Rupiah from "../../../utils/Rupiah"
 import Loader from "../../fragments/Loader"
 
 const MyOrderLayout = ({account}) => {
     const [orderData, setOrderData] = useState(null)
-    const { statusId } = useParams();
+    const { statusId, orderId } = useParams();
     const [isErr, setIsErr] = useState(false)
     const [msg, setMsg] = useState('');
     const [loading, setLoading] = useState(true)
@@ -18,6 +18,10 @@ const MyOrderLayout = ({account}) => {
     useEffect(() => {
         setLoading(true)
     }, [statusId])
+
+    useEffect(() => {
+        console.log(orderId)
+    }, [orderId])
 
     useEffect(() => {
         const fetchData = async() => {
@@ -72,7 +76,7 @@ const MyOrderLayout = ({account}) => {
                 isErr ? <div className="text-center py-10 font-semibold xl:text-lg text-neutral-400"><h1>{msg}</h1></div>
                 :
                 orderData?.map(dt => (
-                    <div key={dt.order_id} className="cursor-pointer border-b-2 mt-4 px-4 py-4 flex flex-col gap-2 xl:block h-max">
+                    <Link to={`/${dt.order_id}`} key={dt.order_id} className="hover:bg-blue-50 cursor-pointer border-b-2 mt-4 px-4 py-4 flex flex-col gap-2 xl:block h-max">
                         <p className="xl:hidden text-sm xl:text-base font-semibold text-neutral-500">#{dt.order_id}</p>
                         <div className="flex gap-4 ">
                             <div className="w-[30%] xl:w-[15%] overflow-hidden h-20 rounded-lg">
@@ -92,7 +96,7 @@ const MyOrderLayout = ({account}) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 ))
                 }
             </div>

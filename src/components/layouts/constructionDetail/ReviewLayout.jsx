@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import ReviewCard from "../../fragments/ReviewCard";
 import Stars from "../../elements/Stars";
 import SkeletonLoading from "../../fragments/SkeletonLoading";
+import Loader from "../../fragments/Loader";
 
-const ReviewLayout = ({isLoading}) => {
+const ReviewLayout = ({isLoading, reviews}) => {
+    
     return (
         <div className="mt-6 xl:flex xl:gap-6">
                         <div className="xl:w-[30%]">
@@ -33,24 +36,21 @@ const ReviewLayout = ({isLoading}) => {
                             </div>
                         </div>
                         <div className="mt-4 text-sm rounded-lg xl:w-[70%] xl:mt-0 xl:border-l-2 xl:px-6 py-2 ">
-                            <ReviewCard
-                            name={'John Doe'}
-                            postAt={'June 24, 2024'}
-                            star={3}
-                            desc={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, incidunt maiores quidem sunt assumenda vitae recusandae, sed reprehenderit facere magni commodi laudantium? Explicabo, perferendis assumenda!'}
-                            />
-                            <ReviewCard
-                            name={'John Doe'}
-                            postAt={'June 24, 2024'}
-                            star={3}
-                            desc={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, incidunt maiores quidem sunt assumenda vitae recusandae, sed reprehenderit facere magni commodi laudantium? Explicabo, perferendis assumenda!'}
-                            />
-                            <ReviewCard
-                            name={'John Doe'}
-                            postAt={'June 24, 2024'}
-                            star={3}
-                            desc={'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt, incidunt maiores quidem sunt assumenda vitae recusandae, sed reprehenderit facere magni commodi laudantium? Explicabo, perferendis assumenda!'}
-                            />
+                            {
+                                isLoading ?
+                                <Loader/>
+                                :
+                                reviews.map(dt => (
+                                    <ReviewCard
+                                    key={dt._id}
+                                    name={dt.username}
+                                    img={dt.user_image}
+                                    postAt={dt.publishedAt}
+                                    star={dt.rating}
+                                    desc={dt.desc}
+                                    />
+                                )) 
+                            }
                             <div className="flex items-center gap-6 w-full justify-center mt-4 text-sm">
                                 <FaChevronLeft/>
                                 <div className="bg-primary text-white font-bold rounded-lg px-4 py-2">1</div>

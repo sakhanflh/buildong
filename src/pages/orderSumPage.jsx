@@ -24,6 +24,7 @@ const OrderSumPage = () => {
     const [msg, setMsg] = useState('')
     const [newOrder, setNewOrder] = useState({
         project_start: '',
+        product_id: '',
         payment_method: '',
         project_duration: '',
         total_workers: '',
@@ -45,6 +46,7 @@ const OrderSumPage = () => {
             setNewOrder({
                 ...newOrder, 
                 image: data.image,
+                product_id: data._id,
                 project_duration: data.project_duration,
                 total_workers: data.worker,
                 worker_salary: workerSalary,

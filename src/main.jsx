@@ -12,6 +12,7 @@ import ProfilePage from './pages/profilePage'
 import ShopPage from './pages/shopPage'
 import AdminPage from './pages/adminPage'
 import OrderSumPage from './pages/orderSumPage'
+import OrderDetailLayout from './components/layouts/profile/OrderDetailLayout'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/profile/:profileId' element={<ProfilePage/>} />
           <Route path='/profile/:profileId/:statusId' element={<ProfilePage/>} />
+          <Route path='/:orderId' element={<OrderDetailLayout/>} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/constructions' element={<ConstructionPage/>}/>
           <Route path='/constructions/:constructionId' element={<ConstructionDetailsPage/>}/>
