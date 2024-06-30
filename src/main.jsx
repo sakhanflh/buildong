@@ -12,6 +12,8 @@ import ProfilePage from './pages/profilePage'
 import ShopPage from './pages/shopPage'
 import AdminPage from './pages/adminPage'
 import OrderSumPage from './pages/orderSumPage'
+import ProjectPage from './pages/projectPage'
+import CartPage from './pages/cartPage'
 import OrderDetailLayout from './components/layouts/profile/OrderDetailLayout'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -24,12 +26,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/profile/:profileId' element={<ProfilePage/>} />
           <Route path='/profile/:profileId/:statusId' element={<ProfilePage/>} />
+          <Route path='/project' element={<ProjectPage/>} />
           <Route path='/:orderId' element={<OrderDetailLayout/>} />
           <Route path='/shop' element={<ShopPage />} />
           <Route path='/constructions' element={<ConstructionPage/>}/>
           <Route path='/constructions/:constructionId' element={<ConstructionDetailsPage/>}/>
           <Route path='/constructions/:constructionId/checkout' element={<OrderSumPage/>}/>
           <Route path='/admin' element={<AdminPage/>}/>
+          <Route path='/cart' element={<CartPage/>}/>
         </Routes>
       </HashRouter>
     </UserProvider>

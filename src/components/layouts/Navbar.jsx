@@ -10,7 +10,7 @@ export function Navbar() {
                             <li className="hover:text-font-black font-semibold">Home</li>
                         </Link>
 
-                        <Link>
+                        <Link to='/project'>
                             <li className="hover:text-font-black font-semibold">Project</li>
                         </Link>
 

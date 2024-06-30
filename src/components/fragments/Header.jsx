@@ -22,18 +22,18 @@ export function Header() {
     const [msg, setMsg] = useState('')
 
     useEffect(() => {
-        if(user){
+        if (user) {
             setLoading(false)
-        } 
+        }
     }, [user, profileId])
 
     useEffect(() => {
-        if(!token){
+        if (!token) {
             setLoading(false)
         }
     }, [token])
 
-    async function handleLogOut(){
+    async function handleLogOut() {
         setLoading(true)
         setTimeout(() => {
             localStorage.removeItem('token');
@@ -51,11 +51,11 @@ export function Header() {
         <>
             <div className="bg-white shadow-md justify-center xl:shadow-none w-full top-0 z-50 h-16 flex px-[5%] fixed font-jost  text-font-gray items-center">
                 <div className="w-full flex items-center justify-between">
-                    <GiHamburgerMenu className="text-2xl xl:hidden" onClick={handleShowSidebar}/>
+                    <GiHamburgerMenu className="text-2xl xl:hidden" onClick={handleShowSidebar} />
                     <h1 className="hidden font-semibold text-xl xl:block">BUILDONG</h1>
                 </div>
                 <div className="flex gap-10 items-center">
-                    <Navbar/>
+                    <Navbar />
                     {
                     loading ?
                     <div className="xl:border-l-2 xl:pl-6 pr-4 relative flex items-center gap-2">
@@ -143,22 +143,22 @@ export function Header() {
                                 </ul>
                             </div>
 
-                        }
-                    </div>
-                    :
-                    <div className="px-10 py-2 border border-black rounded-3xl hover:bg-primary hover:border-primary hover:text-white">
-                        <Link to={'/login'}>
-                            <button className="font-semibold">Login</button>
-                        </Link>
-                    </div>
+                                    }
+                                </div>
+                                :
+                                <div className="px-10 py-2 border border-black rounded-3xl hover:bg-primary hover:border-primary hover:text-white">
+                                    <Link to={'/login'}>
+                                        <button className="font-semibold">Login</button>
+                                    </Link>
+                                </div>
                     }
 
                 </div>
-                <Sidebar onShowSidebar={showSidebar}/>
+                <Sidebar onShowSidebar={showSidebar} />
             </div>
             <SimpleAlert
-            icon={<FaUserCheck/>}
-            msg={msg}
+                icon={<FaUserCheck />}
+                msg={msg}
             />
         </>
     )
