@@ -7,7 +7,7 @@ import Rupiah from "../../../utils/Rupiah"
 import { useEffect, useState } from "react"
 import Loader from "../../fragments/Loader"
 
-const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onClick}) => {
+const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onClick, loadingOrder}) => {
     const defWorkerSalary = data?.project_duration * ( 150000 * data?.worker )
     const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers ) 
     const furniturePrice = data.total_price - defWorkerSalary
@@ -84,7 +84,7 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
                 <div className="border-t-2 border-dotted py-4">
                     <div className="flex justify-between items-center">
                         <h1 className="font-semibold">Payment Method</h1>
-                        <p onClick={() => setShowModal(true)} className="text-primary cursor-pointer">{newOrder.payment_method ? "Change":"Add"}</p>
+                        <p onClick={() => setShowModal(true)} className="text-primary cursor-pointer font-semibold">{newOrder.payment_method ? "Change":"Add"}</p>
                     </div>
                     <div className={`${newOrder.payment_method ? "flex" : 'hidden'} justify-between text-neutral-500`}>
                         <p className="mt-1">{newOrder.payment_method}</p>
@@ -102,10 +102,17 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
                     }
                 </div>
                 
-                <button onClick={onClick} className="flex clicked bg-primary rounded-lg px-4 py-3 text-white font-semibold w-full justify-center items-center gap-4 mt-4">
-                    <RiShieldCheckFill/>
-                    Purchase Now
-                </button>
+                {
+                    loadingOrder ?
+                    <button className="flex clicked bg-primary rounded-lg px-4 py-3 text-white font-semibold w-full justify-center items-center gap-4 mt-4">
+                        <Loader/>
+                    </button>
+                    :
+                    <button onClick={onClick} className="flex clicked bg-primary rounded-lg px-4 py-3 text-white font-semibold w-full justify-center items-center gap-4 mt-4">
+                        <RiShieldCheckFill/>
+                        Purchase Now
+                    </button>
+                }
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import UserContext from "../../context/UserContext";
 import { Link, useParams } from "react-router-dom";
 import SimpleAlert from "./SimpleAlert";
 import SkeletonLoading from "./SkeletonLoading";
-import { FaBuildingUser, FaDoorOpen, FaMedal } from "react-icons/fa6";
+import { FaBuildingUser, FaCartShopping, FaDoorOpen, FaMedal } from "react-icons/fa6";
 
 
 export function Header() {
@@ -40,7 +40,7 @@ export function Header() {
             localStorage.removeItem('role');
             setLoading(false)
             setMsg('Successfully logged out')
-            // window.location.href = '/#/';
+            window.location.href = '/#/';
         }, 2000)
     }
     function handleShowSidebar() {
@@ -111,6 +111,12 @@ export function Header() {
                                     text={'Account Details'}
                                     to={'/profile/details'}
                                     path={'details'}
+                                    />
+                                    <ListIcon
+                                    icon={<FaCartShopping/>}
+                                    text={'My Orders'}
+                                    to={'/profile/orders'}
+                                    path={'orders'}
                                     />
                                     <ListIcon
                                     icon={<FaUserEdit/>}

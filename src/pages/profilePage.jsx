@@ -11,6 +11,8 @@ import IconTitle from "../components/elements/IconTitle";
 import SecurityLayout from "../components/layouts/profile/SecurityLayout";
 import DeleteLayout from "../components/layouts/profile/DeleteLayout";
 import SkeletonLoading from "../components/fragments/SkeletonLoading";
+import MyOrderLayout from "../components/layouts/profile/MyOrderLayout";
+import { FaCartShopping } from "react-icons/fa6";
 
 const ProfilePage = () => {
     const { profileId } = useParams();
@@ -24,6 +26,8 @@ const ProfilePage = () => {
     useEffect(() => {
         if(profileId == 'edit'){
             setTitle({title: 'Edit Account', icon: <FaUserEdit/>})
+        } else if(profileId == 'orders'){
+            setTitle({title: 'My Orders', icon: <FaCartShopping/>})
         } else if(profileId == 'security'){
             setTitle({title: 'Sign-in & Security', icon: <FaLock/>})
         } else if(profileId == 'delete'){
@@ -60,6 +64,7 @@ const ProfilePage = () => {
                     </div>
                     <div className="py-4 px-8">
                         { profileId == 'details' && <DetailsLayout user={user} points={points} loading={loading} level={level}/>}
+                        { profileId == 'orders' && <MyOrderLayout account={user?.user.account}/>}
                         { profileId == 'edit' && <EditLayout/>}
                         { profileId == 'security' && <SecurityLayout user={user} loading={loading}/>}
                         { profileId == 'delete' && <DeleteLayout/>}

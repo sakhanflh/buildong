@@ -19,7 +19,7 @@ export const UserProvider = ({children}) => {
             setLevel('Silver');
         } else if(points > 10000){
             setLevel('Gold');
-        } else{
+        } else if (points > 25000){
             setLevel('Diamond');
         } 
     }, [points])

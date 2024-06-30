@@ -1,5 +1,6 @@
 import { FaLock, FaTrash, FaUserCircle, FaUserEdit } from "react-icons/fa"
 import { ListIcon } from "../../elements/ListIcon"
+import { FaCartShopping } from "react-icons/fa6";
 
 const SideSettings = () => {
     return (
@@ -13,6 +14,12 @@ const SideSettings = () => {
             text={'Account Details'}
             to={'/profile/details'}
             path={'details'}
+            />
+            <ListIcon
+            icon={<FaCartShopping/>}
+            text={'My Orders'}
+            to={'/profile/orders'}
+            path={'orders'}
             />
             <ListIcon
             icon={<FaUserEdit/>}

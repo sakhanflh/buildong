@@ -113,6 +113,7 @@ const OrderSumPage = () => {
                         setNewOrder={setNewOrder}
                         setShowModal={setShowModal}
                         onClick={handleUploadOrder}
+                        loadingOrder={loadingOrder}
                         />
                     </div>
                 </div>
