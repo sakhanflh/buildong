@@ -20,16 +20,19 @@ const Index = () => {
     });
     const [showFilter, setShowFilter] = useState(false);
     const arrLength = new Array(6).fill(0);
-
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const itemsPerPage = 5;
     useEffect(() => {
         setIsLoading(true)
         const fetchData = async() => {
             try {   
                 const response = await axios.get(`https://buildong-api.vercel.app/constructions`, {
-                    params: filterData
+                    params: {...filterData, page, limit: itemsPerPage}
                 })
                 setData(response.data.data)
                 setIsLoading(false)
+                setTotalPages(Math.ceil(response.data.total / itemsPerPage));
                 console.log(response.data.data)
             } catch (error) {
                 console.log(error.message)
@@ -38,7 +41,7 @@ const Index = () => {
         }
 
         fetchData();
-    }, [filterData])
+    }, [filterData, page])
 
     function handleDeleteFilter(filterKey){
         setFilterData(prev => ({
@@ -118,16 +121,15 @@ const Index = () => {
                         </div>
 
                         <div className={`flex w-full justify-center gap-4 mt-16 items-center text-sm`}>
-                            <FaChevronLeft/>
+                        <FaChevronLeft onClick={() => setPage(prev => Math.max(prev - 1, 1))} />
                             <div className="flex gap-3 items-center text-neutral-400">
-                                <div className="bg-primary w-7 h-7 text-white text-center flex justify-center items-center rounded-full">
-                                    <p>1</p>
-                                </div>
-                                <p>2</p>
-                                <p>...</p>
-                                <p>10</p>
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <div key={i} onClick={() => setPage(i + 1)} className={`w-7 h-7 flex justify-center items-center rounded-full cursor-pointer ${page === i + 1 ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
+                                        {i + 1}
+                                    </div>
+                                ))}
                             </div>
-                            <FaChevronRight/>
+                        <FaChevronRight onClick={() => setPage(prev => Math.min(prev + 1, totalPages))} />
                         </div>
                     </div>
                 </div>

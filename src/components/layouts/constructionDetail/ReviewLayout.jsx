@@ -5,7 +5,7 @@ import Stars from "../../elements/Stars";
 import SkeletonLoading from "../../fragments/SkeletonLoading";
 import Loader from "../../fragments/Loader";
 
-const ReviewLayout = ({isLoading, reviews}) => {
+const ReviewLayout = ({isLoading, reviews, setPage, totalPages, page}) => {
     const fiveStars = reviews?.filter(dt => dt.rating == 5);
     const fourStars = reviews?.filter(dt => dt.rating == 4);
     const threeStars = reviews?.filter(dt => dt.rating == 3);
@@ -60,9 +60,15 @@ const ReviewLayout = ({isLoading, reviews}) => {
                                 )) 
                             }
                             <div className="flex items-center gap-6 w-full justify-center mt-4 text-sm">
-                                <FaChevronLeft/>
-                                <div className="bg-primary text-white font-bold rounded-lg px-4 py-2">1</div>
-                                <FaChevronRight/>
+                                <FaChevronLeft onClick={() => setPage(prev => Math.max(prev - 1, 1))} />
+                                    <div className="flex gap-3 items-center text-neutral-400">
+                                        {[...Array(totalPages)].map((_, i) => (
+                                            <div key={i} onClick={() => setPage(i + 1)} className={`w-7 h-7 flex justify-center items-center rounded-full cursor-pointer ${page === i + 1 ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
+                                                {i + 1}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <FaChevronRight onClick={() => setPage(prev => Math.min(prev + 1, totalPages))} />
                             </div>
                         </div>
                     </div>
