@@ -12,6 +12,7 @@ export function Products() {
         brand: "",
         stock: "",
         unit_price: "",
+        material: "",
     })
 
     useEffect(() => {
@@ -65,8 +66,16 @@ export function Products() {
                     >
                         <AdminInput
                             subTitle={"Category"}
-                            onChange={(e) => setTimeout(() => { setNewData({ ...newData, category: e.target.value }) }, 3000)}
-                        />
+                            onChange={(e) => setTimeout(() => { setNewData({ ...newData, category: e.target.value.toLowerCase() }) }, 3000)}
+                            options={["House", "Kitchen", "Bathroom", "Outdoor", "Decor", "Storage", "Flooring", "Wall Art", "Other"]}
+                            type={'select'}
+                            />
+                        <AdminInput
+                            subTitle={"Material"}
+                            onChange={(e) => setTimeout(() => { setNewData({ ...newData, material: e.target.value.toLowerCase() }) }, 3000)}
+                            options={["Wood", "Metal", "Glass", "Plastic", "Fabric", "Leather", "Stone", "Ceramic", "Other"]}
+                            type={'select'}
+                            />
                         <AdminInput
                             subTitle={"Brand"}
                             onChange={(e) => setTimeout(() => { setNewData({ ...newData, brand: e.target.value }) }, 3000)}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function AdminInput({ type, subTitle, onChange, img, option1, option2, option3 }) {
+export function AdminInput({ type, subTitle, onChange, img, options = [] }) {
     const [imageUrl, setImgUrl] = useState([])
 
     useEffect(() => {
@@ -21,9 +21,9 @@ export function AdminInput({ type, subTitle, onChange, img, option1, option2, op
                     type == 'select' ?
                         <select onChange={onChange} name="" id="">
                             <option value=""></option>
-                            <option value="">{option1}</option>
-                            <option value="">{option2}</option>
-                            <option value="">{option3}</option>
+                            {options.map((option, index) => (
+                                <option key={index} value={option}>{option}</option>
+                            ))}
                         </select>
                         :
                         type == 'file' ?
