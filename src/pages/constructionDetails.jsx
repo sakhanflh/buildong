@@ -103,7 +103,7 @@ const ConstructionDetailsPage = () => {
                             }
                         </div>
                     </div>
-
+                        
                     <div className="mt-4 xl:flex xl:items-start xl:gap-4">
                         <div className="xl:w-1/2">
                             <h1 className="font-bold xl:text-lg">Descriptions</h1>

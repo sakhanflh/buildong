@@ -8,6 +8,7 @@ export function Notifications({ showNotifications }) {
     const [visibleComponent, setVisibleComponent] = useState('GeneralNotif')
     const { user, level } = useContext(UserContext)
     const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -20,6 +21,8 @@ export function Notifications({ showNotifications }) {
                 console.log(res.data.data)
             } catch (error) {
                 console.log(error)
+            } finally {
+                setIsLoading(false)
             }
         }
         console.log(user)
@@ -39,7 +42,7 @@ export function Notifications({ showNotifications }) {
                 </div>
 
                 <div className="mt-2">
-                    {visibleComponent === 'GeneralNotif' && <GeneralNotif />}
+                    {visibleComponent === 'GeneralNotif' && <GeneralNotif data={data} isLoading={isLoading}/>}
                     {visibleComponent === 'OrderNotif' && <OrderNotif />}
                 </div>
             </div>
