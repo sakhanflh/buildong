@@ -25,6 +25,7 @@ const Index = () => {
     const [totalPages, setTotalPages] = useState(1);
     const itemsPerPage = 5;
     useEffect(() => {
+        console.log(filterData)
         setIsLoading(true)
         const fetchData = async() => {
             try {   
@@ -62,13 +63,14 @@ const Index = () => {
             </div>
             <div className="flex mb-20 gap-4 mt-5 xl:mt-6">
                 <SideFilter
-                setCategory={value => setFilterData(prev => ({ ...prev, category: value }))}
-                setStyle={value => setFilterData(prev => ({ ...prev, style: value }))}
-                setMaterial={value => setFilterData(prev => ({ ...prev, material: value }))}
+                setCategory={value => setFilterData(prev => ({ ...prev, category: value.toLowerCase() }))}
+                setStyle={value => setFilterData(prev => ({ ...prev, style: value.toLowerCase() }))}
+                setMaterial={value => setFilterData(prev => ({ ...prev, material: value.toLowerCase() }))}
                 setPriceFrom={value => setTimeout(() => {setFilterData(prev => ({ ...prev, price_from: value}))})}
-                setPriceTo={value => setFilterData(prev => ({ ...prev, price_to : value}))}
+                setPriceTo={value => setFilterData(prev => ({ ...prev, price_to : value.toLowerCase()}))}
                 showFilter={showFilter}
                 setShowFilter={setShowFilter}
+                page={'construction'}
                 />
                 <div className="bg-white rounded-lg w-full py-4 h-max px-[5%] shadow-soft xl:py-6 xl:px-10">
                     <div className="flex justify-between items-center">
@@ -129,7 +131,7 @@ const Index = () => {
                                 <FaChevronLeft />
                             </div>
                             <div className="flex gap-3 items-center text-neutral-400">
-                                {[...Array(totalPages)].map((_, i) => (
+                                {[...Array(totalPages ? totalPages : 1)].map((_, i) => (
                                     <div key={i} onClick={() => setPage(i + 1)} className={`w-7 h-7 flex justify-center items-center rounded-full cursor-pointer ${page === i + 1 ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
                                         {i + 1}
                                     </div>
