@@ -22,6 +22,8 @@ const ConstructionDetailsPage = () => {
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+        setIsLoading(true)
         const fetchData = async() => {
             try {
                 const res = await axios.get(`https://buildong-api.vercel.app/constructions/${constructionId}`, {
@@ -29,6 +31,7 @@ const ConstructionDetailsPage = () => {
                 })
                 setTotalPages(Math.ceil(res.data.totalPages / itemsPerPage));
                 setData(res.data)
+                console.log(res.data)
                 setIsLoading(false)
             } catch (error) {
                 setIsLoading(false)
@@ -37,12 +40,13 @@ const ConstructionDetailsPage = () => {
         }
 
         fetchData()
-    }, [page])
+    }, [page, constructionId])
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const res = await axios.get(`https://buildong-api.vercel.app/constructions/category/${data.category}`)
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/category/${data.construction.category}`)
+                console.log("category "+res.data)
                 setCategoryData(res.data)
             } catch (error) {
                 console.log(error)
@@ -50,12 +54,12 @@ const ConstructionDetailsPage = () => {
         }
 
         fetchData()
-    }, [])
+    }, [data])
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const res = await axios.get(`https://buildong-api.vercel.app/constructions/style/${data.style}`)
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/style/${data.construction.style}`)
                 setStyleData(res.data)
             } catch (error) {
                 console.log(error)
@@ -63,9 +67,8 @@ const ConstructionDetailsPage = () => {
         }
 
         fetchData()
-    }, [])
+    }, [data])
 
-    console.log(data)
 
     return(
         <>
@@ -149,12 +152,14 @@ const ConstructionDetailsPage = () => {
 
                 <CardSwiper 
                 data={categoryData}
-                title={'The Right Project Categories for You'}
+                dataId={data?.construction._id}
+                title={`Related ${data?.construction.category} Categories for You`}
                 subTitle={'Explore various product categories that fit your preferences and lifestyle.'}
                 />
                 <CardSwiper
                 data={styleData}
-                title={'Styles That Match Your Products'}
+                dataId={data?.construction._id}
+                title={`${data?.construction.style} Styles That Match Your Products`}
                 subTitle={'Discover styles that perfectly complement your selected products.'}
                 />
             </div>

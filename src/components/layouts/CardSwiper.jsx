@@ -6,12 +6,24 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import Rupiah from "../../utils/Rupiah";
+import Loader from "../fragments/Loader";
 
-const CardSwiper = ({title, subTitle, data}) => {
+const CardSwiper = ({title, subTitle, data, dataId}) => {
     const nextBtn = useRef(null)
     const prevBtn = useRef(null)
+    const [filteredData, setFilteredData] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+      const newData = data?.filter(dt => dt._id !== dataId)
+      if(newData){
+        setFilteredData(newData)
+        setLoading(false)
+      }
+    }, [data])
 
     return (
         <div className="bg-white mt-6 shadow-soft rounded-lg w-full py-6 px-6">
@@ -39,7 +51,6 @@ const CardSwiper = ({title, subTitle, data}) => {
             }}
             slidesPerView={1}
             breakpoints={{
-            // Breakpoints for different screen sizes
             640: {
               slidesPerView: 1,
               spaceBetween: 20,
@@ -53,14 +64,26 @@ const CardSwiper = ({title, subTitle, data}) => {
               spaceBetween: 20,
             },
           }}
-        >
+          >
           {
-            data?.map(dt => (
-          <SwiperSlide key={dt._id}>
+            loading ?
+            <div className="flex items-center justify-center py-10">
+              <Loader color={'bg-primary'}/>
+            </div>
+            :
+            filteredData?.length == 0 ?
+            <div className="text-center w-full py-10">
+              <h1 className="xl:text-lg font-semibold text-neutral-400">No related product for you</h1>
+            </div>
+            :
+            filteredData?.map(dt => (
+          <SwiperSlide key={dt._id} className="cursor-none">
             <Card  
+              key={dt._id}
               category={dt.category}
+              linkTo={`/constructions/${dt._id}`}
               img={dt.image[0]}
-              price={dt.total_price}
+              price={Rupiah(dt.total_price)}
               rate={4}
               title={dt.design_name}
             />
