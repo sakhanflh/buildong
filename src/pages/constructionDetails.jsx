@@ -13,13 +13,40 @@ import axios from "axios";
 
 const ConstructionDetailsPage = () => {
     const { constructionId } = useParams()
-    const {data, isLoading, isError} = useFetch(`https://buildong-api.vercel.app/constructions/${constructionId}`)
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
     const [styleData, setStyleData] = useState(null)
     const [categoryData, setCategoryData] = useState(null)
+    const itemsPerPage = 10;
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setIsLoading(true)
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/${constructionId}`, {
+                    params: {page, limit: itemsPerPage}
+                })
+                setTotalPages(Math.ceil(res.data.totalPages / itemsPerPage));
+                setData(res.data)
+                console.log(res.data)
+                setIsLoading(false)
+            } catch (error) {
+                setIsLoading(false)
+                console.log(error)
+            }
+        }
+
+        fetchData()
+    }, [page, constructionId])
+
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const res = await axios.get(`https://buildong-api.vercel.app/constructions/category/${data.category}`)
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/category/${data.construction.category}`)
+                console.log("category "+res.data)
                 setCategoryData(res.data)
             } catch (error) {
                 console.log(error)
@@ -27,12 +54,12 @@ const ConstructionDetailsPage = () => {
         }
 
         fetchData()
-    }, [])
+    }, [data])
 
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const res = await axios.get(`https://buildong-api.vercel.app/constructions/style/${data.style}`)
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/style/${data.construction.style}`)
                 setStyleData(res.data)
             } catch (error) {
                 console.log(error)
@@ -40,12 +67,8 @@ const ConstructionDetailsPage = () => {
         }
 
         fetchData()
-    }, [])
+    }, [data])
 
-
-    if(isError){
-        return alert(isError.message)
-    }
 
     return(
         <>
@@ -55,13 +78,13 @@ const ConstructionDetailsPage = () => {
                 <div className="flex flex-col gap-4 w-full rounded-lg bg-white shadow-soft p-4 xl:p-6">
                     <div className="flex-col xl:flex-row flex gap-8">
                         <ImgWrapper
-                        data={data}
+                        data={data?.construction}
                         isLoading={isLoading}
                         />
 
                         <DetailsLayout
                         constructId={constructionId}
-                        data={data}
+                        data={data?.construction}
                         isLoading={isLoading}
                         />
                     </div>
@@ -70,13 +93,13 @@ const ConstructionDetailsPage = () => {
                         <div className="flex justify-between">
                             <h1 className="font-medium">PRODUCT ID :</h1>
                             {
-                                isLoading ? <SkeletonLoading width={'w-32 xl:w-52'}/> : <p>{data._id}</p>
+                                isLoading ? <SkeletonLoading width={'w-32 xl:w-52'}/> : <p>{data.construction._id}</p>
                             }
                         </div>
                         <div className="flex justify-between">
                             <h1 className="font-medium">TAGS :</h1>
                             {
-                                isLoading ? <SkeletonLoading width={'w-24 xl:w-32'}/> : <p>{data.style}</p>
+                                isLoading ? <SkeletonLoading width={'w-24 xl:w-32'}/> : <p>{data.construction.style}</p>
                             }
                         </div>
                     </div>
@@ -106,29 +129,37 @@ const ConstructionDetailsPage = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <h1 className="font-medium">Square Meters :</h1>
-                                    {isLoading ? <SkeletonLoading width={'w-14'}/> : <p>{data.square_meters}</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-14'}/> : <p>{data.construction.square_meters}</p>}
                                 </div>
                                 <div className="flex justify-between">
                                     <h1 className="font-medium">Location :</h1>
-                                    {isLoading ? <SkeletonLoading width={'w-7'}/> : <p>{data.location}</p>}
+                                    {isLoading ? <SkeletonLoading width={'w-7'}/> : <p>{data.construction.location}</p>}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* REVIEWS */}
-                    <ReviewLayout isLoading={isLoading} reviews={data?.reviews}/>
+                    <ReviewLayout 
+                    isLoading={isLoading} 
+                    reviews={data?.construction?.reviews}
+                    setPage={setPage}
+                    page={page}
+                    totalPages={totalPages}
+                    />
                     {/* REVIEWS */}
                 </div>
 
                 <CardSwiper 
                 data={categoryData}
-                title={'The Right Project Categories for You'}
+                dataId={data?.construction._id}
+                title={`Related ${data?.construction.category} Categories for You`}
                 subTitle={'Explore various product categories that fit your preferences and lifestyle.'}
                 />
                 <CardSwiper
                 data={styleData}
-                title={'Styles That Match Your Products'}
+                dataId={data?.construction._id}
+                title={`${data?.construction.style} Styles That Match Your Products`}
                 subTitle={'Discover styles that perfectly complement your selected products.'}
                 />
             </div>
