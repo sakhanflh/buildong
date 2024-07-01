@@ -97,11 +97,15 @@ export function Constructions() {
                     >
                         <AdminInput
                             subTitle={"Category"}
-                            onChange={(e) => setNewData({ ...newData, category: e.target.value })}
-                        />
+                            onChange={(e) => setNewData({ ...newData, category: e.target.value.toLowerCase() })}
+                            options={["House", "Bedroom", "Office", "Kitchen", "Living Room", "School", "Bathroom", "Dining Room", "Other"]}
+                            type={'select'}
+                            />
                         <AdminInput
                             subTitle={"Style"}
-                            onChange={(e) => setNewData({ ...newData, style: e.target.value })}
+                            onChange={(e) => setNewData({ ...newData, style: e.target.value.toLowerCase() })}
+                            options={["Minimalist", "Modern", "Vintage", "Industrial", "Scandinavian", "Rustic", "Mediterranean", "Other"]}
+                            type={'select'}
                         />
                     </ProductsItem>
 
