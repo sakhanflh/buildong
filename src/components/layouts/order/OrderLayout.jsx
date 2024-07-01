@@ -10,7 +10,7 @@ import Loader from "../../fragments/Loader"
 const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onClick, loadingOrder}) => {
     const defWorkerSalary = data?.project_duration * ( 150000 * data?.worker )
     const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers ) 
-    const furniturePrice = data.total_price - defWorkerSalary
+    const furniturePrice = data?.total_price - defWorkerSalary
     const totalPrice = workerSalary + furniturePrice + (newOrder.payment_method ? 2500 : 0)
     const [showDetails, setShowDetails] = useState(true)
 
