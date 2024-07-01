@@ -32,7 +32,7 @@ const DetailsLayout = ({isLoading, data, constructId}) => {
                 </div>
                 :
                 <div className="font-semibold text-lg ">
-                    <p className="text-neutral-500 text-sm">{data?.style}</p>
+                    <p className="text-neutral-500 text-sm">{data?.category}</p>
                     <h1 className=" xl:text-xl">{data?.design_name}</h1>
                     <div className="flex text-sm flex-col gap-1 my-4 xl:text-base xl:items-center xl:mt-2 xl:flex-row xl:gap-4">
                         <Stars length={4}/>

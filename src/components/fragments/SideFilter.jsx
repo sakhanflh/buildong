@@ -3,7 +3,7 @@ import CategoryList from "../elements/CategoryList";
 import { FiX } from "react-icons/fi"
 import DropDownInput from "./DropDownInput";
 
-const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMaterial, setPriceFrom, setPriceTo}) => {
+const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMaterial, setPriceFrom, setPriceTo, page}) => {
 
     return(
         <>
@@ -14,10 +14,29 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
             </div>
             <div className="py-4 border-b-2 xl:py-6">
                 <h1 className="font-medium text-sm">Category</h1>
-                <div className="pl-3 text-sm text-neutral-500 pt-5 flex flex-wrap gap-1">
-                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Home"}/>
+                <div className={`pl-3 text-sm text-neutral-500 pt-5 ${page == 'construction' ? 'flex' : 'hidden'} flex-wrap gap-1`}>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"House"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Bedroom"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Office"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"School"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Residential"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Commercial"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Industrial"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Renovation"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Institutional"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Hospitality"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Other"}/>
+                </div>
+                <div className={`pl-3 text-sm text-neutral-500 pt-5 ${page == 'construction' ? 'hidden' : 'flex'} flex-wrap gap-1`}>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Furniture"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Kitchen"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Bathroom"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Outdoor"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Decor"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Storage"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Flooring"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Wall Art"}/>
+                    <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Other"}/>
                 </div>
             </div>
             <div className="py-4 border-b-2 xl:py-6">
@@ -30,17 +49,28 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
             <div className="py-4 border-b-2 xl:py-6">
                 <h1 className="font-medium text-sm">Style</h1>
                 <div className="pl-3 text-sm text-neutral-500 pt-5 flex flex-wrap gap-1">
-                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"western"}/>
+                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Minimalist"}/>
                     <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Modern"}/>
                     <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Vintage"}/>
+                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Industrial"}/>
+                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Scandinavian"}/>
+                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Rustic"}/>
+                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Mediterranean"}/>
+                    <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Other"}/>
                 </div>
             </div>
-            <div className="py-4 xl:py-6">
+            <div className={`${page == 'construction' ? 'hidden' : ''} py-4 xl:py-6`}>
                 <h1 className="font-medium text-sm">Material</h1>
                 <div className="pl-3 text-sm text-neutral-500 pt-5 flex flex-wrap gap-1">
-                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Western"}/>
-                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Modern"}/>
-                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Vintage"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Wood"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Metal"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Glass"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Plastic"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Fabric"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Leather"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Stone"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Ceramic"}/>
+                    <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Other"}/>
                 </div>
             </div>
         </div>
