@@ -15,7 +15,7 @@ export function Products() {
     })
 
     useEffect(() => {
-        console.log(newData)
+        
     }, [newData])
 
     async function handleUploadData() {

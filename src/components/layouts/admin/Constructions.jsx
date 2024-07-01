@@ -22,7 +22,7 @@ export function Constructions() {
     const [err, setErr] = useState(false)
 
     useEffect(() => {
-        console.log(newData)
+        
     }, [newData])
 
     async function handleUploadData() {

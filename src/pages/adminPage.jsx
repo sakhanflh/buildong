@@ -20,7 +20,6 @@ export default function AdminPage() {
 
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications)
-        console.log('first')
     }
     return (
 
