@@ -1,12 +1,10 @@
 import { FaCheck, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Header } from "../components/fragments/Header";
-import { Footer } from "../components/layouts/Footer";
 import Layout from "../components/layouts/Layout";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../context/UserContext";
-import { useFetch } from "../hooks/useFetch";
 import AdditionalOption from "../components/layouts/order/AdditionalOption";
 import AddressLayout from "../components/layouts/order/AddressLayout";
 import OrderLayout from "../components/layouts/order/OrderLayout";
@@ -17,8 +15,9 @@ import SimpleAlert from "../components/fragments/SimpleAlert";
 const OrderSumPage = () => {
     const { constructionId } = useParams();
     const { user, loading } = useContext(UserContext)
-    const {data, isLoading, isError} = useFetch(`https://buildong-api.vercel.app/constructions/${constructionId}`)
     const account = user?.user.account
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
     const [loadingOrder, setLoadingOrder] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [msg, setMsg] = useState('')
@@ -39,9 +38,24 @@ const OrderSumPage = () => {
         style: '',
         category: '',
     })
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/${constructionId}`)
+                setData(res.data.construction)
+                setIsLoading(false)
+            } catch (error) {
+                setIsLoading(false)
+                console.log(error)
+            }
+        }
+
+        fetchData()
+    }, [])
     
     useEffect(() => {
         const workerSalary = data?.project_duration * ( 150000 * data?.worker )
+        console.log(data)
         if(data && account){
             setNewOrder({
                 ...newOrder, 

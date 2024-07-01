@@ -8,7 +8,7 @@ const AdditionalOption = ({data, isLoading, newOrder, setNewOrder}) => {
 
     useEffect(() => {
         let lessDuration = ''
-        if(newWorker == data.worker){
+        if(newWorker == data?.worker){
             setNewOrder({...newOrder, total_workers: data.worker, project_duration: data.project_duration})
             return setNewDuration(lessDuration)
         }
@@ -37,7 +37,7 @@ const AdditionalOption = ({data, isLoading, newOrder, setNewOrder}) => {
                     <div className="flex flex-col gap-1">
                         <label htmlFor="worker">Total Workers</label>
                         <select name="worker" onChange={(e) => setNewWorker(e.target.value)} id="worker" className="focus:border-blue-300 border-2 bg-neutral-50 border-neutral-300 focus:bg-blue-50 rounded-lg px-4 py-2 outline-none">
-                            <option value="5">{data.worker}</option>
+                            <option value="5">{data?.worker}</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
                         </select>
