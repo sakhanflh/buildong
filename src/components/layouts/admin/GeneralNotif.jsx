@@ -1,10 +1,18 @@
+import Loader from "../../fragments/Loader";
 import { NotificationsCard } from "../../fragments/NotificationsCard";
 
-export function GeneralNotif() {
+export function GeneralNotif({ data, isLoading }) {
     return (
         <>
             <div>
-                <NotificationsCard/>
+                {
+                    isLoading ?
+                        <Loader />
+                        :
+                        data.map(dt => (
+                            <NotificationsCard key={dt._id} dt={dt} />
+                        ))
+                }
             </div>
         </>
     )

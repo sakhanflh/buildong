@@ -19,18 +19,24 @@ export default function Index() {
         price_to: ""
     });
     const [showFilter, setShowFilter] = useState(false);
+    const [dataLen, setDataLen] = useState(0)
     const arrLength = new Array(6).fill(0);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const itemsPerPage = 5;
+
 
     useEffect(() => {
         setIsLoading(true)
         const fetchData = async () => {
             try {
                 const response = await axios.get(`https://buildong-api.vercel.app/products`, {
-                    params: filterData
+                    params: { ...filterData, page, limit: itemsPerPage }
                 })
-                setData(response.data.products)
+                setData(response.data.data)
                 setIsLoading(false)
                 console.log(response.data)
+                setTotalPages(Math.ceil(response.data.total / itemsPerPage));
             } catch (error) {
                 console.log(error.message)
                 setIsLoading(false)
@@ -38,7 +44,7 @@ export default function Index() {
         }
 
         fetchData();
-    }, [filterData])
+    }, [filterData, page])
 
     function handleDeleteFilter(filterKey) {
         setFilterData(prev => ({
@@ -46,6 +52,7 @@ export default function Index() {
             [filterKey]: ""
         }));
     }
+
 
     return (
         <>
@@ -111,24 +118,33 @@ export default function Index() {
                                                     title={dt.desc}
                                                     price={Rupiah(dt.unit_price)}
                                                     rate={'4.9'}
-                                                    linkTo={`/products/${dt._id}`}
+                                                    linkTo={`/shop/${dt._id}`}
                                                     brand={dt.brand}
                                                 />
                                             ))
                                 }
                             </div>
 
-                            <div className={`flex w-full justify-center gap-4 mt-16 items-center text-sm`}>
-                                <FaChevronLeft />
-                                <div className="flex gap-3 items-center text-neutral-400">
-                                    <div className="bg-primary w-7 h-7 text-white text-center flex justify-center items-center rounded-full">
-                                        <p>1</p>
-                                    </div>
-                                    <p>2</p>
-                                    <p>...</p>
-                                    <p>10</p>
+                            <div className={`flex w-full justify-center gap-8 mt-16 items-center text-sm`}>
+                                <div
+                                    onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                                    className="bg-white border-2 border-primary text-primary hover:shadow-soft hover:bg-primary hover:text-white hover:scale-[.98] active:bg-primary active:text-white active:shadow-multiple active:brightness-75 active:scale-95 rounded-lg w-8 h-8 flex items-center justify-center cursor-pointer"
+                                >
+                                    <FaChevronLeft />
                                 </div>
-                                <FaChevronRight />
+                                <div className="flex gap-3 items-center text-neutral-400">
+                                    {[...Array(totalPages ? totalPages : 1)].map((_, i) => (
+                                        <div key={i} onClick={() => setPage(i + 1)} className={`w-7 h-7 flex justify-center items-center rounded-full cursor-pointer ${page === i + 1 ? 'bg-primary text-white' : 'bg-white text-primary'}`}>
+                                            {i + 1}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div
+                                    onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}
+                                    className="bg-white border-2 border-primary text-primary hover:shadow-soft hover:bg-primary hover:text-white hover:scale-[.98] active:bg-primary active:text-white active:shadow-multiple active:brightness-75 active:scale-95 rounded-lg w-8 h-8 flex items-center justify-center cursor-pointer"
+                                >
+                                    <FaChevronRight />
+                                </div>
                             </div>
                         </div>
                     </div>

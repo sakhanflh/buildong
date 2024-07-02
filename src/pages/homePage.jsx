@@ -4,19 +4,29 @@ import { Footer } from "../components/layouts/Footer";
 import { OfferCard } from "../components/layouts/home/OfferCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { OurProjectSlider } from "../components/layouts/home/OurProjectSlider";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChooseUsSection } from "../components/layouts/home/ChooseUsSection";
 import { ClientsSaySlider } from "../components/layouts/home/ClientsSaySlider";
+import { Link } from "react-router-dom";
 
 
 export default function HomePage() {
     const [swiperInstance, setSwiperInstance] = useState(null);
     const nextButtonRef = useRef(null);
     const prevButtonRef = useRef(null);
-    
+
     const [swiperInstance2, setSwiperInstance2] = useState(null)
     const nextButtonRef2 = useRef(null);
     const prevButtonRef2 = useRef(null);
+
+    const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        if (!token) {
+            setLoading(false);
+        }
+    }, [token]);
 
     return (
         <>
@@ -109,25 +119,28 @@ export default function HomePage() {
                     {/* Section 3 End */}
 
                     {/* Section 4 */}
-                    <div className="w-full flex flex-col gap-5 xl:gap-10 justify-center items-center pt-20 xl:pt-32">
-                        <div className="xl:w-[35rem] flex flex-col gap-2 items-center">
-                            <h1 className="text-2xl xl:text-4xl font-bold text-font-black">Unclock Exclusive Offers!</h1>
-                            <p className="text-sm xl:text-lg text-font-gray text-center">As a registered member, you gain exclusive access to special deals and discounts on our top-quality construction materials and services, Don't miss out on these limited-time offers available only to our members.</p>
-                        </div>
+                    {!loading && !token && (
+                        <div className="w-full flex flex-col gap-5 xl:gap-10 justify-center items-center pt-20 xl:pt-32">
+                            <div className="xl:w-[35rem] flex flex-col gap-2 items-center">
+                                <h1 className="text-2xl xl:text-4xl font-bold text-font-black">Unclock Exclusive Offers!</h1>
+                                <p className="text-sm xl:text-lg text-font-gray text-center">As a registered member, you gain exclusive access to special deals and discounts on our top-quality construction materials and services, Don't miss out on these limited-time offers available only to our members.</p>
+                            </div>
 
-                        <div
-                            className="w-full h-52 xl:w-[80%] xl:h-96 bg-cover rounded-3xl project-card-shadow"
-                            style={{
-                                backgroundImage: `linear-gradient(to top, rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0)), url('/img/home3.jpg')`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center'
-                            }}
-                        >
-                            <div className="w-full h-full flex items-center justify-center">
-                                <button className="items-center px-10 xl:px-14 text-white py-2 bg-primary rounded-3xl">Login Now</button>
+                            <div
+                                className="w-full h-52 xl:w-[80%] xl:h-96 bg-cover rounded-3xl project-card-shadow"
+                                style={{
+                                    backgroundImage: `linear-gradient(to top, rgba(10, 10, 10, 0.9), rgba(0, 0, 0, 0)), url('/img/home3.jpg')`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                }}
+                            >
+                                <div className="w-full h-full flex items-center justify-center">
+                                    <Link to={'/login'} className="items-center px-10 xl:px-14 text-white py-2 bg-primary rounded-3xl">Login Now</Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
+
                     {/* Section 4 End */}
 
                     {/* Section 5 */}
@@ -140,9 +153,9 @@ export default function HomePage() {
 
                             <div className="w-full pl-3 xl:pl-0 xl:w-[67%]">
                                 <ClientsSaySlider
-                                nextRef={nextButtonRef2}
-                                prevRef={prevButtonRef2}
-                                setSwiperInstance={setSwiperInstance2}
+                                    nextRef={nextButtonRef2}
+                                    prevRef={prevButtonRef2}
+                                    setSwiperInstance={setSwiperInstance2}
                                 />
                             </div>
                         </div>
@@ -160,9 +173,9 @@ export default function HomePage() {
 
                 </div>
             </div>
-                {/* Footer */}
-                <Footer/>
-                {/* Footer End */}
+            {/* Footer */}
+            <Footer />
+            {/* Footer End */}
         </>
     )
 }

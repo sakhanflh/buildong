@@ -1,9 +1,28 @@
+import { useEffect, useState } from "react";
 import { Header } from "../components/fragments/Header";
 import { Footer } from "../components/layouts/Footer";
 import Layout from "../components/layouts/Layout";
 import { ProjectCard } from "../components/layouts/project/ProjectCard";
+import axios from "axios";
+import Loader from "../components/fragments/Loader";
 
 export default function ProjectPage() {
+    const [data, setData] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get('https://buildong-api.vercel.app/construction-orders/completed')
+                setData(res.data.data)
+                console.log(res.data.data)
+                setIsLoading(false)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+    }, [])
+
     return (
         <>
             <Header />
@@ -46,8 +65,25 @@ export default function ProjectPage() {
                         <div className="w-full justify-center flex">
                             <h1 className="text-2xl xl:text-3xl font-semibold">The <span className="text-primary">Last</span> Project we <span className="text-primary">Made</span></h1>
                         </div>
+                        
                         <div className="mt-4 xl:mt-8">
-                            <ProjectCard />
+                            {
+                                isLoading 
+                                ? 
+                                <Loader/>
+                                :
+                                data.map(dt => (
+                                    <ProjectCard 
+                                    key={dt._id}
+                                    img={dt.image[0]}
+                                    length={dt.reviews[0].rating}
+                                    location={dt.location}
+                                    project_name={dt.design_name}
+                                    username={dt.reviews[0].username}
+                                    review={dt.reviews[0].desc}
+                                    />
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
