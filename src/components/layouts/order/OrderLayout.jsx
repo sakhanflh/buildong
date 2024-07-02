@@ -6,19 +6,38 @@ import { RiShieldCheckFill } from "react-icons/ri"
 import Rupiah from "../../../utils/Rupiah"
 import { useEffect, useState } from "react"
 import Loader from "../../fragments/Loader"
+import { calculateDiscount } from "../../../utils/CalculateDiscount"
 
-const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onClick, loadingOrder}) => {
+const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onClick, loadingOrder, voucher}) => {
     const defWorkerSalary = data?.project_duration * ( 150000 * data?.worker )
     const workerSalary = data?.project_duration * ( 150000 * newOrder?.total_workers ) 
     const furniturePrice = data?.total_price - defWorkerSalary
     const totalPrice = workerSalary + furniturePrice + (newOrder.payment_method ? 2500 : 0)
     const [showDetails, setShowDetails] = useState(true)
+    const [discountAmount, setDiscountAmount] = useState(0)
+    
+    useEffect(() => {
+        if(newOrder.payment_method){
+            const total = newOrder.total_price + 2500
+            console.log(total)
+            return setNewOrder({...newOrder, total_price: total})
+        }
+    }, [newOrder.payment_method])
 
     useEffect(() => {
+        if(voucher){
+            const sumVoucher = calculateDiscount(Number(totalPrice), Number(voucher?.total_discount))
+            setDiscountAmount(sumVoucher.discountAmount)
+            return setNewOrder({...newOrder, total_price: totalPrice - sumVoucher.discountAmount})
+        }
+    }, [voucher, totalPrice])
+
+    useEffect(() => {
+        console.log(newOrder)
         if(data){
             setNewOrder({...newOrder, worker_salary: workerSalary, furniture_cost: furniturePrice, total_price: totalPrice})
         }
-    }, [data, workerSalary])
+    }, [workerSalary, data])
 
     return (
         <div className="rounded-lg bg-white shadow-soft px-6 py-6">
@@ -76,6 +95,10 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
                                     <p>Project Duration</p>
                                     <p className="font-semibold text-primary"><span className={`${data.project_duration == newOrder.project_duration ? 'hidden' : ''} font-normal line-through text-neutral-500`}>{data.project_duration} Days</span> {newOrder?.project_duration} Days</p>
                                 </div>
+                                <div className={`${voucher ? 'flex' : 'hidden'} justify-between`}>
+                                    <p>{voucher?.total_discount ? voucher.total_discount : 0}% Discount </p>
+                                    <p>- {voucher ? Rupiah(discountAmount) : 0}</p>
+                                </div>
                             </div>
                         </div>
                     }
@@ -98,7 +121,7 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
                         isLoading || !data.total_price ?
                         <SkeletonLoading width={'w-20'}/>
                         :
-                        <h1 className="text-primary">{Rupiah(totalPrice)}</h1>
+                        <h1 className="text-primary"><span className={`${voucher ? 'line-through' : ''}`}>{Rupiah(totalPrice)}</span> {voucher ? Rupiah(newOrder?.total_price) : ''}</h1>
                     }
                 </div>
                 

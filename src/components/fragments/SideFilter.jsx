@@ -7,14 +7,14 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
 
     return(
         <>
-        <div className={`${showFilter ? "translate-x-0" : "-translate-x-96"} transition-all duration-300 fixed left-0 top-0 w-60 px-6 pt-16 xl:pt-4 bg-white h-dvh z-30 xl:relative xl:translate-x-0 shadow-soft xl:rounded-lg xl:z-0 xl:w-80 xl:h-max`}>
+        <div className={`${showFilter ? "translate-x-0" : "-translate-x-96"} transition-all duration-300 text-sm xl:text-base fixed left-0 top-0 w-60 px-6 pt-16 xl:pt-4 bg-white h-dvh z-30 xl:relative xl:translate-x-0 shadow-soft xl:rounded-lg xl:z-0 xl:w-80 xl:h-max`}>
             <div className="py-4 border-b-2 flex justify-between items-center xl:py-6">
                 <h1 className="font-semibold text-lg">Filter Options</h1>
                 <FiX onClick={() => setShowFilter(false)} className="flex xl:hidden"/>
             </div>
             <div className="py-4 border-b-2 xl:py-6">
-                <h1 className="font-medium text-sm">Category</h1>
-                <div className={`pl-3 text-sm text-neutral-500 pt-5 ${page == 'construction' ? 'flex' : 'hidden'} flex-wrap gap-1`}>
+                <h1 className="font-medium">Category</h1>
+                <div className={`pl-3 text-neutral-500 pt-5 ${page == 'construction' ? 'flex' : 'hidden'} flex-wrap gap-1`}>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"House"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Bedroom"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Office"}/>
@@ -27,7 +27,7 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Hospitality"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Other"}/>
                 </div>
-                <div className={`pl-3 text-sm text-neutral-500 pt-5 ${page == 'construction' ? 'hidden' : 'flex'} flex-wrap gap-1`}>
+                <div className={`pl-3 text-neutral-500 pt-5 ${page == 'construction' ? 'hidden' : 'flex'} flex-wrap gap-1`}>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Furniture"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Kitchen"}/>
                     <CategoryList onClick={(e) => setCategory(e.target.innerText)} name={"Bathroom"}/>
@@ -40,15 +40,15 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
                 </div>
             </div>
             <div className="py-4 border-b-2 xl:py-6">
-                <h1 className="font-medium text-sm">Price</h1>
-                <div className="pl-3 text-sm text-neutral-500 pt-5 flex gap-1 w-full">
+                <h1 className="font-medium">Price</h1>
+                <div className="pl-3 text-neutral-500 pt-5 flex gap-1 w-full">
                     <DropDownInput placeholder={"From"} onChange={(e) => setPriceFrom(e.target.value)}/>
                     <DropDownInput placeholder={"To"} onChange={(e) => setPriceTo(e.target.value)}/>
                 </div>
             </div>
             <div className="py-4 border-b-2 xl:py-6">
-                <h1 className="font-medium text-sm">Style</h1>
-                <div className="pl-3 text-sm text-neutral-500 pt-5 flex flex-wrap gap-1">
+                <h1 className="font-medium">Style</h1>
+                <div className="pl-3 text-neutral-500 pt-5 flex flex-wrap gap-1">
                     <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Minimalist"}/>
                     <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Modern"}/>
                     <CategoryList onClick={(e) => setStyle(e.target.innerText)} name={"Vintage"}/>
@@ -60,8 +60,8 @@ const SideFilter = ({showFilter, setShowFilter, setCategory, setStyle, setMateri
                 </div>
             </div>
             <div className={`${page == 'construction' ? 'hidden' : ''} py-4 xl:py-6`}>
-                <h1 className="font-medium text-sm">Material</h1>
-                <div className="pl-3 text-sm text-neutral-500 pt-5 flex flex-wrap gap-1">
+                <h1 className="font-medium">Material</h1>
+                <div className="pl-3 text-neutral-500 pt-5 flex flex-wrap gap-1">
                     <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Wood"}/>
                     <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Metal"}/>
                     <CategoryList onClick={(e) => setMaterial(e.target.innerText)} name={"Glass"}/>

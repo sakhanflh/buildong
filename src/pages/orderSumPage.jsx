@@ -11,6 +11,8 @@ import OrderLayout from "../components/layouts/order/OrderLayout";
 import PaymentModal from "../components/layouts/order/PaymentModal";
 import axios from "axios";
 import SimpleAlert from "../components/fragments/SimpleAlert";
+import VoucherLayout from "../components/layouts/order/VoucherLayout";
+import { calculateDiscount } from "../utils/CalculateDiscount";
 
 const OrderSumPage = () => {
     const { constructionId } = useParams();
@@ -20,6 +22,7 @@ const OrderSumPage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [loadingOrder, setLoadingOrder] = useState(false)
     const [showModal, setShowModal] = useState(false)
+    const [voucher, setVoucher] = useState(null)
     const [msg, setMsg] = useState('')
     const [newOrder, setNewOrder] = useState({
         project_start: '',
@@ -52,10 +55,13 @@ const OrderSumPage = () => {
 
         fetchData()
     }, [])
+
+    useEffect(() => {
+        console.log(newOrder)
+    }, [newOrder])
     
     useEffect(() => {
         const workerSalary = data?.project_duration * ( 150000 * data?.worker )
-        console.log(data)
         if(data && account){
             setNewOrder({
                 ...newOrder, 
@@ -73,7 +79,7 @@ const OrderSumPage = () => {
                 address: account.address
             })
         }
-    }, [data, account])
+    }, [account])
 
     async function handleUploadOrder(){
         setLoadingOrder(true)
@@ -114,15 +120,14 @@ const OrderSumPage = () => {
                     </div>
 
                     <div className="flex flex-col gap-4 w-full xl:w-1/2">
-                        <div className="rounded-lg bg-white shadow-soft flex items-center justify-between px-4 py-3">
-                            <div className="flex items-center gap-2">
-                                <RiDiscountPercentFill className="text-primary text-2xl"/>
-                                <h1 className="font-bold xl:text-lg">Voucher Code</h1>
-                            </div>
-                            <FaChevronRight/>
-                        </div>
+                        <VoucherLayout
+                        setVoucher={setVoucher}
+                        voucher={voucher}
+                        newOrder={newOrder}
+                        />
 
-                        <OrderLayout 
+                        <OrderLayout
+                        voucher={voucher} 
                         data={data} 
                         isLoading={isLoading} 
                         newOrder={newOrder}
