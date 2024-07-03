@@ -62,7 +62,7 @@ export function ShopDetailsPage() {
 
     function handleAddToCart(){
         const isExsist = JSON.parse(localStorage.getItem('cart'))
-        const setMsg('Successfully added to cart')
+        setMsg('Successfully added to cart')
         const newItem = {
             product_id: data._id,
             product_name: data.name,
