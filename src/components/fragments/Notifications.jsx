@@ -18,7 +18,6 @@ export function Notifications({ showNotifications }) {
                     }
                 })
                 setData(res.data.data)
-                console.log(res.data.data)
             } catch (error) {
                 console.log(error)
             } finally {
@@ -31,7 +30,7 @@ export function Notifications({ showNotifications }) {
 
     return (
         <>
-            <div className={`fixed xl:absolute  font-jost shadow-2xl xl:rounded-xl bg-white p-5 transition-all right-0 duration-500  ${showNotifications ? 'w-dvw h-dvh xl:w-[30rem] xl:h-[32rem] z-50 xl:opacity-100' : 'w-full xl:w-52 h-0 xl:h-0 -z-50 overflow-hidden opacity-0 cursor-none'}`}>
+            <div className={`fixed xl:absolute  font-jost shadow-2xl xl:rounded-xl bg-white p-5 transition-all right-0 duration-500  ${showNotifications ? 'w-dvw h-dvh xl:w-[30rem] xl:h-[32rem] z-50 xl:opacity-100' : 'w-full xl:w-52 h-0 xl:h-0 -z-50 overflow-hidden opacity-0'}`}>
                 <div>
                     <h1 className="text-xl font-medium">Notifications</h1>
                 </div>

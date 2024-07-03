@@ -10,18 +10,22 @@ import ReviewLayout from "../components/layouts/constructionDetail/ReviewLayout"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FmDateName } from "../utils/FmDateName";
+import SimpleAlert from "../components/fragments/SimpleAlert";
 
 export function ShopDetailsPage() {
     const { shopId } = useParams()
     const [data, setData] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [categoryData, setCategoryData] = useState(null)
+    const [materialData, setMaterialData] = useState(null)
+    const [msg, setMsg] = useState('')
 
     useEffect(() => {
         const fetchData = async() => {
             try {
                 const res = await axios.get(`https://buildong-api.vercel.app/products/${shopId}`)
-                console.log(res)
                 setData(res.data)
+                console.log(res.data)
                 setIsLoading(false)
             } catch (error) {
                 console.log(error)
@@ -29,6 +33,54 @@ export function ShopDetailsPage() {
         } 
         fetchData()
     }, [shopId])
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/products/category/${data.category}`)
+                setCategoryData(res.data.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchData()
+    }, [data])
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const res = await axios.get(`https://buildong-api.vercel.app/products/material/${data.material}`)
+                setMaterialData(res.data.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchData()
+    }, [data])
+
+    function handleAddToCart(){
+        const isExsist = JSON.parse(localStorage.getItem('cart'))
+        const setMsg('Successfully added to cart')
+        const newItem = {
+            product_id: data._id,
+            product_name: data.name,
+            unit_price: data.unit_price,
+            quantity: 1,
+            image: data.image[0],
+            category: data.category,
+            brand: data.brand,
+            material: data.material
+        }
+
+        if(!isExsist){
+            localStorage.setItem('cart', JSON.stringify([newItem]))
+        } else {
+            localStorage.setItem('cart', JSON.stringify([...isExsist, newItem]))
+        }
+    }
+
     return (
         <>
             <Header />
@@ -42,6 +94,7 @@ export function ShopDetailsPage() {
                             />
 
                             <DetailsLayout
+                                onClick={handleAddToCart}
                                 constructId={shopId}
                                 data={data}
                                 isLoading={isLoading}
@@ -99,31 +152,28 @@ export function ShopDetailsPage() {
                         </div>
 
                         {/* REVIEWS */}
-                        {/* <ReviewLayout
-                            isLoading={isLoading}
-                            reviews={data?.reviews}
-                            setPage={setPage}
-                            page={page}
-                            totalPages={totalPages}
-                        />  */}
+                        <ReviewLayout
+                            endpoint={`https://buildong-api.vercel.app/products/${shopId}/reviews`}
+                        /> 
                         {/* REVIEWS */}
                     </div>
 
-                    {/* <CardSwiper
-                        // data={categoryData}
-                        // dataId={data?.construction._id}
-                        // title={`Related ${data?.construction.category} Categories for You`}
-                        // subTitle={'Explore various product categories that fit your preferences and lifestyle.'}
+                    <CardSwiper
+                        data={categoryData}
+                        dataId={data?._id}
+                        title={`Related ${data?.category} Categories for You`}
+                        subTitle={'Explore various product categories that fit your preferences and lifestyle.'}
                     />
                     <CardSwiper
-                        // data={styleData}
-                        // dataId={data?.construction._id}
-                        // title={`${data?.construction.style} Styles That Match Your Products`}
-                        // subTitle={'Discover styles that perfectly complement your selected products.'}
-                    /> */}
+                        data={materialData}
+                        dataId={data?._id}
+                        title={`${data?.material} Material That Match Your Products`}
+                        subTitle={'Discover styles that perfectly complement your selected products.'}
+                    />
                 </div>
             </Layout>
             <Footer />
+            <SimpleAlert msg={msg}/>
         </>
     )
 }

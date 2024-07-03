@@ -1,43 +1,13 @@
-/* eslint-disable react/prop-types */
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import ReviewCard from "../../fragments/ReviewCard";
-import Stars from "../../elements/Stars";
-import SkeletonLoading from "../../fragments/SkeletonLoading";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Loader from "../../fragments/Loader";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import SkeletonLoading from "../../fragments/SkeletonLoading";
 
-const ReviewLayout = ({endpoint}) => {
-    const [reviews, setReviews] = useState(null)
-    const itemsPerPage = 5;
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [isLoading, setIsLoading] = useState(true)
-
+const ReviewShop = () => {
     const fiveStars = reviews?.filter(dt => dt.rating == 5);
     const fourStars = reviews?.filter(dt => dt.rating == 4);
     const threeStars = reviews?.filter(dt => dt.rating == 3);
     const twoStars = reviews?.filter(dt => dt.rating == 2);
     const oneStars = reviews?.filter(dt => dt.rating == 1);
-
-    useEffect(() => {
-        setIsLoading(true)
-        const fetchData = async() => {
-            try {
-                const res = await axios.get(endpoint, {
-                    params: {page, limit: itemsPerPage}
-                })
-                setTotalPages(Math.ceil(res.data.totalPages / itemsPerPage));
-                setReviews(res.data.data)
-                setIsLoading(false)
-            } catch (error) {
-                setIsLoading(false)
-                console.log(error)
-            }
-        }
-
-        fetchData()
-    }, [page, endpoint])
     
     return (
         <div className="mt-6 xl:flex xl:gap-6">
@@ -68,11 +38,9 @@ const ReviewLayout = ({endpoint}) => {
                             </div>
                         </div>
                         <div className="mt-4 text-sm rounded-lg xl:w-[70%] xl:mt-0 xl:border-l-2 xl:px-6 py-2 ">
-                            {
+                            {/* {
                                 isLoading ?
-                                <div className="py-10 flex justify-center">
-                                    <Loader color={'bg-primary'}/>
-                                </div>
+                                <Loader/>
                                 :
                                 reviews.length == 0 ?
                                 <div className="w-full text-center py-20 text-lg font-semibold text-neutral-400">No reviews available</div>
@@ -87,7 +55,7 @@ const ReviewLayout = ({endpoint}) => {
                                     desc={dt.desc}
                                     />
                                 )) 
-                            }
+                            } */}
                             <div className="flex items-center gap-6 w-full justify-center mt-4 text-sm">
                                 <FaChevronLeft onClick={() => setPage(prev => Math.max(prev - 1, 1))} />
                                     <div className="flex gap-3 items-center text-neutral-400">
@@ -103,5 +71,3 @@ const ReviewLayout = ({endpoint}) => {
                     </div>
     )
 }
-
-export default ReviewLayout;

@@ -8,9 +8,11 @@ import UserContext from "../../../context/UserContext"
 import { FaCheckDouble, FaChevronLeft, FaStar } from "react-icons/fa"
 import { FaBoxesPacking, FaTruckFast } from "react-icons/fa6"
 import CircleEl from "../../elements/Circle"
-import Rupiah from "../../../utils/Rupiah"
 import SimpleCard from "../order/SimpleCard"
 import ReviewModal from "./ReviewModal"
+import SkeletonLoading from "../../fragments/SkeletonLoading"
+import Loader from "../../fragments/Loader"
+import ReturnBtn from "../../elements/ReturnBtn"
 
 const OrderDetailLayout = () => {
     const { orderId } = useParams()
@@ -19,6 +21,7 @@ const OrderDetailLayout = () => {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [show, setShow] = useState(false)
+    const [msg, setMsg] = useState('')
 
     useEffect(() => {
         console.log(account)
@@ -26,7 +29,6 @@ const OrderDetailLayout = () => {
             try {
                 const res = await axios.get(`https://buildong-api.vercel.app/construction-orders/${orderId}`)
                 setData(res.data.data[0])
-                console.log(res.data.data[0])
                 setLoading(false)
             } catch (error) {
                 console.log(error)
@@ -42,10 +44,7 @@ const OrderDetailLayout = () => {
         <Header/>
         <Layout>
             <div className="px-[5%]">
-                <button className="flex items-center gap-4 px-4 py-2 bg-white rounded-lg shadow-soft">
-                    <FaChevronLeft/>
-                    Return
-                </button>
+                <ReturnBtn/>
                 <div className="bg-white rounded-lg shadow-soft p-4 mt-4">
                     <div className="flex justify-between items-center">
                         <h1 className="text-neutral-400 font-semibold">ORDER ID : {orderId}</h1>
@@ -80,10 +79,10 @@ const OrderDetailLayout = () => {
                     <div className="mt-20 flex flex-col xl:flex-row xl:justify-between">
                         <div>
                             <h1 className="font-semibold ">SHIPPING ADDRESS</h1>
-                            <h1 className="font-medium mt-2">{account?.username}</h1>
-                            <p>{account?.phone}</p>
-                            <p>{data?.location}</p>
-                            <p>{account?.address}</p>
+                            <h1 className="font-medium mt-2">{loading ? <SkeletonLoading width={'w-16'}/> : account?.username}</h1>
+                            <p>{loading ? <SkeletonLoading width={'w-14'} margin={'mt-2'}/> : account?.phone}</p>
+                            <p>{loading ? <SkeletonLoading width={'w-10'} margin={'mt-2'}/> : data?.location}</p>
+                            <p>{loading ? <SkeletonLoading width={'w-20'} margin={'mt-2'}/> : account?.address}</p>
                         </div>
                         <div className="flex flex-col gap-2 mt-4 xl:mt-0">
                             <button onClick={() => setShow(true)} className={`bg-primary clicked ${data?.status !== 'completed' ? 'hidden' : ''} rounded-lg px-10 font-semibold py-2 text-white`}>Review</button>
@@ -93,7 +92,14 @@ const OrderDetailLayout = () => {
                         </div>
                     </div>
                     <div className="mt-4">
+                        {
+                            loading ?
+                            <div className="flex justify-center py-4">
+                                <Loader color={'bg-primary'}/>
+                            </div>
+                            :
                         <SimpleCard data={data}/>
+                        }
                     </div>
                 </div>
             </div>

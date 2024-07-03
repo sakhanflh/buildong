@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
+import SimpleAlert from "../../fragments/SimpleAlert"
+import Loader from "../../fragments/Loader"
 import { FaChevronRight, FaTicket } from "react-icons/fa6"
 import { RiDiscountPercentFill } from "react-icons/ri"
 import UserContext from "../../../context/UserContext"
-import Loader from "../../fragments/Loader"
 import Rupiah from "../../../utils/Rupiah"
-import SimpleAlert from "../../fragments/SimpleAlert"
 
-const VoucherLayout = ({voucher, setVoucher, newOrder}) => {
+const VoucherShop = ({voucher, setVoucher, newOrder}) => {
     const { level } = useContext(UserContext)
     const [data, setData] = useState(null)
     const [showVoucher, setShowVoucher] = useState(false)
@@ -40,10 +40,10 @@ const VoucherLayout = ({voucher, setVoucher, newOrder}) => {
     }, [showVoucher])
 
     useEffect(() => {
-        if(newOrder.total_workers){
+        if(newOrder.total_price){
             setVoucher(null)
         }
-    }, [newOrder.total_workers])
+    }, [newOrder.total_price])
 
     function handleSetVoucher(dt){
         setVoucher({
@@ -54,7 +54,7 @@ const VoucherLayout = ({voucher, setVoucher, newOrder}) => {
     }
 
     return (
-        <div onClick={() => setShowVoucher(!showVoucher)} className={`rounded-lg cursor-pointer ${voucher ? 'bg-primary text-white' : 'bg-white'} shadow-soft relative flex items-center justify-between px-4 py-3`}>
+<div onClick={() => setShowVoucher(!showVoucher)} className={`rounded-lg cursor-pointer ${voucher ? 'bg-primary text-white' : 'bg-white'} shadow-soft relative flex items-center justify-between px-4 py-3`}>
             <div className={`absolute ${voucher ? 'hidden' : data?.length !== 0 ? '' : 'hidden'} text-center text-sm bg-primary z-10 right-0 -top-2 rounded-full w-5 h-5 xl:w-6 xl:h-6 flex justify-center items-center text-white`}>
                 <h1 className="relative">{data?.length}</h1>
             </div>
@@ -105,5 +105,4 @@ const VoucherLayout = ({voucher, setVoucher, newOrder}) => {
     )
 }
 
-
-export default VoucherLayout;
+export default VoucherShop;

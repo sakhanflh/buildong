@@ -17,21 +17,14 @@ const ConstructionDetailsPage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [styleData, setStyleData] = useState(null)
     const [categoryData, setCategoryData] = useState(null)
-    const itemsPerPage = 10;
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         setIsLoading(true)
         const fetchData = async() => {
             try {
-                const res = await axios.get(`https://buildong-api.vercel.app/constructions/${constructionId}`, {
-                    params: {page, limit: itemsPerPage}
-                })
-                setTotalPages(Math.ceil(res.data.totalPages / itemsPerPage));
+                const res = await axios.get(`https://buildong-api.vercel.app/constructions/${constructionId}`)
                 setData(res.data)
-                console.log(res.data)
                 setIsLoading(false)
             } catch (error) {
                 setIsLoading(false)
@@ -40,13 +33,12 @@ const ConstructionDetailsPage = () => {
         }
 
         fetchData()
-    }, [page, constructionId])
+    }, [constructionId])
 
     useEffect(() => {
         const fetchData = async() => {
             try {
                 const res = await axios.get(`https://buildong-api.vercel.app/constructions/category/${data.construction.category}`)
-                console.log("category "+res.data)
                 setCategoryData(res.data)
             } catch (error) {
                 console.log(error)
@@ -141,11 +133,7 @@ const ConstructionDetailsPage = () => {
 
                     {/* REVIEWS */}
                     <ReviewLayout 
-                    isLoading={isLoading} 
-                    reviews={data?.construction?.reviews}
-                    setPage={setPage}
-                    page={page}
-                    totalPages={totalPages}
+                    endpoint={`https://buildong-api.vercel.app/${constructionId}/reviews`}
                     />
                     {/* REVIEWS */}
                 </div>
