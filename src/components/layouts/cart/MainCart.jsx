@@ -21,7 +21,7 @@ export function MainCart({setNewData, newData}) {
                 <div className=" flex justify-between w-full">
                 <h1 className="text-2xl font-bold">Cart</h1>
                     <div className="">
-                        <h1>Total Products ( {cartData.length} )</h1>
+                        <h1>Total Products ( {cartData?.length} )</h1>
                     </div>
                 </div>
                 <div className="mt-6 mb-2 flex justify-between ">
@@ -36,7 +36,7 @@ export function MainCart({setNewData, newData}) {
                 </div>
                 <div className="flex flex-col">
                     {
-                        cartData.map(dt => (
+                        cartData?.map(dt => (
                             <CartCard 
                             key={dt.product_id}
                             name={dt.product_name}
