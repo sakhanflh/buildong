@@ -74,13 +74,13 @@ export function Header() {
                             :
                             token ?
                                 <div className="flex items-center">
-                                    <div className="flex items-center gap-4 mr-4">
+                                    <div className={`${role == 'admin' ?  'hidden ': 'flex'}  items-center gap-4 mr-4`}>
                                         <Link to={'/cart'} className="xl:text-xl relative">
                                             <div className="rounded-full w-10 h-10 absolute right-0 top-0 z-10"></div>
                                             <FaCartShopping className="cursor-pointer"/>
                                         </Link>
                                         <div className="relative">
-                                            <div className="xl:text-2xl z-50 cursor-pointer" onClick={handleShowNotif}>
+                                            <div className="text-xl xl:text-2xl z-50 cursor-pointer" onClick={handleShowNotif}>
                                                 <IoIosNotifications />
                                             </div>
                                             <Notifications

@@ -17,7 +17,7 @@ export function MainCart({setNewData, newData}) {
 
     return (
         <>
-            <div className="w-[59%] flex flex-col bg-white rounded-lg shadow-soft px-4 py-4 h-max">
+            <div className="xl:w-[59%] flex flex-col bg-white rounded-lg shadow-soft px-4 py-4 h-max">
                 <div className=" flex justify-between w-full">
                 <h1 className="text-2xl font-bold">Cart</h1>
                     <div className="">

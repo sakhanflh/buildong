@@ -47,7 +47,7 @@ export function PaymentCart({newData, setNewData}) {
     }
     return (
         <>
-            <div className="w-[40%] flex flex-col gap-2">
+            <div className="xl:w-[40%] flex flex-col gap-2">
                 <VoucherShop
                 voucher={voucher}
                 setVoucher={setVoucher}

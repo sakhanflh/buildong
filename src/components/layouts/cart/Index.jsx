@@ -11,7 +11,7 @@ export function Index() {
 
     return (
         <>
-            <div className="flex justify-between">
+            <div className="flex px-[5%] flex-col w-full gap-2 xl:flex-row xl:justify-between">
                 <MainCart newData={newData} setNewData={setNewData}/>
                 <PaymentCart newData={newData} setNewData={setNewData}/>
             </div>
