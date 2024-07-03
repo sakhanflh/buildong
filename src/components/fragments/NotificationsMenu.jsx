@@ -1,8 +1,8 @@
-export function OrderNotif() {
+export function NotificationsMenu() {
     return (
         <>
             <div>
-                halo
+
             </div>
         </>
     )

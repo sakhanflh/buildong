@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { GeneralNotif } from "../layouts/admin/GeneralNotif";
-import { OrderNotif } from "../layouts/admin/OrderNotif";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
+import { NotificationsItem } from "./NotificationsItem";
 
 export function Notifications({ showNotifications }) {
     const [visibleComponent, setVisibleComponent] = useState('GeneralNotif')
@@ -31,19 +31,19 @@ export function Notifications({ showNotifications }) {
 
     return (
         <>
-            <div className={`fixed xl:absolute  font-jost shadow-2xl xl:rounded-xl bg-white p-5 transition-all right-0 duration-500  ${showNotifications ? 'w-dvw h-dvh xl:w-[30rem] xl:h-[32rem] z-50 xl:opacity-100' : 'w-full xl:w-52 h-0 xl:h-0 -z-50 overflow-hidden opacity-0 cursor-none'}`}>
-                <div>
-                    <h1 className="text-xl font-medium">Notifications</h1>
-                </div>
+            <div className={`fixed xl:absolute  font-jost shadow-2xl xl:rounded-xl bg-white p-5 transition-all right-0 duration-500  ${showNotifications ? 'w-dvw h-dvh xl:w-[30rem] xl:h-[32rem] z-50 xl:opacity-100' : 'w-full xl:w-52 h-0 xl:h-0 -z-50 overflow-hidden opacity-0'}`}>
+                <div className={`${showNotifications ? '' : 'cursor-default'}`}>
+                    <div>
+                        <h1 className="text-xl font-medium">Notifications</h1>
+                    </div>
 
-                <div className="flex gap-2 mt-5 border-b-2">
-                    <button className={`px-5 py-2 ${visibleComponent === 'GeneralNotif' ? 'border-b-2 border-black text-black' : 'text-font-gray'}`} onClick={() => setVisibleComponent('GeneralNotif')}>General</button>
-                    {/* <button className={`px-5 py-2 ${visibleComponent === 'OrderNotif' ? 'border-b-2 border-black text-black' : 'text-font-gray'}`} onClick={() => setVisibleComponent('OrderNotif')}>Orders</button> */}
-                </div>
+                    <div className="flex gap-2 mt-5 border-b-2">
+                        <NotificationsItem onClick={() => setVisibleComponent('GeneralNotif')}>General</NotificationsItem>
+                    </div>
 
-                <div className="mt-2">
-                    {visibleComponent === 'GeneralNotif' && <GeneralNotif data={data} isLoading={isLoading}/>}
-                    {visibleComponent === 'OrderNotif' && <OrderNotif />}
+                    <div className="mt-2">
+                        {visibleComponent === 'GeneralNotif' && <GeneralNotif data={data} isLoading={isLoading} />}
+                    </div>
                 </div>
             </div>
         </>

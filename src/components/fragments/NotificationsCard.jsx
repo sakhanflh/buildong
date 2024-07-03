@@ -22,7 +22,7 @@ export function NotificationsCard({ dt }) {
                         <p>{dt.total_discount}%</p>
                     </div>
                 </div>
-                <button className="py-1 px-5 rounded-lg border bg-blue-300 text-black text-sm">
+                <button className="py-1 px-5 rounded-lg border bg-primary text-white text-sm">
                     Detail
                 </button>
             </div>

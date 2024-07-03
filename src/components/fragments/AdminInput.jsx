@@ -19,7 +19,7 @@ export function AdminInput({ type, subTitle, onChange, img, options = [] }) {
                     <textarea onChange={onChange} className="w-full border rounded p-2 mt-1" rows="4"></textarea>
                     :
                     type == 'select' ?
-                        <select onChange={onChange} name="" id="">
+                        <select onChange={onChange} name="" id="" className="border rounded-sm">
                             <option value=""></option>
                             {options.map((option, index) => (
                                 <option key={index} value={option}>{option}</option>

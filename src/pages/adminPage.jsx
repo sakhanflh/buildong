@@ -6,7 +6,7 @@ import { Notifications } from "../components/fragments/Notifications";
 
 export default function AdminPage() {
     const [activeMenu, setActiveMenu] = useState(null)
-    const [visibleComponent, setVisibleComponent] = useState('Constructions')
+    const [visibleComponent, setVisibleComponent] = useState('Products')
     const [showSidebar, setShowSidebar] = useState(false)
     const [showNotifications, setShowNotifications] = useState(false)
 
@@ -24,18 +24,18 @@ export default function AdminPage() {
     return (
 
         <>
-            <HeaderAdmin
-                toggleSidebar={toggleSidebar}
-                toggleNotifications={toggleNotifications}
-            />
-            <div className="font-jost flex">
-                <Sidebar activeMenu={activeMenu} onMenuClick={handleMenuClick} setVisibleComponent={setVisibleComponent} showSidebar={showSidebar} />
+                <HeaderAdmin
+                    toggleSidebar={toggleSidebar}
+                    toggleNotifications={toggleNotifications}
+                    />
+                <div className="font-jost flex">
+                    <Sidebar activeMenu={activeMenu} onMenuClick={handleMenuClick} setVisibleComponent={setVisibleComponent} showSidebar={showSidebar} />
 
-                <Index visibleComponent={visibleComponent} toggleNotifications={toggleNotifications} />
-                <Notifications
-                    showNotifications={showNotifications}
-                />
-            </div>
+                    <Index visibleComponent={visibleComponent} toggleNotifications={toggleNotifications} />
+                    <Notifications
+                        showNotifications={showNotifications}
+                    />
+                </div>
         </>
     )
 }
