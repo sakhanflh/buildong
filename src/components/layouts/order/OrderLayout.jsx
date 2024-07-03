@@ -19,7 +19,6 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
     useEffect(() => {
         if(newOrder.payment_method){
             const total = newOrder.total_price + 2500
-            console.log(total)
             return setNewOrder({...newOrder, total_price: total})
         }
     }, [newOrder.payment_method])
@@ -33,7 +32,6 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
     }, [voucher, totalPrice])
 
     useEffect(() => {
-        console.log(newOrder)
         if(data){
             setNewOrder({...newOrder, worker_salary: workerSalary, furniture_cost: furniturePrice, total_price: totalPrice})
         }
@@ -76,7 +74,7 @@ const OrderLayout = ({data, isLoading, newOrder, setNewOrder, setShowModal, onCl
                 <div className="border-t-2 border-dotted py-4">
                     <h1 className="font-semibold">Additional Order</h1>
                     {
-                        isLoading || !newOrder.project_duration ?
+                        isLoading ?
                         <div className="py-2 flex justify-center">
                             <Loader color={'bg-primary'}/>
                         </div>

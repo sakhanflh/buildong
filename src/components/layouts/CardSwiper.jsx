@@ -80,12 +80,12 @@ const CardSwiper = ({title, subTitle, data, dataId}) => {
           <SwiperSlide key={dt._id} className="cursor-none">
             <Card  
               key={dt._id}
-              category={dt.category}
+              category={dt.category ? dt.category : dt.material}
               linkTo={`/constructions/${dt._id}`}
               img={dt.image[0]}
-              price={Rupiah(dt.total_price)}
+              price={Rupiah(dt.total_price ? dt.total_price : dt.unit_price)}
               rate={4}
-              title={dt.design_name}
+              title={dt.design_name ? dt.design_name : dt.name}
             />
           </SwiperSlide>
             ))

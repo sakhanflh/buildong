@@ -9,7 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import SimpleAlert from "./SimpleAlert";
 import SkeletonLoading from "./SkeletonLoading";
 import { FaBuildingUser, FaCartShopping, FaDoorOpen, FaMedal } from "react-icons/fa6";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotifications, IoIosNotificationsOutline } from "react-icons/io";
 import { Notifications } from "./Notifications";
 
 
@@ -74,13 +74,19 @@ export function Header() {
                             :
                             token ?
                                 <div className="flex items-center">
-                                    <div className="relative">
-                                        <div className="text-3xl mr-3 z-50" onClick={handleShowNotif}>
-                                            <IoIosNotificationsOutline />
+                                    <div className="flex items-center gap-4 mr-4">
+                                        <Link to={'/cart'} className="xl:text-xl relative">
+                                            <div className="rounded-full w-10 h-10 absolute right-0 top-0 z-10"></div>
+                                            <FaCartShopping className="cursor-pointer"/>
+                                        </Link>
+                                        <div className="relative">
+                                            <div className="xl:text-2xl z-50 cursor-pointer" onClick={handleShowNotif}>
+                                                <IoIosNotifications />
+                                            </div>
+                                            <Notifications
+                                                showNotifications={showNotifications}
+                                            />
                                         </div>
-                                        <Notifications
-                                            showNotifications={showNotifications}
-                                        />
                                     </div>
                                     <div onClick={() => setShowMenu(!showMenu)} className="xl:border-l-2 xl:pl-6 xl:pr-4 relative flex items-center gap-3 cursor-pointer">
                                         <div className="rounded-full outline outline-primary outline-offset-2 w-9 h-9 xl:w-10 xl:h-10 overflow-hidden bg-neutral-300">
@@ -94,7 +100,7 @@ export function Header() {
                                                         <img src={user.user.account.profile_picture} alt="" className="w-full h-full object-cover" />
                                             }
                                         </div>
-                                        <FaChevronUp className={`${showMenu ? 'rotate-0' : 'rotate-180'} transition-all duration-300`} />
+                                        <FaChevronUp className={`${showMenu ? 'rotate-0' : 'rotate-180'} text-primary transition-all duration-300`} />
                                         {
                                             role == 'admin'
                                                 ?

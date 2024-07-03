@@ -6,7 +6,7 @@ import Rupiah from "../../../utils/Rupiah"
 import SkeletonLoading from "../../fragments/SkeletonLoading"
 import { Link } from "react-router-dom"
 
-const DetailsLayout = ({ isLoading, data, constructId }) => {
+const DetailsLayout = ({ isLoading, data, constructId, onClick }) => {
     const role = localStorage.getItem('role')
 
     return (
@@ -67,7 +67,7 @@ const DetailsLayout = ({ isLoading, data, constructId }) => {
                     <p><b>{data?.stock ? data?.stock : '0'}</b> in stock</p>
                 </div>
                 <div className={`${role == 'admin' ? 'hidden' : 'flex'} flex-col xl:flex-row gap-2 mt-2 xl:font-semibold`}>
-                    <button className={`bg-secondary rounded-lg w-full text-white px-4 py-3 ${data?.brand ? "block" : "hidden"}`}>
+                    <button onClick={onClick} className={`bg-secondary rounded-lg w-full text-white px-4 py-3 ${data?.brand ? "block" : "hidden"}`}>
                         Add To Cart
                     </button>
                     <Link to={`/constructions/${constructId}/checkout`} className="w-full">

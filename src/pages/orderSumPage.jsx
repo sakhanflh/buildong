@@ -13,6 +13,7 @@ import axios from "axios";
 import SimpleAlert from "../components/fragments/SimpleAlert";
 import VoucherLayout from "../components/layouts/order/VoucherLayout";
 import { calculateDiscount } from "../utils/CalculateDiscount";
+import ReturnBtn from "../components/elements/ReturnBtn";
 
 const OrderSumPage = () => {
     const { constructionId } = useParams();
@@ -54,11 +55,7 @@ const OrderSumPage = () => {
         }
 
         fetchData()
-    }, [])
-
-    useEffect(() => {
-        console.log(newOrder)
-    }, [newOrder])
+    }, [constructionId])
     
     useEffect(() => {
         const workerSalary = data?.project_duration * ( 150000 * data?.worker )
@@ -90,7 +87,6 @@ const OrderSumPage = () => {
             setTimeout(() => {
                 window.location.href = "/#/constructions"
             }, 2000)
-            console.log('Response:', response.data);
         } catch (error) {
             setLoadingOrder(false);
             console.error('Error uploading order:', error);
@@ -102,10 +98,7 @@ const OrderSumPage = () => {
         <Header/>
         <Layout>
             <div className="px-[5%]">
-                <button className="flex items-center gap-2 font-medium rounded-lg px-4 py-2 bg-white shadow-soft hover:text-white hover:bg-primary active:text-primary text-sm xl:text-base transition-all duration-150">
-                    <FaChevronLeft className="text-xs xl:text-sm"/>
-                    Return
-                </button>
+                <ReturnBtn/>
 
                 <div className="flex flex-col xl:flex-row gap-4 mt-4">
                     <div className="flex flex-col gap-4 w-full xl:w-1/2">

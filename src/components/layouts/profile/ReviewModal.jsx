@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import Loader from "../../fragments/Loader";
+import SimpleAlert from "../../fragments/SimpleAlert";
 
 const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
     const [newReview, setNewReview] = useState({
@@ -13,6 +15,7 @@ const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
         desc: '',
     })
     const [loading, setLoading] = useState(false)
+    const [msg, setMsg] = useState('')
 
     useEffect(() => {
         setNewReview({
@@ -32,6 +35,10 @@ const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
         try {
             const res = await axios.post(`https://buildong-api.vercel.app/constructions/${prodId}/testimonials`, newReview)
             console.log(res)
+            setMsg('Successfully post review')
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
             setLoading(false)
         } catch (error) {
             setLoading(false)
@@ -85,6 +92,7 @@ const ReviewModal = ({prodName, prodId, img, profile, name, show, setShow}) => {
                     </div>
                 </div>
             </div>
+            <SimpleAlert msg={msg}/>
         </div>
     )
 }

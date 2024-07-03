@@ -1,50 +1,39 @@
+/* eslint-disable react/prop-types */
 import { RiDiscountPercentFill, RiShieldCheckFill } from "react-icons/ri";
 import SkeletonLoading from "../../fragments/SkeletonLoading";
 import Loader from "../../fragments/Loader";
-import { FaChevronDown, FaChevronRight } from "react-icons/fa6";
-import { useFetch } from "../../../hooks/useFetch";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../../context/UserContext";
-import PaymentModal from "../order/PaymentModal";
+import Rupiah from "../../../utils/Rupiah";
+import VoucherShop from "../shop/VoucherShop";
 
-export function PaymentCart() {
-    const [showDetails, setShowDetails] = useState(true)
-    const { productsId } = useParams();
+export function PaymentCart({newData, setNewData}) {
+    const [totalPrice, setTotalPrice] = useState(0)
+    const cartData = JSON.parse(localStorage.getItem('cart'))
+    const [voucher, setVoucher] = useState(null)
     const { user, loading } = useContext(UserContext)
-    const { data, isLoading, isError } = useFetch(`https://buildong-api.vercel.app/products/${productsId}`)
+    const [isLoading, setIsLoading] = useState(true)
+    const [data, setData] = useState(null)
     const account = user?.user.account
     const [loadingOrder, setLoadingOrder] = useState(false)
-    const [showModal, setShowModal] = useState(false)
-    const [msg, setMsg] = useState('')
-    const [newOrder, setNewOrder] = useState({
-        payment_method: '',
-        design_name: '',
-        furniture_cost: '',
-        total_price: '',
-        image: null,
-        style: '',
-        category: '',
-    })
+    const [msg, setMsg] = useState('') 
 
     useEffect(() => {
-        if (data && account) {
-            setNewOrder({
-                ...newOrder,
-                image: data.image,
-                total_price: data.total_price,
-                style: data.style,
-                category: data.category,
-                design_name: data.design_name,
-            })
+        if(newData){
+            const sumPrice = newData?.reduce((acc, cur) => acc + cur.total_price, 0)
+            setTotalPrice(sumPrice)
+            setData(newData)
+            setIsLoading(false)
         }
-    }, [data, account])
+    }, [newData, newData.quantity])
 
     async function handleUploadOrder() {
         setLoadingOrder(true)
         try {
-            const response = await axios.post(`https://buildong-api.vercel.app/${account._id}/products-orders`, newOrder);
+            const response = await axios.post(`https://buildong-api.vercel.app/${account._id}/product-orders`, {
+                products: [...newData]
+            });
             setLoadingOrder(false);
             setMsg(response.data.message)
             setTimeout(() => {
@@ -59,52 +48,40 @@ export function PaymentCart() {
     return (
         <>
             <div className="w-[40%] flex flex-col gap-2">
-                <div className="rounded-lg bg-white shadow-soft flex items-center justify-between px-4 py-3">
-                    <div className="flex items-center gap-2">
-                        <RiDiscountPercentFill className="text-primary text-2xl" />
-                        <h1 className="font-bold xl:text-lg">Voucher Code</h1>
-                    </div>
-                    <FaChevronRight />
-                </div>
+                <VoucherShop
+                voucher={voucher}
+                setVoucher={setVoucher}
+                newOrder={newData}
+                />
+
                 <div className="rounded-lg bg-white shadow-soft px-6 py-6">
                     <h1 className="xl:text-lg font-bold">Order Summary</h1>
+                    <div className="mt-2 flex flex-col gap-2">
+                        {
+                            data?.map(dt => (
+                                <div key={dt.product_id} className="flex gap-2">
+                                    <div className="rounded-lg overflow-hidden w-[15%] h-14">
+                                        <img src={dt.image} alt="" className="w-full h-full object-cover"/>
+                                    </div>
+                                    <div className="flex justify-between w-[85%]">
+                                        <div>
+                                            <h1>{dt.product_name}</h1>
+                                            <p className="font-semibold mt-2">{Rupiah(dt.total_price)}</p>
+                                        </div>
+                                        <div>
+                                            <h1 className="text-primary font-semibold">x {dt.quantity}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
                     <div className="mt-2 text-sm xl:text-base">
-                        <div className="py-4">
-                            <div className="flex justify-between items-center">
-                                <h1 className="font-semibold">Details</h1>
-                                <FaChevronDown onClick={() => setShowDetails(!showDetails)} className={`${showDetails ? 'rotate-0' : 'rotate-180'} transition-all duration-300`} />
-                            </div>
-                            <div className={`space-y-1 mt-2 text-neutral-500 ${showDetails ? '' : 'hidden'}`}>
-                                <div className="flex justify-between items-center">
-                                    <p>Total Harga</p>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                    <p>Total Diskon</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="border-t-2 border-dotted py-4">
-                            <div className="flex justify-between items-center">
-                                <h1 className="font-semibold">Payment Method</h1>
-                                <p onClick={() => setShowModal(true)} className="text-primary cursor-pointer font-semibold">{newOrder.payment_method ? "Change" : "Add"}</p>
-                            </div>
-                            <div className={`${newOrder.payment_method ? "flex" : 'hidden'} justify-between text-neutral-500`}>
-                                <p className="mt-1">{newOrder.payment_method}</p>
-                                <p>+ Rp 2.500</p>
-                            </div>
-                        </div>
-                        <PaymentModal
-                            onClick={(e) => setNewOrder({ ...newOrder, payment_method: e })}
-                            payment={newOrder.payment_method}
-                            showModal={showModal}
-                            setShowModal={setShowModal}
-                        />
 
                         <div className="bg-blue-50 rounded-lg px-4 flex justify-between py-2 font-semibold mt-4">
                             <h1>Total</h1>
                             {
-                                isLoading || !data.total_price ?
+                                isLoading ?
                                     <SkeletonLoading width={'w-20'} />
                                     :
                                     <h1 className="text-primary">{Rupiah(totalPrice)}</h1>

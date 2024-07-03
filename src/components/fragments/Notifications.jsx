@@ -18,7 +18,6 @@ export function Notifications({ showNotifications }) {
                     }
                 })
                 setData(res.data.data)
-                console.log(res.data.data)
             } catch (error) {
                 console.log(error)
             } finally {
